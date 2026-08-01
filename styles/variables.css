@@ -1,0 +1,78 @@
+:root {
+    --pokemon-card-wrapper-width: 300px;
+    --pokemon-card-wrapper-height: 200px;
+    --pokemon-card-width: calc(0.75 * var(--pokemon-card-wrapper-width));
+    --pokemon-card-pokemon-size: calc(0.8 * var(--pokemon-card-wrapper-height));
+
+    --color-type-water: #4d90d6;
+    --particle-water-color: #f1f1f180;
+    --particle-water-base-size: 75px;
+
+    --color-type-fire: #fe9c55;
+    --particle-fire-color: #ffc857;
+    --particle-fire-base-size: 10px;
+
+    --color-type-poison: #ab6ac8;
+    --particle-poison-color: white;
+    --particle-poison-base-size: 20px;
+
+    --color-type-ice: #74cec0;
+    --particle-ice-color: rgba(255, 255, 255, 0.2);
+    --particle-ice-base-size: 30px;
+
+    --color-type-flying: #8fa8dd;
+    --particle-flying-color: white;
+    --particle-flying-base-size: 150px;
+
+    --color-type-grass: #63bb5b;
+    --particle-grass-color: #00000000;
+    --particle-grass-base-size: 50px;
+
+    --color-type-rock: #c7b78b;
+    --particle-rock-color: #00000000;
+    --particle-rock-base-size: 50px;
+
+    --color-type-bug: #90c12c;
+    --particle-bug-color: #00000000;
+    --particle-bug-base-size: 50px;
+
+    --color-type-dark: #5a5366;
+    --particle-dark-color: white;
+    --particle-dark-base-size: 5px;
+
+    --color-type-fairy: #ec8fe6;
+    --particle-fairy-color: white;
+    --particle-fairy-base-size: 30px;
+
+    --color-type-electric: #f3d23b;
+    --particle-electric-color: white;
+    --particle-electric-base-size: 5px;
+
+    --color-type-ghost: #5269ac;
+    --particle-ghost-color: white;
+    --particle-ghost-base-size: 5px;
+
+    --color-type-fighting: #ce4069;
+    --particle-fighting-color: white;
+    --particle-fighting-base-size: 5px;
+
+    --color-type-psychic: #f97176;
+    --particle-psychic-color: #f85ef2;
+    --particle-psychic-base-size: 1px;
+
+    --color-type-steel: #5a8ea1;
+    --particle-steel-color: #5a8ea1;
+    --particle-steel-base-size: 2px;
+
+    --color-type-dragon: #0a6dc4;
+    --particle-dragon-color: #b9b679;
+    --particle-dragon-base-size: 0px;
+
+    --color-type-ground: #d97746;
+    --particle-ground-color: gray;
+    --particle-ground-base-size: 100px;
+
+    --color-type-normal: #9099a1;
+    --particle-normal-color: gray;
+    --particle-normal-base-size: 5px;
+}

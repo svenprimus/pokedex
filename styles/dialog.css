@@ -1,0 +1,176 @@
+/* #region bg-animated */
+.animated-bg-type {
+    position: absolute;
+    height: var(--pokemon-card-pokemon-size);
+    width: var(--pokemon-card-pokemon-size);
+    left: calc(-0.25 * var(--pokemon-card-pokemon-size));
+    border-radius: 50%;
+    padding: calc(0.15 * var(--pokemon-card-pokemon-size));
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+    background-size: cover;
+
+    img {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.animated-bg-pokemon {
+    position: absolute;
+    height: var(--pokemon-card-pokemon-size);
+    width: var(--pokemon-card-pokemon-size);
+    right: -20%;
+}
+
+.animated-bg-wrapper {
+    min-width: var(--pokemon-card-wrapper-width);
+    min-height: var(--pokemon-card-wrapper-height);
+    overflow: hidden;
+    border-radius: 30px;
+    border-left: 1px solid black;
+    box-shadow: inset 0 0 20px 0px white;
+}
+
+.animated-bg-card {
+    width: var(--pokemon-card-width);
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: 30px;
+}
+
+.overlay-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.particle-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    top: 0;
+    left: 0;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.particle:nth-child(1) {
+    scale: 0.35;
+    left: 5%;
+    top: 2%;
+    animation-duration: 9s;
+}
+
+.particle:nth-child(2) {
+    scale: 0.25;
+    left: 30%;
+    top: 7%;
+    animation-duration: 5s;
+}
+
+.particle:nth-child(3) {
+    scale: 0.5;
+    left: 60%;
+    top: 2%;
+    animation-duration: 7s;
+}
+
+.particle:nth-child(4) {
+    scale: 0.4;
+    left: 85%;
+    top: 4%;
+    animation-duration: 8s;
+}
+
+.particle:nth-child(5) {
+    scale: 0.7;
+    left: 10%;
+    top: 30%;
+    animation-duration: 4s;
+}
+
+.particle:nth-child(6) {
+    scale: 0.4;
+    left: 35%;
+    top: 35%;
+    animation-duration: 7s;
+}
+
+.particle:nth-child(7) {
+    scale: 0.6;
+    left: 55%;
+    top: 30%;
+    animation-duration: 11s;
+}
+
+.particle:nth-child(8) {
+    scale: 0.2;
+    left: 80%;
+    top: 35%;
+    animation-duration: 6s;
+}
+
+.particle:nth-child(9) {
+    scale: 0.45;
+    left: 5%;
+    top: 65%;
+    animation-duration: 8s;
+}
+
+.particle:nth-child(10) {
+    scale: 0.65;
+    left: 30%;
+    top: 60%;
+    animation-duration: 12s;
+}
+
+.particle:nth-child(11) {
+    scale: 0.25;
+    left: 55%;
+    top: 60%;
+    animation-duration: 6s;
+}
+
+.particle:nth-child(12) {
+    scale: 0.7;
+    left: 80%;
+    top: 62%;
+    animation-duration: 13s;
+}
+
+.particle:nth-child(13) {
+    scale: 0.8;
+    left: 5%;
+    top: 85%;
+    animation-duration: 10s;
+}
+
+.particle:nth-child(14) {
+    scale: 0.5;
+    left: 35%;
+    top: 90%;
+    animation-duration: 4s;
+}
+
+.particle:nth-child(15) {
+    scale: 0.7;
+    left: 60%;
+    top: 87%;
+    animation-duration: 5s;
+}
+
+.particle:nth-child(16) {
+    scale: 0.3;
+    left: 85%;
+    top: 90%;
+    animation-duration: 9s;
+}
+
+/* #endregion bg-animated  */

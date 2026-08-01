@@ -1,0 +1,277 @@
+@keyframes rise {
+    0% {
+        top: calc(var(--pokemon-card-wrapper-height) + 100px);
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(calc(0.4 * var(--pokemon-card-wrapper-width)))
+            translateY(calc(-0.66 * var(--pokemon-card-wrapper-height)));
+    }
+    100% {
+        top: -100px;
+        transform: translateX(calc(0.5 * var(--pokemon-card-wrapper-width)));
+    }
+}
+
+@keyframes fall {
+    0% {
+        top: -100px;
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(100px) translateY(calc(0.66 * var(--pokemon-card-wrapper-height)));
+    }
+    100% {
+        top: calc(var(--pokemon-card-wrapper-height) + 100px);
+        transform: translateX(-200px);
+    }
+}
+
+@keyframes fall_linear {
+    0% {
+        top: -100px;
+    }
+    100% {
+        top: calc(var(--pokemon-card-wrapper-height) + 100px);
+    }
+}
+
+@keyframes sideways {
+    0% {
+        left: -100px;
+    }
+    100% {
+        left: calc(var(--pokemon-card-wrapper-width) + 100px);
+    }
+}
+
+@keyframes sideways_grass {
+    0% {
+        left: -100px;
+    }
+    100% {
+        left: calc(var(--pokemon-card-wrapper-width) + 100px);
+        transform: rotateY(180deg);
+    }
+}
+
+@keyframes rotate_steel {
+    0% {
+        transform: translateY(-50%) scale(1.25) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.25) rotate(-100deg);
+    }
+    100% {
+        transform: translateY(-50%) scale(1.25) rotate(-360deg);
+    }
+}
+
+@keyframes rotate_normal {
+    0% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-50%) rotate(-100deg);
+    }
+    100% {
+        transform: translateY(-50%) rotate(-360deg);
+    }
+}
+
+@keyframes aura {
+    0% {
+        transform: translateY(-50%) scale(1.25);
+    }
+    25% {
+        transform: translateY(-50%) scale(1.5);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.25);
+    }
+    75% {
+        transform: translateY(-50%) scale(1.5);
+    }
+    100% {
+        transform: translateY(-50%) scale(1.25);
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    30% {
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 0;
+    }
+    41% {
+        opacity: 1;
+    }
+    42% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+    20% {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+    25% {
+        opacity: 0.5;
+        transform: scaleY(1);
+    }
+    30% {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+
+    40% {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+    45% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+}
+
+@keyframes evil_dragon {
+    0% {
+        background-image: url('./assets/effects/dragon-eye-evil.svg');
+    }
+    20% {
+        background-image: url('./assets/effects/dragon-eye-evil.svg');
+    }
+    25% {
+        background-image: url('./assets/effects/dragon-eye-red.svg');
+    }
+    30% {
+        background-image: url('./assets/effects/dragon-eye-evil.svg');
+    }
+
+    40% {
+        background-image: url('./assets/effects/dragon-eye-evil.svg');
+    }
+    45% {
+        background-image: url('./assets/effects/dragon-eye-red.svg');
+    }
+    50% {
+        background-image: url('./assets/effects/dragon-eye-evil.svg');
+    }
+    100% {
+        background-image: url('./assets/effects/dragon-eye-evil.svg');
+    }
+}
+
+@keyframes sparkling {
+    0% {
+        opacity: 0.75;
+        transform: translateX(50px) translateY(20px);
+    }
+    20% {
+        opacity: 0.75;
+        box-shadow: 0 0 15px 0 white;
+    }
+    25% {
+        opacity: 1;
+        box-shadow: 0 0 15px 5px white;
+    }
+    30% {
+        opacity: 0.75;
+        box-shadow: 0 0 15px 0 white;
+    }
+    42% {
+        opacity: 0.75;
+        box-shadow: 0 0 15px 0 white;
+    }
+    45% {
+        opacity: 1;
+        box-shadow: 0 0 15px 5px white;
+    }
+    48% {
+        opacity: 0.75;
+        box-shadow: 0 0 15px 0 white;
+    }
+    72% {
+        opacity: 0.75;
+        box-shadow: 0 0 15px 0 white;
+    }
+    75% {
+        opacity: 1;
+        box-shadow: 0 0 15px 5px white;
+    }
+    78% {
+        opacity: 0.75;
+        box-shadow: 0 0 15px 0 white;
+    }
+    100% {
+        opacity: 0.75;
+        transform: translateX(50px) translateY(20px);
+    }
+}
+
+@keyframes sparkling_fairy {
+    0% {
+        opacity: 0.75;
+        transform: translateX(10%) scale(0.5);
+    }
+    20% {
+        opacity: 0;
+        transform: translateX(20%) scale(1);
+    }
+    25% {
+        opacity: 1;
+    }
+    30% {
+        opacity: 0.75;
+    }
+    42% {
+        opacity: 0.75;
+    }
+    45% {
+        opacity: 1;
+    }
+    48% {
+        opacity: 0.75;
+    }
+    72% {
+        opacity: 0.75;
+    }
+    75% {
+        opacity: 1;
+    }
+    78% {
+        opacity: 0.75;
+    }
+    100% {
+        opacity: 0.75;
+    }
+}
