@@ -1,3 +1,26 @@
+.dialog-wrapper {
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+
+    width: var(--pokemon-card-width);
+    padding-inline: var(--pokemon-card-border-radius);
+    font-family: 'Boogaloo';
+    color: white;
+    -webkit-text-stroke: 0.5px black;
+
+    /* vertical-align: bottom; */
+    font-size: 0.8em;
+    h1, p {
+        display: flex;
+        align-items: flex-end;
+    }
+    /* color: black; */
+    /* -webkit-text-stroke: 0.5px white; */
+}
+
 /* #region bg-animated */
 .animated-bg-type {
     position: absolute;
@@ -26,19 +49,19 @@
     min-width: var(--pokemon-card-wrapper-width);
     min-height: var(--pokemon-card-wrapper-height);
     overflow: hidden;
-    border-radius: 30px;
+    border-radius: var(--pokemon-card-border-radius);
     border-left: 1px solid black;
     box-shadow: inset 0 0 20px 0px white;
 }
 
 .animated-bg-card {
     width: var(--pokemon-card-width);
-    height: 100%;
+    height: var(--pokemon-card-height);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    border-radius: 30px;
+    border-radius: var(--pokemon-card-border-radius);
 }
 
 .overlay-wrapper {

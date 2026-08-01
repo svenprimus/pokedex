@@ -2,6 +2,8 @@
     --pokemon-card-wrapper-width: 300px;
     --pokemon-card-wrapper-height: 200px;
     --pokemon-card-width: calc(0.75 * var(--pokemon-card-wrapper-width));
+    --pokemon-card-height: var(--pokemon-card-wrapper-height);
+    --pokemon-card-border-radius: 30px;
     --pokemon-card-pokemon-size: calc(0.8 * var(--pokemon-card-wrapper-height));
 
     --color-type-water: #4d90d6;
