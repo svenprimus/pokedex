@@ -165,29 +165,29 @@
 
 @keyframes evil_dragon {
     0% {
-        background-image: url('./assets/effects/dragon-eye-evil.svg');
+        background-image: url('../assets/effects/dragon-eye-evil.svg');
     }
     20% {
-        background-image: url('./assets/effects/dragon-eye-evil.svg');
+        background-image: url('../assets/effects/dragon-eye-evil.svg');
     }
     25% {
-        background-image: url('./assets/effects/dragon-eye-red.svg');
+        background-image: url('../assets/effects/dragon-eye-red.svg');
     }
     30% {
-        background-image: url('./assets/effects/dragon-eye-evil.svg');
+        background-image: url('../assets/effects/dragon-eye-evil.svg');
     }
 
     40% {
-        background-image: url('./assets/effects/dragon-eye-evil.svg');
+        background-image: url('../assets/effects/dragon-eye-evil.svg');
     }
     45% {
-        background-image: url('./assets/effects/dragon-eye-red.svg');
+        background-image: url('../assets/effects/dragon-eye-red.svg');
     }
     50% {
-        background-image: url('./assets/effects/dragon-eye-evil.svg');
+        background-image: url('../assets/effects/dragon-eye-evil.svg');
     }
     100% {
-        background-image: url('./assets/effects/dragon-eye-evil.svg');
+        background-image: url('../assets/effects/dragon-eye-evil.svg');
     }
 }
 
