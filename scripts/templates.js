@@ -1,4 +1,4 @@
-function getAnimatedPokemonDialog(type) {
+function getAnimatedPokemonDialogContent(type) {
     return /*html*/ `
         <article class="dialog-wrapper">
             <header class="dialog-header">
@@ -16,12 +16,12 @@ function getAnimatedPokemonDialog(type) {
             </header>
 
             <div class="pokemon-bg-wrapper">
-                <section class="animated-bg-card bg-card-${type}">
-                    <div class="animated-bg-type bg-${type}">
+                <section class="pokemon-bg-card bg-card-${type}">
+                    <div class="pokemon-bg-type bg-${type}">
                         <img src="./assets/icons/types/${type}.svg" alt="${type} type symbol" />
                     </div>
                     <img
-                        class="animated-bg-pokemon"
+                        class="pokemon-bg-pokemon"
                         src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
                         alt="image of a pokemon called ${name}"
                     />
@@ -52,7 +52,7 @@ function getAnimatedPokemonDialog(type) {
             </div>
 
             <div class="dialog-like-wrapper">
-                <div class="animated-bg-subtype bg-${subtype}">
+                <div class="pokemon-bg-subtype bg-${subtype}">
                     <img src="./assets/icons/types/${subtype}.svg" alt="${subtype} type symbol" />
                 </div>
                 <div class="button-like-wrapper">
@@ -117,11 +117,11 @@ function getAnimatedPokemonDialog(type) {
                             </tr>
                             <tr>
                                 <th>Sp. Atk</th>
-                                <td id="dialog-attack-sp">${sp-attack}</td>
+                                <td id="dialog-attack-sp">${sp - attack}</td>
                             </tr>
                             <tr>
                                 <th>Sp. Def</th>
-                                <td id="dialog-defense-sp">${sp-defense}</td>
+                                <td id="dialog-defense-sp">${sp - defense}</td>
                             </tr>
                             <tr>
                                 <th>Speed</th>
@@ -197,5 +197,22 @@ function getAnimatedPokemonDialog(type) {
                 ></button>
             </nav>
         </article>
+    `;
+}
+
+function getPokemonCard(name, type, id) {
+    return /*html*/ `
+        <div class="pokemon-bg-wrapper">
+            <section class="pokemon-bg-card bg-card-${type}">
+                <div class="pokemon-bg-type bg-${type}">
+                    <img src="./assets/icons/types/${type}.svg" alt="${type} type symbol" />
+                </div>
+                <img
+                    class="pokemon-bg-pokemon"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
+                    alt="image of a pokemon called ${name}"
+                />
+            </section>
+        </div>
     `;
 }
