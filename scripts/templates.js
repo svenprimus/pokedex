@@ -1,16 +1,16 @@
 function getAnimatedPokemonDialog(type) {
     return /*html*/`
-        <div class="animated-bg-wrapper">
-            <section class="animated-bg-card bg-card-${type}">
-                <div class="animated-bg-type bg-${type}">
+        <div class="pokemon-bg-wrapper">
+            <section class="pokemon-bg bg-card-${type}">
+                <div class="pokemon-bg-type bg-${type}">
                     <img
-                        class="animated-bg-type-image"
+                        class="pokemon-bg-type-image"
                         src="./assets/icons/types/${type}.svg"
                         alt="${type} type symbol"
                     />
                 </div>
                 <img
-                    class="animated-bg-pokemon"
+                    class="pokemon-bg-pokemon"
                     src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/7.svg"
                     alt="shiggy"
                 />

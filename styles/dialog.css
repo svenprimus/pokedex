@@ -40,7 +40,7 @@
 }
 
 /* #region bg-animated */
-.animated-bg-type {
+.pokemon-bg-type {
     position: absolute;
     height: var(--pokemon-card-pokemon-size);
     width: var(--pokemon-card-pokemon-size);
@@ -57,7 +57,7 @@
     z-index: 2;
 }
 
-.animated-bg-pokemon {
+.pokemon-bg-pokemon {
     position: absolute;
     height: var(--pokemon-card-pokemon-size);
     width: var(--pokemon-card-pokemon-size);
@@ -65,7 +65,7 @@
     z-index: 3;
 }
 
-.animated-bg-wrapper {
+.pokemon-bg-wrapper {
     min-width: var(--pokemon-card-wrapper-width);
     min-height: var(--pokemon-card-wrapper-height);
     overflow: hidden;
@@ -75,7 +75,7 @@
     box-shadow: inset 0 0 20px 0px white;
 }
 
-.animated-bg-card {
+.pokemon-bg {
     width: var(--pokemon-card-width);
     height: var(--pokemon-card-height);
     position: relative;
