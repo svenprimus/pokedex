@@ -1,21 +1,6 @@
-header {
-    display: none;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
+main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    /* TODO: play with background */
-    /* background-color: white; */
-    background: url('./assets/img/test-bg.jpg');
-    height: 6000px;
-    gap: 50px;
 }
