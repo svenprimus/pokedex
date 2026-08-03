@@ -5,6 +5,11 @@
     --pokemon-card-height: var(--pokemon-card-wrapper-height);
     --pokemon-card-border-radius: 30px;
     --pokemon-card-pokemon-size: calc(0.8 * var(--pokemon-card-wrapper-height));
+    
+    --dialog-border-left: 1px solid black;
+    --dialog-color-bg: white;
+
+    --number-dialog-tabs: 3;
 
     --color-type-water: #4d90d6;
     --particle-water-color: #f1f1f180;
