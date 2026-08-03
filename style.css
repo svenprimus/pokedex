@@ -8,7 +8,7 @@ header {
     box-sizing: border-box;
 }
 
-main {
+body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -19,4 +19,3 @@ main {
     height: 6000px;
     gap: 50px;
 }
-

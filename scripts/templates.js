@@ -1,4 +1,4 @@
-function getAnimatedPokemonDialogContent(type) {
+function getDialogContentStructure(name, type, id, subtype) {
     return /*html*/ `
         <article class="dialog-wrapper">
             <header class="dialog-header">
@@ -16,7 +16,7 @@ function getAnimatedPokemonDialogContent(type) {
             </header>
 
             <div class="pokemon-bg-wrapper">
-                <section class="pokemon-bg-card bg-card-${type}">
+                <section id="animation-wrapper" class="pokemon-bg-card bg-card-${type}">
                     <div class="pokemon-bg-type bg-${type}">
                         <img src="./assets/icons/types/${type}.svg" alt="${type} type symbol" />
                     </div>
@@ -200,10 +200,38 @@ function getAnimatedPokemonDialogContent(type) {
     `;
 }
 
-function getPokemonCard(name, type, id) {
+function getPokemonCardSmall(name, type, id, subtype) {
     return /*html*/ `
+        <article class="small-card-wrapper">
+            <header class="small-card-header">
+                <h2>${name}</h2>
+                <p>#000${id}</p>
+            </header>
+            <div class="pokemon-bg-wrapper pokemon-bg-small">
+                <section class="pokemon-bg-card pokemon-bg-small bg-card-${type}">
+                    <div class="pokemon-bg-type bg-type-small bg-${type}">
+                        <img src="./assets/icons/types/${type}.svg" alt="${type} type symbol" />
+                    </div>
+                    <img
+                        class="pokemon-bg-pokemon pokemon-bg-small"
+                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
+                        alt="image of a pokemon called ${name}"
+                    />
+                </section>
+            </div>
+            <div class="card-small-subtype-wrapper">
+                <div class="pokemon-bg-subtype bg-${subtype}">
+                    <img src="./assets/icons/types/${subtype}.svg" alt="${subtype} type symbol" />
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+function getPokemonCardBig(name, type, id) {
+    return /*html*/`
         <div class="pokemon-bg-wrapper">
-            <section class="pokemon-bg-card bg-card-${type}">
+            <section id="animation-wrapper" class="pokemon-bg-card bg-card-${type}">
                 <div class="pokemon-bg-type bg-${type}">
                     <img src="./assets/icons/types/${type}.svg" alt="${type} type symbol" />
                 </div>
@@ -212,7 +240,30 @@ function getPokemonCard(name, type, id) {
                     src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
                     alt="image of a pokemon called ${name}"
                 />
+                <div class="particle-wrapper">
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                    <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
+                </div>
+                <div class="overlay-wrapper">
+                    <div class="overlay-${type} overlay-animation-${type}"></div>
+                    <div class="overlay-${type} overlay-animation-${type}"></div>
+                    <div class="overlay-${type} overlay-animation-${type}"></div>
+                </div>
             </section>
         </div>
-    `;
+    `
 }
