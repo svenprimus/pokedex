@@ -13,17 +13,75 @@
         <link rel="stylesheet" href="./styles/card.css" />
         <link rel="stylesheet" href="./styles/dialog.css" />
         <link rel="stylesheet" href="./styles/spinner.css" />
+        <link rel="stylesheet" href="./styles/shell.css" />
         <link rel="stylesheet" href="./style.css" />
         <script src="./scripts/templates.js" defer></script>
         <script src="./script.js" defer></script>
     </head>
-    <body>
-        <header></header>
+    <body id="page-top">
+        <header class="header-main content-limit-1440p">
+            <nav>
+                <a href="#page-top" aria-label="go to top of page">
+                    <div class="spinner-outside">
+                        <div class="spinner-inside"></div>
+                        <div class="line-inside-left"></div>
+                        <div class="line-inside-right"></div>
+                    </div>
+                </a>
+                <div id="search-field" class="search-field">
+                    <input
+                        id="search-field"
+                        type="text"
+                        name="search field"
+                        value=""
+                        aria-labelledby="search-button"
+                        onkeyup="loginByEnter(false)"
+                    />
+                    <button id="search-button" onclick="">Search</button>
+                </div>
+            </nav>
+            <div class="header-wave"></div>
+        </header>
 
-        <main>
+        <header class="page-headline">
+            <div>
+                <img src="./assets/img/pokemon-logo.svg" alt="pokemon logo" />
+            </div>
+        </header>
 
+        <main class="content-limit-1280p">
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
+            <button class="dummy"></button>
         </main>
 
-        <footer></footer>
+        <footer class="content-limit-1440p">
+            <div>
+                <p>
+                    © 2026 Sven Primus | Ressources: <a href="https://pokeapi.co/" target="_blank">PokéAPI</a>,
+                    <a href="https://github.com/duiker101/pokemon-type-svg-icons" target="_blank">duiker101</a>
+                </p>
+                <a href="https://github.com/svenprimus" target="_blank">
+                    <p>GitHub<br />svenprimus</p>
+                    <img src="./assets/img/impressum.jpg" alt="profil-picture of website developer" />
+                </a>
+            </div>
+            <div class="footer-wave"></div>
+        </footer>
     </body>
 </html>

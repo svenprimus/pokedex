@@ -3,47 +3,53 @@
     <div class="line-inside-left"></div>
     <div class="line-inside-right"></div>
 </div> */
+.spinner-animation-enable {
+    animation: spin 2s linear infinite;
+}
+
+.spinner-up-scaled {
+    transform: scale(2);
+}
 
 .spinner-outside,
 .spinner-inside {
     background-color: #00000000;
-    border: 12px solid gray;
+    border: 8px solid var(--spinner-color);
     border-radius: 50%;
 }
 
 .spinner-outside {
     position: relative;
-    width: 150px;
-    height: 150px;
-    animation: spin 2s linear infinite;
+    width: var(--spinner-size-small);
+    height: var(--spinner-size-small);
 }
 
 .spinner-inside {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 50px;
-    height: 50px;
+    width: calc(var(--spinner-size-small) / 3);
+    height: calc(var(--spinner-size-small) / 3);
     transform: translate(-50%, -50%);
 }
 
 .line-inside-left,
 .line-inside-right {
     position: absolute;
-    width: 50px;
+    width: calc(var(--spinner-size-small) / 3);
     height: 0;
-    border: 6px solid gray;
+    border: 4px solid var(--spinner-color);
     top: 50%;
 }
 
 .line-inside-left {
     left: 0;
-    transform: translate(-7.5px, -50%);
+    transform: translate(calc(-1 * var(--spinner-size-small) / 20), -50%);
 }
 
 .line-inside-right {
     right: 0;
-    transform: translate(7.5px, -50%);
+    transform: translate(calc(var(--spinner-size-small) / 20), -50%);
 }
 
 @keyframes spin {

@@ -1,11 +1,22 @@
 :root {
+    --color-bg-shell: #0e3243;
+    --color-bg-shell-accent: #154b65;
+    --color-accent: #a637b9;
+    --color-font-shell: white;
+
+    --height-header: 100px;
+    --padding-block-content: 40px;
+
+    --spinner-size-small: 75px;
+    --spinner-color: white;
+
     --pokemon-card-wrapper-width: 300px;
     --pokemon-card-wrapper-height: 200px;
     --pokemon-card-width: calc(0.75 * var(--pokemon-card-wrapper-width));
     --pokemon-card-height: var(--pokemon-card-wrapper-height);
     --pokemon-card-border-radius: 30px;
     --pokemon-card-pokemon-size: calc(0.8 * var(--pokemon-card-wrapper-height));
-    
+
     --dialog-border-left: 1px solid black;
     --dialog-color-bg: white;
 
