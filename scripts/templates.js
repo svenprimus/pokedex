@@ -200,36 +200,43 @@ function getDialogContentStructure(name, type, id, subtype) {
     `;
 }
 
-function getPokemonCardSmall(name, type, id, subtype) {
+function getPokemonCardSmallBase(localId, nameCapitalized, idPadded) {
     return /*html*/ `
-        <article class="small-card-wrapper">
-            <header class="small-card-header">
-                <h2>${name}</h2>
-                <p>#000${id}</p>
-            </header>
-            <div class="pokemon-bg-wrapper pokemon-bg-small">
-                <section class="pokemon-bg-card pokemon-bg-small bg-card-${type}">
-                    <div class="pokemon-bg-type bg-type-small bg-${type}">
-                        <img src="./assets/icons/types/${type}.svg" alt="${type} type symbol" />
-                    </div>
-                    <img
-                        class="pokemon-bg-pokemon pokemon-bg-small"
-                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
-                        alt="image of a pokemon called ${name}"
-                    />
-                </section>
-            </div>
-            <div class="card-small-subtype-wrapper">
-                <div class="pokemon-bg-subtype bg-${subtype}">
-                    <img src="./assets/icons/types/${subtype}.svg" alt="${subtype} type symbol" />
+        <button onclick="openModal(${localId})" class="small-card-wrapper">
+            <div id="card_${localId}">     
+                <header class="small-card-header">
+                    <h2>${nameCapitalized}</h2>
+                    <p>#${idPadded}</p>
+                </header>
+                <div class="pokemon-bg-wrapper pokemon-bg-small">
+                    <section class="pokemon-bg-card pokemon-bg-small bg-card-${localPokes[localId].type_1}">
+                        <div class="pokemon-bg-type bg-type-small bg-${localPokes[localId].type_1}">
+                            <img src="./assets/icons/types/${localPokes[localId].type_1}.svg" alt="${localPokes[localId].type_1} type symbol" />
+                        </div>
+                        <img
+                            class="pokemon-bg-pokemon pokemon-bg-small"
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${localPokes[localId].id}.svg"
+                            alt="image of a pokemon called ${localPokes[localId].name}"
+                        />
+                    </section>
                 </div>
             </div>
-        </article>
+        </button>
+    `;
+}
+
+function getPokemonCardSmallSubtype(subtype) {
+    return /*html*/ `
+        <div class="card-small-subtype-wrapper">
+            <div class="pokemon-bg-subtype bg-${subtype}">
+                <img src="./assets/icons/types/${subtype}.svg" alt="${subtype} type symbol" />
+            </div>
+        </div>
     `;
 }
 
 function getPokemonCardBig(name, type, id) {
-    return /*html*/`
+    return /*html*/ `
         <div class="pokemon-bg-wrapper">
             <section id="animation-wrapper" class="pokemon-bg-card bg-card-${type}">
                 <div class="pokemon-bg-type bg-${type}">
@@ -265,5 +272,5 @@ function getPokemonCardBig(name, type, id) {
                 </div>
             </section>
         </div>
-    `
+    `;
 }

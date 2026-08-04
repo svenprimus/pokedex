@@ -7,6 +7,10 @@
     animation: spin 2s linear infinite;
 }
 
+.spinner-animation-disable {
+    animation: spin-double 0.5s linear;
+}
+
 .spinner-up-scaled {
     transform: scale(2);
 }
@@ -58,6 +62,16 @@
     }
 
     100% {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes spin-double {
+    0% {
         transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(720deg);
     }
 }

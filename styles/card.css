@@ -1,6 +1,17 @@
 .small-card-wrapper {
     position: relative;
     width: var(--pokemon-card-wrapper-width);
+    transition:
+        transform 250ms ease,
+        box-shadow 250ms ease,
+        filter 250ms ease;
+}
+
+.small-card-wrapper:hover {
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05) translateY(-5px);
+    filter: brightness(1.1);
+    z-index: 5;
 }
 
 .small-card-header {
@@ -24,6 +35,11 @@
         font-weight: normal;
         line-height: 100%;
     }
+
+    h2 {
+        font-size: 24px;
+    }
+
     p {
         font-size: 18px;
     }

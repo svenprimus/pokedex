@@ -18,11 +18,11 @@
         <script src="./scripts/templates.js" defer></script>
         <script src="./script.js" defer></script>
     </head>
-    <body onload="getCard('Charizard','fire', 6, 'flying')" id="page-top">
+    <body onload="init(151)" id="page-top">
         <header class="header-main content-limit-1440p">
             <nav>
                 <a href="#page-top" aria-label="go to top of page">
-                    <div class="spinner-outside">
+                    <div id="spinner-header" class="spinner-outside spinner-animation-enable">
                         <div class="spinner-inside"></div>
                         <div class="line-inside-left"></div>
                         <div class="line-inside-right"></div>
@@ -37,38 +37,18 @@
                         aria-labelledby="search-button"
                         onkeyup="loginByEnter(false)"
                     />
-                    <button id="search-button" onclick="">Search</button>
+                    <button id="search-button" onclick="fetchBatchSpinning(50)">Search</button>
                 </div>
             </nav>
             <div class="header-wave"></div>
         </header>
 
         <header class="page-headline">
-            <div>
-                <img src="./assets/img/pokemon-logo.svg" alt="pokemon logo" />
-            </div>
+            <img src="./assets/img/pokemon-logo.svg" alt="pokemon logo" />
+            <h2>Pokédex</h2>
         </header>
 
-        <main class="content-limit-1280p">
-            <button id="test" class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-            <button class="dummy"></button>
-        </main>
+        <main id="main-content" class="content-limit-1280p"></main>
 
         <footer class="content-limit-1440p">
             <div>
