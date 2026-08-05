@@ -57,7 +57,6 @@ function renderAll() {
         renderPokeCardSmall(i);
     }
     showLoadButton();
-    clearSearchField();
     updateAnimationFullscreenHeight();
 }
 
@@ -122,6 +121,13 @@ function getFilteredBy(searchKey) {
         }
     }
     return ids;
+}
+
+function reset() {
+    renderAll();
+    clearSearchField();
+    document.getElementById('btn-reset').classList.add('d-none');
+    document.getElementById('btn-reset').disabled = true;
 }
 
 function clearSearchField() {
