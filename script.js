@@ -1,9 +1,10 @@
 const BASE_URL = 'https://pokeapi.co/api/v2/';
 const localPokes = [];
+let lastRenderd = 0;
 
 async function init(amount) {
-    fetchBatchSpinning(amount);
-    // render all
+    await fetchBatchAnimated(amount);
+    renderFromLast();
 }
 
 // fetch more
@@ -13,12 +14,10 @@ function getCard(name, type, id, subtype) {
     document.getElementById('test').innerHTML = getPokemonCardSmall(name, type, id, subtype);
 }
 
-async function fetchBatchSpinning(batchSize) {
-    enableSpinnerInHeader();
+async function fetchBatchAnimated(batchSize) {
+    enableLoadAnimation();
     await fetchBatch(batchSize);
-    disableSpinnerInHeader();
-    renderAll();
-    //TODO do not render all
+    disableLoadAnimation();
 }
 
 async function fetchBatch(batchSize) {
@@ -50,6 +49,11 @@ async function fetchPokemon(id) {
     return await rx.json();
 }
 
+async function loadMore(batchSize) {
+    await fetchBatchAnimated(batchSize);
+    renderFromLast();
+}
+
 // function renderDialogHeader(id) {}
 // function renderDialogType(id) {}
 // function renderDialogImage(id) {}
@@ -68,14 +72,14 @@ async function fetchPokemon(id) {
 //     renderDialogButtonNext(id);
 // }
 
-function enableSpinnerInHeader() {
+function enableLoadAnimation() {
     document.getElementById('spinner-header').classList.remove('spinner-animation-disable');
     document.getElementById('spinner-header').classList.add('spinner-animation-enable');
     document.getElementById('load-animation-container').classList.remove('load-animation-disable');
     document.getElementById('load-animation-container').classList.add('load-animation-enable');
 }
 
-function disableSpinnerInHeader() {
+function disableLoadAnimation() {
     document.getElementById('spinner-header').classList.remove('spinner-animation-enable');
     document.getElementById('spinner-header').classList.add('spinner-animation-disable');
     document.getElementById('load-animation-container').classList.remove('load-animation-enable');
@@ -91,6 +95,7 @@ function updateAnimationFullscreenHeight() {
         document.documentElement.offsetHeight
     );
     document.getElementById('load-animation-container').style.height = `${height}px`;
+    window.scrollTo(0, height);
 }
 
 function renderPokeCardSmall(localId) {
@@ -109,11 +114,13 @@ function renderPokemonCardSmallSubtype(localId) {
     }
 }
 
-function renderAll() {
-    for (let i = 0; i < localPokes.length; i++) {
-        renderPokeCardSmall(i);
+function renderFromLast() {
+    for (; lastRenderd < localPokes.length; lastRenderd++) {
+        renderPokeCardSmall(lastRenderd);
     }
+    document.documentElement.style.scrollBehavior = 'auto';
     updateAnimationFullscreenHeight();
+    document.documentElement.style.scrollBehavior = 'smooth';
 }
 
 function openModal(localId) {
