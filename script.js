@@ -161,6 +161,10 @@ function hideLoadButton() {
 function enableLoadAnimation() {
     document.getElementById('search-field').disabled = true;
     document.getElementById('btn-more').disabled = true;
+    document.getElementById('load-btn-txt').classList.add('d-none');
+    document.getElementById('load-dot-1').classList.remove('d-none');
+    document.getElementById('load-dot-2').classList.remove('d-none');
+    document.getElementById('load-dot-3').classList.remove('d-none');
     document.getElementById('spinner-header').classList.remove('spinner-animation-disable');
     document.getElementById('spinner-header').classList.add('spinner-animation-enable');
     document.getElementById('load-animation-container').classList.remove('d-none');
@@ -171,6 +175,10 @@ function enableLoadAnimation() {
 function disableLoadAnimation() {
     document.getElementById('search-field').disabled = false;
     document.getElementById('btn-more').disabled = false;
+    document.getElementById('load-btn-txt').classList.remove('d-none');
+    document.getElementById('load-dot-1').classList.add('d-none');
+    document.getElementById('load-dot-2').classList.add('d-none');
+    document.getElementById('load-dot-3').classList.add('d-none');
     document.getElementById('spinner-header').classList.remove('spinner-animation-enable');
     document.getElementById('spinner-header').classList.add('spinner-animation-disable');
     document.getElementById('load-animation-container').classList.remove('load-animation-enable');
