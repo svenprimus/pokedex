@@ -7,10 +7,11 @@ body {
     flex-direction: column;
     min-height: 100svh;
 
-    background-image: url('./assets/img/bg-desktop.jpg');
+    background-image: url('./assets/img/bg-mobile.jpg');
+
     background-attachment: fixed;
     background-size: cover;
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
 }
 
@@ -45,9 +46,8 @@ main {
     }
 }
 
-
-@media screen and (max-width: 500px) {
+@media screen and (min-width: 500px) {
     body {
-        background-image: url('./assets/img/bg-mobile.jpg');
+        background-image: url('./assets/img/bg-desktop.jpg');
     }
 }
