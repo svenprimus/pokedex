@@ -71,11 +71,26 @@ async function fetchPokemon(id) {
 function enableSpinnerInHeader() {
     document.getElementById('spinner-header').classList.remove('spinner-animation-disable');
     document.getElementById('spinner-header').classList.add('spinner-animation-enable');
+    document.getElementById('load-animation-container').classList.remove('load-animation-disable');
+    document.getElementById('load-animation-container').classList.add('load-animation-enable');
 }
 
 function disableSpinnerInHeader() {
     document.getElementById('spinner-header').classList.remove('spinner-animation-enable');
     document.getElementById('spinner-header').classList.add('spinner-animation-disable');
+    document.getElementById('load-animation-container').classList.remove('load-animation-enable');
+    document.getElementById('load-animation-container').classList.add('load-animation-disable');
+}
+
+function updateAnimationFullscreenHeight() {
+    const height = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.clientHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+    );
+    document.getElementById('load-animation-container').style.height = `${height}px`;
 }
 
 function renderPokeCardSmall(localId) {
@@ -88,7 +103,7 @@ function renderPokeCardSmall(localId) {
 
 function renderPokemonCardSmallSubtype(localId) {
     const subtype = localPokes[localId].type_2;
-    if(subtype !== null) {
+    if (subtype !== null) {
         const cardRef = document.getElementById('card_' + localId);
         cardRef.innerHTML += getPokemonCardSmallSubtype(subtype);
     }
@@ -98,6 +113,7 @@ function renderAll() {
     for (let i = 0; i < localPokes.length; i++) {
         renderPokeCardSmall(i);
     }
+    updateAnimationFullscreenHeight();
 }
 
 function openModal(localId) {
