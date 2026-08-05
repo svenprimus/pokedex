@@ -160,6 +160,7 @@ function hideLoadButton() {
 
 function enableLoadAnimation() {
     document.getElementById('search-field').disabled = true;
+    document.getElementById('btn-more').disabled = true;
     document.getElementById('spinner-header').classList.remove('spinner-animation-disable');
     document.getElementById('spinner-header').classList.add('spinner-animation-enable');
     document.getElementById('load-animation-container').classList.remove('d-none');
@@ -169,6 +170,7 @@ function enableLoadAnimation() {
 
 function disableLoadAnimation() {
     document.getElementById('search-field').disabled = false;
+    document.getElementById('btn-more').disabled = false;
     document.getElementById('spinner-header').classList.remove('spinner-animation-enable');
     document.getElementById('spinner-header').classList.add('spinner-animation-disable');
     document.getElementById('load-animation-container').classList.remove('load-animation-enable');
