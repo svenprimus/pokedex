@@ -16,6 +16,7 @@
     --pokemon-card-height: var(--pokemon-card-wrapper-height);
     --pokemon-card-border-radius: 30px;
     --pokemon-card-pokemon-size: calc(0.8 * var(--pokemon-card-wrapper-height));
+    --pokemon-card-gap: 20px;
 
     --dialog-border-left: 1px solid black;
     --dialog-color-bg: white;

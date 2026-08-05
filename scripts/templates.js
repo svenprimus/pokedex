@@ -208,7 +208,7 @@ function getPokemonCardSmallBase(localId, nameCapitalized, idPadded) {
                     <h2>${nameCapitalized}</h2>
                     <p>#${idPadded}</p>
                 </header>
-                <div class="pokemon-bg-wrapper pokemon-bg-small">
+                <div class="pokemon-bg-wrapper pokemon-bg-small pokemon-bg-wrapper-shadow-${localPokes[localId].type_1}">
                     <section class="pokemon-bg-card pokemon-bg-small bg-card-${localPokes[localId].type_1}">
                         <div class="pokemon-bg-type bg-type-small bg-${localPokes[localId].type_1}">
                             <img src="./assets/icons/types/${localPokes[localId].type_1}.svg" alt="${localPokes[localId].type_1} type symbol" />

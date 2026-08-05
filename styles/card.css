@@ -84,7 +84,6 @@
     border-top-left-radius: var(--pokemon-card-border-radius);
     border-top-right-radius: var(--pokemon-card-border-radius);
     border-left: var(--dialog-border-left);
-    box-shadow: inset 0 0 20px 0px white;
 }
 
 .pokemon-bg-card {
