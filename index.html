@@ -33,16 +33,19 @@
                         <div class="line-inside-right"></div>
                     </div>
                 </a>
-                <div id="search-field" class="search-field">
+                <div class="search-field">
                     <input
                         id="search-field"
                         type="text"
                         name="search field"
                         value=""
-                        aria-labelledby="search-button"
-                        onkeyup="loginByEnter(false)"
+                        aria-labelledby="btn-search"
+                        onkeyup="processInput()"
+                        disabled
                     />
-                    <button id="search-button" onclick="fetchBatchSpinning(50)">Search</button>
+                    <button id="btn-search" onclick="filterFromLocal()" disabled>Search</button>
+                    <button id="btn-reset" class="btn-reset d-none"onclick="renderAll()" disabled>Reset</button>
+                    <p id="nothing-found" class="d-none">Nothing found!</p>
                 </div>
             </nav>
             <div class="header-wave"></div>
@@ -55,13 +58,13 @@
 
         <main class="content-limit-1280p">
             <section id="main-content" class="main-content"></section>
-            <button id="btn-more" class="btn-more" onclick="loadMore(20)">Load more</button>
+            <button id="btn-more" class="btn-more d-none" onclick="loadMore(20)" disabled>Load more</button>
         </main>
 
         <footer class="content-limit-1440p">
             <div class="footer-content">
                 <p>
-                    © 2026 Sven Primus | Ressources: <a href="https://pokeapi.co/" target="_blank">PokéAPI</a>,
+                    © 2026 Sven Primus</br>Ressources: <a href="https://pokeapi.co/" target="_blank">PokéAPI</a>,
                     <a href="https://github.com/duiker101/pokemon-type-svg-icons" target="_blank">duiker101</a>
                 </p>
                 <a href="https://github.com/svenprimus" target="_blank">
