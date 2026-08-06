@@ -89,7 +89,18 @@ function renderDialogSubtypeContent(localId) {
 }
 
 function renderDialogSliderContent(localId) {
-    document.getElementById('dialog-slider-wrapper').innerHTML = getDialogSliderContent(localId);
+    document.getElementById('about-species').innerText = localContent.about.species;
+    document.getElementById('about-height').innerText = localContent.about.height;
+    document.getElementById('about-weight').innerText = localContent.about.weight;
+    document.getElementById('about-abilities').innerText = localContent.about.abilities;
+    document.getElementById('stats-hp').innerText = localContent.stats.hp;
+    document.getElementById('stats-attack').innerText = localContent.stats.attack;
+    document.getElementById('stats-defense').innerText = localContent.stats.defense;
+    document.getElementById('stats-attack-sp').innerText = localContent.stats.spAttack;
+    document.getElementById('stats-defense-sp').innerText = localContent.stats.spDefense;
+    document.getElementById('stats-speed').innerText = localContent.stats.speed;
+    document.getElementById('stats-total').innerText = localContent.stats.total;
+    document.getElementById('dialog-element-animation').innerHTML = getDialogSliderAnimation(localId);
 }
 
 function renderEvolutionChain(localId) {

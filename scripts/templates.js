@@ -103,66 +103,12 @@ function getDialogAnimationContent(localId, type) {
     `;
 }
 
-function getDialogSliderContent(localId) {
+function getDialogSliderAnimation(localId) {
     return /*html*/ `
-        <div class="dialog-slider-element" id="dialog-element-about">
-            <table class="dialog-table">
-                <tr>
-                    <th>Species</th>
-                    <td id="dialog-species">${localContent.about.species}</td>
-                </tr>
-                <tr>
-                    <th>Height</th>
-                    <td id="dialog-height">${localContent.about.height}</td>
-                </tr>
-                <tr>
-                    <th>Weight</th>
-                    <td id="dialog-weight">${localContent.about.weight}</td>
-                </tr>
-                <tr>
-                    <th>Abilities</th>
-                    <td id="dialog-abilities">${localContent.about.abilities}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="dialog-slider-element" id="dialog-element-base-stats">
-            <table class="dialog-table">
-                <tr>
-                    <th>HP</th>
-                    <td id="dialog-hp">${localContent.stats.hp}</td>
-                </tr>
-                <tr>
-                    <th>Attack</th>
-                    <td id="dialog-attack">${localContent.stats.attack}</td>
-                </tr>
-                <tr>
-                    <th>Defense</th>
-                    <td id="dialog-defense">${localContent.stats.defense}</td>
-                </tr>
-                <tr>
-                    <th>Sp. Atk</th>
-                    <td id="dialog-attack-sp">${localContent.stats.spAttack}</td>
-                </tr>
-                <tr>
-                    <th>Sp. Def</th>
-                    <td id="dialog-defense-sp">${localContent.stats.spDefense}</td>
-                </tr>
-                <tr>
-                    <th>Speed</th>
-                    <td id="dialog-speed">${localContent.stats.speed}</td>
-                </tr>
-                <tr>
-                    <th>Total</th>
-                    <td id="dialog-speed">${localContent.stats.total}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="dialog-slider-element justify-center" id="dialog-element-animation">
-            <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${localPokes[localId].id}.gif"
-                alt="animated pokemon ${localPokes[localId].name}"
-            />
-        </div>    
+        <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${localPokes[localId].id}.gif"
+            alt="animated pokemon ${localPokes[localId].name}"
+        />  
     `;
 }
 
