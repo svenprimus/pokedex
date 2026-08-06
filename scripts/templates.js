@@ -16,7 +16,7 @@ function getPokemonCardSmallBase(localId, type, nameCapitalized, idPadded) {
                         </div>
                         <img
                             class="pokemon-bg-pokemon pokemon-bg-small"
-                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${localPokes[localId].id}.svg"
+                            src="${localPokes[localId].img}"
                             alt="image of a pokemon called ${localPokes[localId].name}"
                         />
                     </section>
@@ -73,7 +73,7 @@ function getDialogAnimationContent(localId, type) {
             </div>
             <img
                 class="pokemon-bg-pokemon"
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${localPokes[localId].id}.svg"
+                src="${localPokes[localId].img}"
                 alt="image of a pokemon called ${localPokes[localId].name}"
             />
             <div class="particle-wrapper">
@@ -109,19 +109,19 @@ function getDialogSliderContent(localId) {
             <table class="dialog-table">
                 <tr>
                     <th>Species</th>
-                    <td id="dialog-species">${localContent.species}</td>
+                    <td id="dialog-species">${localContent.about.species}</td>
                 </tr>
                 <tr>
                     <th>Height</th>
-                    <td id="dialog-height">${localContent.height}</td>
+                    <td id="dialog-height">${localContent.about.height}</td>
                 </tr>
                 <tr>
                     <th>Weight</th>
-                    <td id="dialog-weight">${localContent.weight}</td>
+                    <td id="dialog-weight">${localContent.about.weight}</td>
                 </tr>
                 <tr>
                     <th>Abilities</th>
-                    <td id="dialog-abilities">${localContent.abilities}</td>
+                    <td id="dialog-abilities">${localContent.about.abilities}</td>
                 </tr>
             </table>
         </div>
@@ -129,31 +129,31 @@ function getDialogSliderContent(localId) {
             <table class="dialog-table">
                 <tr>
                     <th>HP</th>
-                    <td id="dialog-hp">${localContent.hp}</td>
+                    <td id="dialog-hp">${localContent.stats.hp}</td>
                 </tr>
                 <tr>
                     <th>Attack</th>
-                    <td id="dialog-attack">${localContent.attack}</td>
+                    <td id="dialog-attack">${localContent.stats.attack}</td>
                 </tr>
                 <tr>
                     <th>Defense</th>
-                    <td id="dialog-defense">${localContent.defense}</td>
+                    <td id="dialog-defense">${localContent.stats.defense}</td>
                 </tr>
                 <tr>
                     <th>Sp. Atk</th>
-                    <td id="dialog-attack-sp">${localContent.spAttack}</td>
+                    <td id="dialog-attack-sp">${localContent.stats.spAttack}</td>
                 </tr>
                 <tr>
                     <th>Sp. Def</th>
-                    <td id="dialog-defense-sp">${localContent.spDefense}</td>
+                    <td id="dialog-defense-sp">${localContent.stats.spDefense}</td>
                 </tr>
                 <tr>
                     <th>Speed</th>
-                    <td id="dialog-speed">${localContent.speed}</td>
+                    <td id="dialog-speed">${localContent.stats.speed}</td>
                 </tr>
                 <tr>
                     <th>Total</th>
-                    <td id="dialog-speed">${localContent.total}</td>
+                    <td id="dialog-speed">${localContent.stats.total}</td>
                 </tr>
             </table>
         </div>
@@ -163,6 +163,39 @@ function getDialogSliderContent(localId) {
                 alt="animated pokemon ${localPokes[localId].name}"
             />
         </div>    
+    `;
+}
+
+function getEvolutionChainContent(localId) {
+    return /*html*/ `
+        <button id="button-evo-base">
+            <img
+                class="evo-chain-img"
+                src="${localContent.evos[0][0].img}"
+                alt="base pokemon ${localPokes[localId].name}"
+            />
+        </button>
+
+        <img class="evo-arrow-img" src="./assets/icons/arrow-evolution-right.svg" alt="arrow right" />
+        <ul id="first-or-multiple-evolution">
+            <li>
+                <button id="button-evo-stage-1-0">
+                    <img
+                        class="evo-chain-img"
+                        src="${localContent.evos[1][0].img}"
+                        alt="pokemon evolution with id ${localContent.evos[1][0].id}"
+                    />
+                </button>
+            </li>
+        </ul>
+        <img class="evo-arrow-img" src="./assets/icons/arrow-evolution-right.svg" alt="arrow right" />
+        <button id="button-evo-stage-2">
+            <img
+                class="evo-chain-img"
+                src="${localContent.evos[2][0].img}"
+                alt="pokemon evolution with id ${localContent.evos[2][0].id}"
+            />
+        </button>
     `;
 }
 // #endregion dialog

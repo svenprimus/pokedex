@@ -1,4 +1,6 @@
 const BASE_URL = 'https://pokeapi.co/api/v2/';
+const IMG_BASE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/';
+const IMG_ALT_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
 const localPokes = [];
 let localContent;
 let lastRenderd = 0;
@@ -10,6 +12,7 @@ async function init(amount) {
     renderFromLast();
 }
 
+// #region fetch
 async function fetchBatchAnimated(batchSize) {
     enableLoadAnimation();
     await fetchBatch(batchSize);
@@ -20,12 +23,12 @@ async function fetchBatch(batchSize) {
     const fetchedIds = await fetchBatchIds(batchSize);
     for (let i = 0; i < fetchedIds.length; i++) {
         const poke = await fetchPokemon(fetchedIds[i]);
-
         localPokes.push({
             id: fetchedIds[i],
             name: poke.name,
             type_1: poke.types[0].type.name,
             type_2: poke.types.length > 1 ? poke.types[1].type.name : null,
+            img: getImgUrl(poke.sprites.other.dream_world.front_default, fetchedIds[i]),
         });
     }
 }
@@ -45,12 +48,45 @@ async function fetchPokemon(id) {
     return await rx.json();
 }
 
-async function fetchDialogContent(id) {
-    const poke = await fetchPokemon(id);
-    setupLocalContent(poke);
-    return true;
+async function fetchEvolutionChain(speciesURL) {
+    const spec = await (await fetch(speciesURL)).json();
+    const evo = await (await fetch(spec.evolution_chain.url)).json();
+    const evoSpecs = getEvolutionSpeciesArray(evo.chain);
+    const evolutions = await fetchGetEvolutionArray(evoSpecs);
+    return evolutions;
 }
 
+async function fetchGetEvolutionArray(evoSpecs) {
+    const evolutions = [[], [], []];
+
+    for (let i = 0; i < Math.min(evoSpecs.length, 3); i++) {
+        for (let j = 0; j < evoSpecs[i].length; j++) {
+            const species = await (await fetch(evoSpecs[i][j])).json();
+            const poke = await fetchPokemon(species.id);
+            evolutions[i].push({
+                id: species.id,
+                img: getImgUrl(poke.sprites.other.dream_world.front_default, species.id),
+            });
+        }
+    }
+    return evolutions;
+}
+
+async function fetchDialogContent(id) {
+    const poke = await fetchPokemon(id);
+    const evos = await fetchEvolutionChain(poke.species.url);
+
+    localContent = {
+        about: getAbout(poke),
+        stats: getStats(poke),
+        evos: evos,
+    };
+
+    return true;
+}
+// #endregion fetch
+
+// #region render
 function renderAll() {
     document.getElementById('main-content').innerHTML = '';
     for (let i = 0; i < localPokes.length; i++) {
@@ -76,21 +112,16 @@ function renderLocalIds(localIdArray) {
     disableMoreButton();
     updateAnimationFullscreenHeight();
 }
+// #endregion render
 
 async function openDialog(localId) {
     enableLoadAnimation();
-    // TODO add timeout
     await fetchDialogContent(localPokes[localId].id);
     const dialogRef = document.getElementById('poke-dialog');
-    console.log(localPokes[localId]);
-
-    renderDialogHeader(localId);
-    renderDialogAnimationContent(localId);
-    renderDialogSubtypeContent(localId);
-    renderDialogSliderContent(localId);
+    renderDialog(localId);
     dialogRef.showModal();
-    setDialogFocusOnTop();
     dialogRef.classList.add('opened');
+    setDialogFocusOnTop();
     disableLoadAnimation();
 }
 
@@ -191,7 +222,6 @@ function showSearchFailure() {
     document.getElementById('btn-reset').classList.add('d-none');
     document.getElementById('btn-reset').disabled = true;
     filterActive = false;
-    // TODO in active search nun search failure produzieren
 }
 
 function enableLoadAnimation() {
@@ -284,6 +314,14 @@ function swapTypesIfNormal(localId) {
     return types;
 }
 
+function renderDialog(localId) {
+    renderDialogHeader(localId);
+    renderDialogAnimationContent(localId);
+    renderDialogSubtypeContent(localId);
+    renderDialogSliderContent(localId);
+    renderEvolutionChain(localId);
+}
+
 function renderDialogHeader(localId) {
     const idPadded = String(localPokes[localId].id).padStart(4, '0');
     const nameCapitalized = capitalize(localPokes[localId].name);
@@ -317,6 +355,11 @@ function renderDialogSliderContent(localId) {
     document.getElementById('dialog-slider-wrapper').innerHTML = getDialogSliderContent(localId);
 }
 
+function renderEvolutionChain(localId) {
+    if (localContent.evos) {
+        document.getElementById('dialog-evolution-chain').innerHTML = getEvolutionChainContent(localId);
+    }
+}
 // function renderDialogButtons(localId) {}
 // function renderDialogTabAbout(localId) {}
 // function renderDialogTabBaseStats(localId) {}
@@ -328,12 +371,42 @@ function renderDialogSliderContent(localId) {
 //     renderDialogButtonNext(localId);
 // }
 
-function setupLocalContent(poke) {
-    localContent = {
+function getImgUrl(dreamSprite, id) {
+    let imgUrl = '';
+    if (dreamSprite != null) {
+        imgUrl = `${IMG_BASE_URL}${id}.svg`;
+    } else {
+        imgUrl = `${IMG_ALT_URL}${id}.png`;
+    }
+    return imgUrl;
+}
+
+function getEvolutionSpeciesArray(evolutionChain) {
+    const species = [[], [], []];
+
+    species[0].push(evolutionChain.species.url);
+
+    for (let i = 0; i < evolutionChain.evolves_to.length; i++) {
+        species[1].push(evolutionChain.evolves_to[i].species.url);
+
+        for (let j = 0; j < evolutionChain.evolves_to[i].evolves_to.length; j++) {
+            species[2].push(evolutionChain.evolves_to[i].evolves_to[j].species.url);
+        }
+    }
+    return species;
+}
+
+function getAbout(poke) {
+    return {
         species: capitalize(poke.species.name),
         height: stringifyHeight(poke.height),
         weight: stringifyWeight(poke.weight),
         abilities: stringifyAbilities(poke.abilities),
+    };
+}
+
+function getStats(poke) {
+    return {
         hp: poke.stats[0].base_stat,
         attack: poke.stats[1].base_stat,
         defense: poke.stats[2].base_stat,
@@ -343,7 +416,6 @@ function setupLocalContent(poke) {
         total: getTotalStats(poke.stats),
     };
 }
-
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
