@@ -36,6 +36,8 @@ function closeDialogbyEnter() {
 }
 
 async function nextDialog(localId) {
+    document.getElementById('dialog-button-right').classList.add('load-next');
+
     const next = localId + 1;
     if (next < localPokes.length) {
         await openDialog(next);
@@ -49,6 +51,7 @@ async function nextDialog(localId) {
 async function prevDialog(localId) {
     const prev = localId - 1;
     if (prev >= 0) {
+        document.getElementById('dialog-button-left').classList.add('load-previous');
         await openDialog(prev);
     }
 }
@@ -143,7 +146,7 @@ function renderPageButtons(localId) {
     document.getElementById('dialog-button-left').onclick = () => prevDialog(localId);
     document.getElementById('dialog-button-right').onclick = () => nextDialog(localId);
 
-    document.getElementById('dialog-button-left').disabled = (localId === 0);
+    document.getElementById('dialog-button-left').disabled = localId === 0;
 }
 
 function getImgUrl(dreamSprite, id) {

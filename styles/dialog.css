@@ -424,6 +424,16 @@ body:has(dialog[open]) {
         background-image: url('../assets/icons/arrow-right.svg');
     }
 
+    .load-next {
+        background-image: url('../assets/icons/spinner-next.svg');
+        animation: spin-double 0.5s linear infinite;
+    }
+
+    .load-previous {
+        background-image: url('../assets/icons/spinner-next.svg');
+        animation: spin-double-reverse 0.5s linear infinite;
+    }
+
     .dialog-button-return,
     .dialog-button-left,
     .dialog-button-right {

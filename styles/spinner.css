@@ -75,3 +75,13 @@
         transform: rotate(720deg);
     }
 }
+
+@keyframes spin-double-reverse {
+    0% {
+        transform: scaleX(-1) rotate(360deg);
+    }
+
+    100% {
+        transform: scaleX(-1) rotate(720deg);
+    }
+}
