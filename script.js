@@ -1,14 +1,12 @@
 const BASE_URL = 'https://pokeapi.co/api/v2/';
 const localPokes = [];
+let localContent;
 let lastRenderd = 0;
+let debounceDialog = false;
 
 async function init(amount) {
     await fetchBatchAnimated(amount);
     renderFromLast();
-}
-
-function getCard(name, type, id, subtype) {
-    document.getElementById('test').innerHTML = getPokemonCardSmall(name, type, id, subtype);
 }
 
 async function fetchBatchAnimated(batchSize) {
@@ -46,9 +44,10 @@ async function fetchPokemon(id) {
     return await rx.json();
 }
 
-async function loadMore(batchSize) {
-    await fetchBatchAnimated(batchSize);
-    renderFromLast();
+async function fetchDialogContent(id) {
+    const poke = await fetchPokemon(id);
+    setupLocalContent(poke);
+    return true;
 }
 
 function renderAll() {
@@ -77,8 +76,48 @@ function renderLocalIds(localIdArray) {
     updateAnimationFullscreenHeight();
 }
 
-function openModal(localId) {
-    //TODO
+async function openDialog(localId) {
+    enableLoadAnimation();
+    // TODO add timeout
+    await fetchDialogContent(localPokes[localId].id);
+    const dialogRef = document.getElementById('poke-dialog');
+    console.log(localPokes[localId]);
+
+    renderDialogHeader(localId);
+    renderDialogAnimationContent(localId);
+    renderDialogSubtypeContent(localId);
+    renderDialogSliderContent(localId);
+    dialogRef.showModal();
+    setDialogFocusOnTop();
+    dialogRef.classList.add('opened');
+    disableLoadAnimation();
+}
+
+function openDialogByEnter(localId) {
+    if (event.key === 'Enter') {
+        if (false === debounceDialog) {
+            openDialog(localId);
+        } else {
+            debounceDialog = false;
+        }
+    }
+}
+
+function closeDialog() {
+    const dialogRef = document.getElementById('poke-dialog');
+    dialogRef.classList.remove('opened');
+    dialogRef.close();
+    disableLoadAnimation();
+}
+
+function closeDialogbyEnter() {
+    closeDialog();
+    debounceDialog = true;
+}
+
+function setDialogFocusOnTop() {
+    const dialogCloseRef = document.getElementById('dialog-button-close');
+    dialogCloseRef.focus();
 }
 
 function processInput() {
@@ -196,34 +235,124 @@ function updateAnimationFullscreenHeight() {
 
 function renderPokeCardSmall(localId) {
     const mainRef = document.getElementById('main-content');
-    const nameCapitalized = localPokes[localId].name.charAt(0).toUpperCase() + localPokes[localId].name.slice(1);
     const idPadded = String(localPokes[localId].id).padStart(4, '0');
-    mainRef.innerHTML += getPokemonCardSmallBase(localId, nameCapitalized, idPadded);
+    const types = swapTypesIfNormal(localId);
+    mainRef.innerHTML += getPokemonCardSmallBase(localId, types.type_1, capitalize(localPokes[localId].name), idPadded);
     renderPokemonCardSmallSubtype(localId);
 }
 
 function renderPokemonCardSmallSubtype(localId) {
-    const subtype = localPokes[localId].type_2;
-    if (subtype !== null) {
+    const types = swapTypesIfNormal(localId);
+    if (types.type_2 !== null) {
         const cardRef = document.getElementById('card_' + localId);
-        cardRef.innerHTML += getPokemonCardSmallSubtype(subtype);
+        cardRef.innerHTML += getPokemonCardSmallSubtype(types.type_2);
     }
 }
 
-// function renderDialogHeader(id) {}
-// function renderDialogType(id) {}
-// function renderDialogImage(id) {}
-// function renderDialogParticles(id) {}
-// function renderDialogOverlay(id) {}
-// function renderDialogSubtype(id) {}
-// function renderDialogButtons(id) {}
-// function renderDialogTabAbout(id) {}
-// function renderDialogTabBaseStats(id) {}
-// function renderDialogTabAnimation(id) {}
-// function renderDialogEvolutionChain(id) {}
+// #region dialog
+function swapTypesIfNormal(localId) {
+    let types = { type_1: localPokes[localId].type_1, type_2: localPokes[localId].type_2 };
 
-// renderDialogButtons(id) {
-//     renderDialogButtonLike(id);
-//     renderDialogButtonPrev(id);
-//     renderDialogButtonNext(id);
+    if (types.type_2 != null && types.type_1 === 'normal') {
+        const temp = types.type_1;
+        types.type_1 = types.type_2;
+        types.type_2 = temp;
+    }
+    return types;
+}
+
+function renderDialogHeader(localId) {
+    const idPadded = String(localPokes[localId].id).padStart(4, '0');
+    const nameCapitalized = capitalize(localPokes[localId].name);
+    document.getElementById('dialog-header-content').innerHTML = getDialogHeaderContent(nameCapitalized, idPadded);
+}
+
+function renderDialogAnimationContent(localId) {
+    const types = swapTypesIfNormal(localId);
+    const wrapperRef = document.getElementById('pokemon-bg-wrapper');
+    wrapperRef.innerHTML = getDialogAnimationContent(localId, types.type_1);
+
+    for (let item of wrapperRef.classList.values()) {
+        if (item.includes('pokemon-bg-wrapper-shadow-')) {
+            wrapperRef.classList.remove(item);
+        }
+    }
+    wrapperRef.classList.add(`pokemon-bg-wrapper-shadow-${localPokes[localId].type_1}`);
+}
+
+function renderDialogSubtypeContent(localId) {
+    const types = swapTypesIfNormal(localId);
+    if (types.type_2 != null) {
+        document.getElementById('dialog-like-wrapper').innerHTML = getDialogSubtypeContent(types.type_2);
+    } else {
+        document.getElementById('dialog-like-wrapper').innerHTML = '';
+    }
+    document.getElementById('dialog-like-wrapper').innerHTML += getDialogLikeContent(localId);
+}
+
+function renderDialogSliderContent(localId) {
+    document.getElementById('dialog-slider-wrapper').innerHTML = getDialogSliderContent(localId);
+}
+
+// function renderDialogButtons(localId) {}
+// function renderDialogTabAbout(localId) {}
+// function renderDialogTabBaseStats(localId) {}
+// function renderDialogTabAnimation(localId) {}
+// function renderDialogEvolutionChain(localId) {}
+
+// renderDialogButtons(localId) {
+//     renderDialogButtonPrev(localId);
+//     renderDialogButtonNext(localId);
 // }
+
+function setupLocalContent(poke) {
+    localContent = {
+        species: capitalize(poke.species.name),
+        height: stringifyHeight(poke.height),
+        weight: stringifyWeight(poke.weight),
+        abilities: stringifyAbilities(poke.abilities),
+        hp: poke.stats[0].base_stat,
+        attack: poke.stats[1].base_stat,
+        defense: poke.stats[2].base_stat,
+        spAttack: poke.stats[3].base_stat,
+        spDefense: poke.stats[4].base_stat,
+        speed: poke.stats[5].base_stat,
+        total: getTotalStats(poke.stats),
+    };
+}
+
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function getTotalStats(stats) {
+    let sum = 0;
+    stats.forEach((element) => (sum += element.base_stat));
+    return sum;
+}
+
+function stringifyAbilities(abilities) {
+    const result = [];
+    abilities.forEach((element) => {
+        result.push(capitalize(element.ability.name));
+    });
+    return result.join(', ');
+}
+
+function stringifyHeight(height) {
+    return String(10 * height + ' cm (' + (height / 2.54).toFixed(2) + ' in)');
+}
+
+function stringifyWeight(weight) {
+    return String((weight / 10).toFixed(2) + ' kg (' + (weight * 2.20462).toFixed(2) + ' lbs)');
+}
+
+async function loadMore(batchSize) {
+    await fetchBatchAnimated(batchSize);
+    renderFromLast();
+}
+
+function stopDialogPropagation(event) {
+    event.stopPropagation();
+}
+// #endregion dialog

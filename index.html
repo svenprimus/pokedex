@@ -18,7 +18,7 @@
         <script src="./scripts/templates.js" defer></script>
         <script src="./script.js" defer></script>
     </head>
-    <body onload="init(20)" id="page-top">
+    <body onload="init(1)" id="page-top">
         <div
             id="load-animation-container"
             class="load-animation-container load-animation-enable"
@@ -44,7 +44,7 @@
                         disabled
                     />
                     <button id="btn-search" onclick="filterFromLocal()" disabled>Search</button>
-                    <button id="btn-reset" class="btn-reset d-none"onclick="reset()" disabled>Reset</button>
+                    <button id="btn-reset" class="btn-reset d-none" onclick="reset()" disabled>Reset</button>
                     <p id="nothing-found" class="d-none">Nothing found!</p>
                 </div>
             </nav>
@@ -69,7 +69,7 @@
         <footer class="content-limit-1440p">
             <div class="footer-content">
                 <p>
-                    © 2026 Sven Primus</br>Ressources: <a href="https://pokeapi.co/" target="_blank">PokéAPI</a>,
+                    © 2026 Sven Primus<br />Ressources: <a href="https://pokeapi.co/" target="_blank">PokéAPI</a>,
                     <a href="https://github.com/duiker101/pokemon-type-svg-icons" target="_blank">duiker101</a>
                 </p>
                 <a href="https://github.com/svenprimus" target="_blank">
@@ -79,5 +79,99 @@
             </div>
             <div class="footer-wave"></div>
         </footer>
+
+        <dialog id="poke-dialog" onclick="closeDialog()" aria-labelledby="dialog-title">
+            <article class="dialog-wrapper" onclick="stopDialogPropagation(event)">
+                <header class="dialog-header">
+                    <div id="dialog-header-content"></div>
+                    <button
+                        id="dialog-button-close"
+                        class="dialog-button-close"
+                        tabindex="0"
+                        aria-controls="pokemon-dialog"
+                        aria-label="previous pokemon"
+                        onkeydown="closeDialogbyEnter()"
+                        onclick="closeDialog()"
+                    ></button>
+                </header>
+                <div id="pokemon-bg-wrapper" class="pokemon-bg-wrapper"></div>
+                <div id="dialog-like-wrapper" class="dialog-like-wrapper"></div>
+
+                <section class="dialog-slider">
+                    <div class="dialog-radio-btn-wrapper">
+                        <input type="radio" id="radio-about" name="slider" value="one" checked value="one" />
+                        <label for="radio-about">About</label>
+                    </div>
+                    <div class="dialog-radio-btn-wrapper">
+                        <input type="radio" id="radio-base-stats" name="slider" value="two" />
+                        <label for="radio-base-stats">Base Stats</label>
+                    </div>
+
+                    <div class="dialog-radio-btn-wrapper">
+                        <input type="radio" id="radio-animation" name="slider" value="three" />
+                        <label for="radio-animation">Animation</label>
+                    </div>
+
+                    <div id="dialog-slider-wrapper" class="dialog-slider-wrapper"></div>
+                </section>
+
+                <section id="dialog-evolution-chain" class="dialog-evolution-chain">
+                    <button id="button-evo-base">
+                        <img
+                            class="evo-chain-img"
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
+                            alt="base pokemon"
+                        />
+                    </button>
+
+                    <img class="evo-arrow-img" src="./assets/icons/arrow-evolution-right.svg" alt="arrow right" />
+                    <ul id="first-or-multiple-evolution">
+                        <li>
+                            <button id="button-evo-stage-1-0">
+                                <img
+                                    class="evo-chain-img"
+                                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg"
+                                    alt="pokemon evolution 1"
+                                />
+                            </button>
+                        </li>
+                    </ul>
+                    <img class="evo-arrow-img" src="./assets/icons/arrow-evolution-right.svg" alt="arrow right" />
+                    <button id="button-evo-stage-2">
+                        <img
+                            class="evo-chain-img"
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg"
+                            alt="pokemon evolution 2"
+                        />
+                    </button>
+                </section>
+
+                <nav id="dialog-nav" class="dialog-nav">
+                    <button
+                        id="dialog-button-return"
+                        class="dialog-button-return"
+                        tabindex="0"
+                        aria-controls="pokemon-dialog"
+                        aria-label="previous pokemon"
+                        onkeydown="closeDialogbyEnter()"
+                        onclick="closeDialog()"
+                    ></button>
+                    <button
+                        id="dialog-button-left"
+                        class="dialog-button-left"
+                        tabindex="0"
+                        aria-controls="pokemon-dialog"
+                        aria-label="previous pokemon"
+                    ></button>
+                    <button
+                        id="dialog-button-right"
+                        class="dialog-button-right"
+                        tabindex="0"
+                        aria-controls="pokemon-dialog"
+                        aria-label="next pokemon"
+                    ></button>
+                </nav>
+            </article>
+        </dialog>
     </body>
 </html>
