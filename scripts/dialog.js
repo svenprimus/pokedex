@@ -35,6 +35,24 @@ function closeDialogbyEnter() {
     debounceDialog = true;
 }
 
+async function nextDialog(localId) {
+    const next = localId + 1;
+    if (next < localPokes.length) {
+        await openDialog(next);
+    } else {
+        await fetchBatchAnimated(1);
+        renderFromLast();
+        await openDialog(next);
+    }
+}
+
+async function prevDialog(localId) {
+    const prev = localId - 1;
+    if (prev >= 0) {
+        await openDialog(prev);
+    }
+}
+
 function setDialogFocusOnTop() {
     const dialogCloseRef = document.getElementById('dialog-button-close');
     dialogCloseRef.focus();
@@ -57,6 +75,7 @@ function renderDialog(localId) {
     renderDialogSubtypeContent(localId);
     renderDialogSliderContent(localId);
     renderEvolutionChain(localId);
+    renderPageButtons(localId);
 }
 
 function renderDialogHeader(localId) {
@@ -118,6 +137,13 @@ function renderEvolutionChain(localId) {
             evoRef.innerHTML += getEvolutionChainSecondContent(i);
         }
     }
+}
+
+function renderPageButtons(localId) {
+    document.getElementById('dialog-button-left').onclick = () => prevDialog(localId);
+    document.getElementById('dialog-button-right').onclick = () => nextDialog(localId);
+
+    document.getElementById('dialog-button-left').disabled = (localId === 0);
 }
 
 function getImgUrl(dreamSprite, id) {
