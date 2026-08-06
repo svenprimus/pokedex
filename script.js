@@ -3,6 +3,7 @@ const localPokes = [];
 let localContent;
 let lastRenderd = 0;
 let debounceDialog = false;
+let filterActive = false;
 
 async function init(amount) {
     await fetchBatchAnimated(amount);
@@ -55,7 +56,7 @@ function renderAll() {
     for (let i = 0; i < localPokes.length; i++) {
         renderPokeCardSmall(i);
     }
-    showLoadButton();
+    enableMoreButton();
     updateAnimationFullscreenHeight();
 }
 
@@ -63,7 +64,7 @@ function renderFromLast() {
     for (; lastRenderd < localPokes.length; lastRenderd++) {
         renderPokeCardSmall(lastRenderd);
     }
-    showLoadButton();
+    enableMoreButton();
     updateAnimationFullscreenHeight();
 }
 
@@ -72,7 +73,7 @@ function renderLocalIds(localIdArray) {
     for (let i = 0; i < localIdArray.length; i++) {
         renderPokeCardSmall(localIdArray[i]);
     }
-    hideLoadButton();
+    disableMoreButton();
     updateAnimationFullscreenHeight();
 }
 
@@ -167,6 +168,9 @@ function reset() {
     clearSearchField();
     document.getElementById('btn-reset').classList.add('d-none');
     document.getElementById('btn-reset').disabled = true;
+    document.getElementById('search-field').disabled = false;
+    document.getElementById('btn-search').disabled = false;
+    filterActive = false;
 }
 
 function clearSearchField() {
@@ -177,33 +181,50 @@ function showSearchSuccess() {
     document.getElementById('nothing-found').classList.add('d-none');
     document.getElementById('btn-reset').classList.remove('d-none');
     document.getElementById('btn-reset').disabled = false;
+    document.getElementById('btn-search').disabled = true;
+    document.getElementById('search-field').disabled = true;
+    filterActive = true;
 }
 
 function showSearchFailure() {
     document.getElementById('nothing-found').classList.remove('d-none');
     document.getElementById('btn-reset').classList.add('d-none');
     document.getElementById('btn-reset').disabled = true;
-}
-
-function showLoadButton() {
-    btnRef = document.getElementById('btn-more');
-    btnRef.disabled = false;
-    btnRef.classList.remove('d-none');
-}
-
-function hideLoadButton() {
-    btnRef = document.getElementById('btn-more');
-    btnRef.disabled = true;
-    btnRef.classList.add('d-none');
+    filterActive = false;
+    // TODO in active search nun search failure produzieren
 }
 
 function enableLoadAnimation() {
     document.getElementById('search-field').disabled = true;
-    document.getElementById('btn-more').disabled = true;
+    disableMoreButton();
+    enableLoadingDots();
+    enableLoadingSpinners();
+}
+
+function disableLoadAnimation() {
+    document.getElementById('search-field').disabled = false;
+    if (false === filterActive) {
+        enableMoreButton();
+    }
+    disableLoadingDots();
+    disableLoadingSpinners();
+}
+
+function enableLoadingDots() {
     document.getElementById('load-btn-txt').classList.add('d-none');
     document.getElementById('load-dot-1').classList.remove('d-none');
     document.getElementById('load-dot-2').classList.remove('d-none');
     document.getElementById('load-dot-3').classList.remove('d-none');
+}
+
+function disableLoadingDots() {
+    document.getElementById('load-btn-txt').classList.remove('d-none');
+    document.getElementById('load-dot-1').classList.add('d-none');
+    document.getElementById('load-dot-2').classList.add('d-none');
+    document.getElementById('load-dot-3').classList.add('d-none');
+}
+
+function enableLoadingSpinners() {
     document.getElementById('spinner-header').classList.remove('spinner-animation-disable');
     document.getElementById('spinner-header').classList.add('spinner-animation-enable');
     document.getElementById('load-animation-container').classList.remove('d-none');
@@ -211,18 +232,20 @@ function enableLoadAnimation() {
     document.getElementById('load-animation-container').classList.add('load-animation-enable');
 }
 
-function disableLoadAnimation() {
-    document.getElementById('search-field').disabled = false;
-    document.getElementById('btn-more').disabled = false;
-    document.getElementById('load-btn-txt').classList.remove('d-none');
-    document.getElementById('load-dot-1').classList.add('d-none');
-    document.getElementById('load-dot-2').classList.add('d-none');
-    document.getElementById('load-dot-3').classList.add('d-none');
+function disableLoadingSpinners() {
     document.getElementById('spinner-header').classList.remove('spinner-animation-enable');
     document.getElementById('spinner-header').classList.add('spinner-animation-disable');
     document.getElementById('load-animation-container').classList.remove('load-animation-enable');
     document.getElementById('load-animation-container').classList.add('load-animation-disable');
     setTimeout(() => document.getElementById('load-animation-container').classList.add('d-none'), 500);
+}
+
+function enableMoreButton() {
+    document.getElementById('btn-more').disabled = false;
+}
+
+function disableMoreButton() {
+    document.getElementById('btn-more').disabled = true;
 }
 
 function updateAnimationFullscreenHeight() {
