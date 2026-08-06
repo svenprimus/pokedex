@@ -375,8 +375,8 @@ body:has(dialog[open]) {
     }
 
     .evo-arrow-img {
-        height: 24px;
-        width: 24px;
+        height: 40px;
+        width: 40px;
     }
 
     ul {
@@ -412,10 +412,12 @@ body:has(dialog[open]) {
 
     .dialog-button-return {
         background-image: url('../assets/icons/return.svg');
+        transform: scaleX(-1);
     }
 
     .dialog-button-left {
-        background-image: url('../assets/icons/arrow-left.svg');
+        background-image: url('../assets/icons/arrow-right.svg');
+        transform: scaleX(-1);
     }
 
     .dialog-button-right {
@@ -428,5 +430,13 @@ body:has(dialog[open]) {
         width: 28px;
         height: 28px;
         background-size: contain;
+        transition: all 0.3s ease;
+    }
+
+    .dialog-button-return:hover,
+    .dialog-button-left:hover,
+    .dialog-button-right:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 50%;;
     }
 }
