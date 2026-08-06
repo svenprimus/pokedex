@@ -392,6 +392,10 @@ body:has(dialog[open]) {
             width: 48px;
         }
     }
+
+    button {
+        cursor: inherit;
+    }
 }
 
 .dialog-nav {

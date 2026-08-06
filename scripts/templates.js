@@ -166,34 +166,46 @@ function getDialogSliderContent(localId) {
     `;
 }
 
-function getEvolutionChainContent(localId) {
+function getEvolutionBaseContent(localId) {
     return /*html*/ `
-        <button id="button-evo-base">
+        <button id="button-evo-base" onclick="openDialogByExternId(${localContent.evos[0][0].id})" aria-hidden="true">
             <img
                 class="evo-chain-img"
                 src="${localContent.evos[0][0].img}"
                 alt="base pokemon ${localPokes[localId].name}"
             />
         </button>
+    `;
+}
 
+function getEvolutionChainFirstWrapper() {
+    return /*html*/ `
         <img class="evo-arrow-img" src="./assets/icons/arrow-evolution-right.svg" alt="arrow right" />
-        <ul id="first-or-multiple-evolution">
-            <li>
-                <button id="button-evo-stage-1-0">
-                    <img
-                        class="evo-chain-img"
-                        src="${localContent.evos[1][0].img}"
-                        alt="pokemon evolution with id ${localContent.evos[1][0].id}"
-                    />
-                </button>
-            </li>
-        </ul>
+        <ul id="first-or-multiple-evolution"></ul>
+    `;
+}
+
+function getEvolutionChainFirstListElement(index) {
+    return /*html*/ `
+        <li>
+            <button id="button-evo-first-${localContent.evos[1][index].id}" onclick="openDialogByExternId(${localContent.evos[1][index].id})" aria-hidden="true">
+                <img
+                    class="evo-chain-img"
+                    src="${localContent.evos[1][index].img}"
+                    alt="pokemon evolution with id ${localContent.evos[1][index].id}"
+                />
+            </button>
+        </li>
+    `;
+}
+function getEvolutionChainSecondContent(index) {
+    return /*html*/ `
         <img class="evo-arrow-img" src="./assets/icons/arrow-evolution-right.svg" alt="arrow right" />
-        <button id="button-evo-stage-2">
+        <button id="button-evo-second-${localContent.evos[2][index].id}" onclick="openDialogByExternId(${localContent.evos[2][index].id})" aria-hidden="true">
             <img
                 class="evo-chain-img"
-                src="${localContent.evos[2][0].img}"
-                alt="pokemon evolution with id ${localContent.evos[2][0].id}"
+                src="${localContent.evos[2][index].img}"
+                alt="pokemon evolution with id ${localContent.evos[2][index].id}"
             />
         </button>
     `;
