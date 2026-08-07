@@ -622,8 +622,8 @@
 }
 
 .overlay-psychic:nth-child(1) {
-    height: var(--pokemon-card-pokemon-size);
-    width: var(--pokemon-card-pokemon-size);
+    height: var(--dialog-pokemon-max-size);
+    width: var(--dialog-pokemon-max-size);
     right: -20%;
     top: 50%;
     transform: translateY(-50%) scale(1.25);
@@ -673,8 +673,8 @@
 }
 
 .overlay-steel:nth-child(1) {
-    height: var(--pokemon-card-pokemon-size);
-    width: var(--pokemon-card-pokemon-size);
+    height: var(--dialog-pokemon-max-size);
+    width: var(--dialog-pokemon-max-size);
     right: -20%;
     top: 50%;
     transform: translateY(-50%) scale(1.25);
@@ -723,10 +723,10 @@
 }
 
 .overlay-dragon:nth-child(1) {
-    height: calc(var(--pokemon-card-pokemon-size) - 0.3 * var(--pokemon-card-pokemon-size));
-    width: calc(var(--pokemon-card-pokemon-size) - 0.3 * var(--pokemon-card-pokemon-size));
-    left: calc(-0.25 * var(--pokemon-card-pokemon-size) + 0.15 * var(--pokemon-card-pokemon-size));
-    padding: calc(0.15 * var(--pokemon-card-pokemon-size));
+    height: calc(var(--dialog-pokemon-max-size) - 0.3 * var(--dialog-pokemon-max-size));
+    width: calc(var(--dialog-pokemon-max-size) - 0.3 * var(--dialog-pokemon-max-size));
+    left: calc(-0.25 * var(--dialog-pokemon-max-size) + 0.15 * var(--dialog-pokemon-max-size));
+    padding: calc(0.15 * var(--dialog-pokemon-max-size));
     top: 50%;
     transform: translateY(-50%);
     background-image: url('../assets/effects/dragon-eye-evil.svg');
@@ -739,8 +739,8 @@
     border: var(--particle-dragon-base-size) solid var(--particle-dragon-color);
     box-shadow: 0 0 30px 0 var(--particle-dragon-color);
     border-radius: 50%;
-    height: var(--pokemon-card-pokemon-size);
-    width: var(--pokemon-card-pokemon-size);
+    height: var(--dialog-pokemon-max-size);
+    width: var(--dialog-pokemon-max-size);
     right: -20%;
     top: 50%;
     transform: translateY(-50%) scale(1.25);
@@ -789,17 +789,17 @@
 }
 
 .overlay-normal:nth-child(1) {
-    height: calc(var(--pokemon-card-pokemon-size) - 0.3 * var(--pokemon-card-pokemon-size));
-    width: calc(var(--pokemon-card-pokemon-size) - 0.3 * var(--pokemon-card-pokemon-size));
-    left: calc(-0.25 * var(--pokemon-card-pokemon-size) + 0.15 * var(--pokemon-card-pokemon-size));
-    padding: calc(0.15 * var(--pokemon-card-pokemon-size));
+    height: calc(var(--dialog-pokemon-max-size) - 0.3 * var(--dialog-pokemon-max-size));
+    width: calc(var(--dialog-pokemon-max-size) - 0.3 * var(--dialog-pokemon-max-size));
+    left: calc(-0.25 * var(--dialog-pokemon-max-size) + 0.15 * var(--dialog-pokemon-max-size));
+    padding: calc(0.15 * var(--dialog-pokemon-max-size));
     top: 50%;
     transform: translateY(-50%);
     background-image: url('../assets/icons/types/normal.svg');
     background-size: contain;
     background-repeat: no-repeat;
     border-left: var(--particle-normal-base-size) solid var(--particle-normal-color);
-    box-shadow: 0 0 30px 0 var(--particle-normal-color);
+    box-shadow: 50px 0 40px var(--particle-normal-color);
     border-radius: 50%;
     animation-duration: 8s;
 }

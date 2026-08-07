@@ -1,13 +1,14 @@
 :root {
     --color-bg-shell: #0e3243;
     --color-bg-shell-accent: #154b65;
-    --color-accent: #a637b9;
+    --color-accent: #b76fc4;
     --color-font-shell: white;
 
     --height-header: 100px;
     --padding-block-content: 40px;
 
-    --spinner-size-small: 75px;
+    --spinner-size: clamp(37.5px, calc((100svw - 400px) * 37.5 / 1000) + 37.5px, 75px);
+    --spinner-line: clamp(4px, calc((100svw - 400px) * 4 / 1000) + 4px, 8px);
     --spinner-color: white;
 
     --pokemon-card-wrapper-width: clamp(150px, calc((100svw - 400px) * 150 / 1000) + 150px, 300px);
@@ -98,7 +99,7 @@
 
     --color-type-steel: #5a8ea1;
     --particle-steel-color: #5a8ea1;
-    --particle-steel-base-size: 2px;
+    --particle-steel-base-size: clamp(2px, calc((100svw - 400px) * 3 / 800 + 2px), 5px);
 
     --color-type-dragon: #0a6dc4;
     --particle-dragon-color: #b9b679;
@@ -110,5 +111,5 @@
 
     --color-type-normal: #9099a1;
     --particle-normal-color: gray;
-    --particle-normal-base-size: 5px;
+    --particle-normal-base-size: 10px;
 }

@@ -14,7 +14,7 @@
         position: relative;
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: clamp(8px, calc((100svw - 400px) * 16 / 1000) + 8px, 20px);
 
         a {
             position: relative;
@@ -148,7 +148,7 @@ footer {
 
 .content-limit-1440p,
 .content-limit-1280p {
-    padding-inline: clamp(16px, calc((100vw - 400px) * 64 / 840 + 16px), 80px);
+    padding-inline: clamp(8px, calc((100vw - 400px) * 72 / 840 + 8px), 80px);
 }
 
 @media screen and (min-width: 1441px) {

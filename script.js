@@ -118,17 +118,14 @@ function renderLocalIds(localIdArray) {
 }
 
 function renderLiked() {
-    if (hasLikes()) {
-        document.getElementById('main-content').innerHTML = '';
-        for (let i = 0; i < localPokes.length; i++) {
-            if (localPokes[i].liked) {
-                renderPokeCardSmall(i);
-            }
+    document.getElementById('main-content').innerHTML = '';
+    for (let i = 0; i < localPokes.length; i++) {
+        if (localPokes[i].liked) {
+            renderPokeCardSmall(i);
         }
-        flavorActiveFavoritesButton();
-    } else {
-        flavorDefaultFavoritesButton();
     }
+    showSearchSuccess();
+    flavorActiveFavoritesButton();
     disableMoreButton();
     updateAnimationFullscreenHeight();
 }
@@ -147,15 +144,15 @@ function hasLikes() {
 function flavorDefaultFavoritesButton() {
     document.getElementById('btn-favorites').onclick = renderLiked;
     document.getElementById('btn-favorites').innerText = 'Favorites';
+    document.getElementById('btn-favorites-wrapper').classList.remove('d-none');
 }
 
 function flavorActiveFavoritesButton() {
-    document.getElementById('btn-favorites').onclick = renderAll;
-    document.getElementById('btn-favorites').innerText = 'Reset';
+    document.getElementById('btn-favorites-wrapper').classList.add('d-none');
 }
 // #endregion render
 
-function processInput() {
+function processSearchBtn() {
     const searchKey = document.getElementById('search-field').value;
 
     if (searchKey.length >= 3) {
@@ -203,7 +200,7 @@ function reset() {
     document.getElementById('btn-reset').classList.add('d-none');
     document.getElementById('btn-reset').disabled = true;
     document.getElementById('search-field').disabled = false;
-    document.getElementById('btn-search').disabled = false;
+    processSearchBtn();
     filterActive = false;
 }
 

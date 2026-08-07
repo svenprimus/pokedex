@@ -57,13 +57,13 @@
 
 @keyframes rotate_steel {
     0% {
-        transform: translateY(-50%) scale(1.25) rotate(0deg);
+        transform: translateY(-50%) scale(1.2) rotate(0deg);
     }
     50% {
-        transform: translateY(-50%) scale(1.25) rotate(-100deg);
+        transform: translateY(-50%) scale(1.2) rotate(-100deg);
     }
     100% {
-        transform: translateY(-50%) scale(1.25) rotate(-360deg);
+        transform: translateY(-50%) scale(1.2) rotate(-360deg);
     }
 }
 

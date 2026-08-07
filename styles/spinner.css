@@ -18,47 +18,51 @@
 .spinner-outside,
 .spinner-inside {
     background-color: #00000000;
-    border: 8px solid var(--spinner-color);
+    border: var(--spinner-line) solid var(--spinner-color);
     border-radius: 50%;
 }
 
 .spinner-outside {
     position: relative;
-    width: var(--spinner-size-small);
-    height: var(--spinner-size-small);
+    width: var(--spinner-size);
+    height: var(--spinner-size);
 }
 
 .spinner-inside {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: calc(var(--spinner-size-small) / 3);
-    height: calc(var(--spinner-size-small) / 3);
+    width: calc(var(--spinner-size) / 3);
+    height: calc(var(--spinner-size) / 3);
     transform: translate(-50%, -50%);
 }
 
 .line-inside-left,
 .line-inside-right {
     position: absolute;
-    width: calc(var(--spinner-size-small) / 3);
+    width: calc(var(--spinner-size) / 3);
     height: 0;
-    border: 4px solid var(--spinner-color);
+    border: calc(0.5 * var(--spinner-line)) solid var(--spinner-color);
     top: 50%;
 }
 
 .line-inside-left {
     left: 0;
-    transform: translate(calc(-1 * var(--spinner-size-small) / 20), -50%);
+    transform: translate(calc(-1 * var(--spinner-size) / 20), -50%);
 }
 
 .line-inside-right {
     right: 0;
-    transform: translate(calc(var(--spinner-size-small) / 20), -50%);
+    transform: translate(calc(var(--spinner-size) / 20), -50%);
 }
 
 @keyframes spin {
     0% {
         transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(90deg);
     }
 
     100% {
