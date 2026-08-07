@@ -276,7 +276,7 @@ body:has(dialog[open]) {
 
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     align-items: flex-end;
     z-index: 0;
 
