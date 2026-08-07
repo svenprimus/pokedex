@@ -72,7 +72,7 @@ function getDialogLikeContent(localId) {
     `;
 }
 
-function getDialogAnimationContent(localId, type) {
+function getDialogAnimationContent(imgUrl, name, type) {
     return /*html*/ `
         <section class="pokemon-bg-card bg-card-${type}">
             <div class="pokemon-bg-type bg-${type}">
@@ -81,8 +81,8 @@ function getDialogAnimationContent(localId, type) {
             <img
                 data-id="dialog-image"
                 class="pokemon-bg-pokemon"
-                src="${localPokes[localId].img}"
-                alt="image of a pokemon called ${localPokes[localId].name}"
+                src="${imgUrl}"
+                alt="image of a pokemon called ${name}"
             />
             <div class="particle-wrapper">
                 <div class="particle particle-${type} particle-animation-${type} particle-shadow-${type}"></div>
@@ -111,22 +111,22 @@ function getDialogAnimationContent(localId, type) {
     `;
 }
 
-function getDialogSliderAnimation(localId) {
+function getDialogSliderAnimation(id) {
     return /*html*/ `
         <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${localPokes[localId].id}.gif"
-            alt="animated pokemon ${localPokes[localId].name}"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${id}.gif"
+            alt="animated pokemon"
         />  
     `;
 }
 
-function getEvolutionBaseContent(localId) {
+function getEvolutionBaseContent(name) {
     return /*html*/ `
-        <button id="button-evo-base" onclick="openDialogByExternId(${localContent.evos[0][0].id})" aria-hidden="true">
+        <button id="button-evo-base" onclick="openDialogByExternId(${localContent.evos[0][0].id})">
             <img
                 class="evo-chain-img"
                 src="${localContent.evos[0][0].img}"
-                alt="base pokemon ${localPokes[localId].name}"
+                alt="base pokemon ${name}"
             />
         </button>
     `;
@@ -149,7 +149,7 @@ function getEvolutionChainSecondWrapper() {
 function getEvolutionChainListElement(stage, index) {
     return /*html*/ `
         <li>
-            <button id="button-evo-${localContent.evos[stage][index].id}" onclick="openDialogByExternId(${localContent.evos[stage][index].id})" aria-hidden="true">
+            <button id="button-evo-${localContent.evos[stage][index].id}" onclick="openDialogByExternId(${localContent.evos[stage][index].id})">
                 <img
                     class="evo-chain-img"
                     src="${localContent.evos[stage][index].img}"
