@@ -16,11 +16,15 @@ button {
     text-decoration: none;
 }
 
+button:active {
+    filter: brightness(0.5);
+}
+
 html {
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }

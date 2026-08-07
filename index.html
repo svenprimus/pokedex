@@ -42,7 +42,7 @@
                         name="search field"
                         value=""
                         aria-labelledby="btn-search"
-                        onkeyup="processInput()"
+                        onkeyup="processSearchBtn()"
                         disabled
                     />
                     <button
@@ -69,7 +69,7 @@
                     </button>
                     <p data-id="not-found" id="nothing-found" class="d-none">Nothing found!</p>
                 </div>
-                <div class="search-field">
+                <div id="btn-favorites-wrapper" class="search-field">
                     <button
                         id="btn-favorites"
                         onclick="renderLiked()"
@@ -94,7 +94,7 @@
             <button
                 data-id="load-more-button"
                 id="btn-more"
-                class="btn-more d-none"
+                class="btn-more"
                 onclick="loadMore(40)"
                 disabled
                 role="button"
@@ -137,7 +137,7 @@
                         onclick="closeDialog()"
                     ></button>
                 </header>
-                <div id="pokemon-bg-wrapper" class="pokemon-bg-wrapper"></div>
+                <div id="pokemon-bg-wrapper" class="pokemon-dialog-bg-wrapper"></div>
                 <div id="dialog-like-wrapper" class="dialog-like-wrapper"></div>
 
                 <section class="dialog-slider">

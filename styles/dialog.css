@@ -35,8 +35,8 @@ body:has(dialog[open]) {
         justify-content: space-between;
         align-items: flex-end;
 
-        width: var(--pokemon-card-width);
-        padding-inline: var(--pokemon-card-border-radius);
+        width: var(--dialog-width);
+        padding-left: var(--pokemon-card-border-radius);
 
         font-family: 'Boogaloo';
         color: white;
@@ -48,11 +48,13 @@ body:has(dialog[open]) {
             font-weight: normal;
             line-height: 100%;
         }
+
         h2 {
-            font-size: 24px;
+            font-size: var(--dialog-name-size);
         }
+
         p {
-            font-size: 18px;
+            font-size: var(--dialog-num-size);
         }
     }
 
@@ -203,12 +205,14 @@ body:has(dialog[open]) {
 }
 /* #endregion particles */
 /* #endregion bg-animated  */
+
 .dialog-like-wrapper {
     position: relative;
     height: 38px;
     background: var(--dialog-color-bg);
     border-left: var(--dialog-border-left);
 
+    .pokemon-dialog-bg-subtype,
     .pokemon-bg-subtype {
         position: absolute;
         height: calc(0.4 * var(--pokemon-card-pokemon-size));
@@ -228,8 +232,14 @@ body:has(dialog[open]) {
         z-index: 1;
     }
 
+    .pokemon-dialog-bg-subtype {
+        height: var(--dialog-subtype-size);
+        width: var(--dialog-subtype-size);
+        padding: calc(0.15 * 0.4 * var(--dialog-pokemon-size));
+    }
+
     .button-like-wrapper {
-        width: var(--pokemon-card-width);
+        width: var(--dialog-width);
         height: 100%;
         display: flex;
         justify-content: flex-end;
@@ -237,8 +247,8 @@ body:has(dialog[open]) {
 
         .button-like {
             margin-right: 5px;
-            width: 24px;
-            height: 24px;
+            width: var(--dialog-like-size);
+            height: var(--dialog-like-size);
             background-size: contain;
             background-repeat: no-repeat;
             background-position: 50%;
@@ -261,13 +271,14 @@ body:has(dialog[open]) {
     background-color: var(--dialog-color-bg);
     border-left: var(--dialog-border-left);
 
-    width: var(--pokemon-card-wrapper-width);
+    width: var(--dialog-wrapper-width);
     height: 150px;
 
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     align-items: flex-end;
+    z-index: 0;
 
     overflow: hidden;
 }
@@ -279,11 +290,12 @@ body:has(dialog[open]) {
 }
 
 .dialog-radio-btn-wrapper {
-    width: calc(0.25 * var(--pokemon-card-wrapper-width));
+    width: calc(0.25 * var(--dialog-wrapper-width));
     label {
         font-family: 'Boogaloo';
         color: white;
         -webkit-text-stroke: 0.3px black;
+        font-size: var(--dialog-label-size);
     }
 
     label:hover {
@@ -296,7 +308,7 @@ body:has(dialog[open]) {
     z-index: 1;
     top: 0;
     height: calc(100% * var(--number-dialog-tabs));
-    width: var(--pokemon-card-width);
+    width: var(--dialog-width);
 
     position: absolute;
     display: flex;
@@ -362,16 +374,18 @@ body:has(dialog[open]) {
     background-color: var(--dialog-color-bg);
     border-left: var(--dialog-border-left);
     min-height: 64px;
-    height: 100px;
+    height: var(--dialog-evolution-height);
     width: 100%;
-    max-width: var(--pokemon-card-wrapper-width);
+    max-width: var(--dialog-wrapper-width);
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    padding-inline: 5px;
+    overflow: auto;
 
     .evo-chain-img {
-        height: 48px;
-        width: 48px;
+        max-height: calc(0.5 * var(--dialog-evolution-height));
+        max-width: calc((var(--dialog-wrapper-width) - 80px) * 0.3);
         padding: 3px;
     }
 
@@ -381,22 +395,19 @@ body:has(dialog[open]) {
     }
 
     ul {
-        list-style-type: none;
+        height: 100%;
 
+        list-style-type: none;
+        overflow: auto;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         justify-content: center;
-
         li {
-            height: 48px;
-            width: 48px;
+            max-height: calc(0.5 * var(--dialog-evolution-height));
+            max-width: calc((var(--dialog-wrapper-width) - 80px) * 0.3);
         }
     }
-
-    /* button {
-        cursor: inherit;
-    } */
 }
 
 .dialog-nav {

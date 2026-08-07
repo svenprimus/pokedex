@@ -52,7 +52,7 @@ function getDialogHeaderContent(nameCapitalized, idPadded) {
 
 function getDialogSubtypeContent(subtype) {
     return /*html*/ `
-        <div id="dialog-subtype" class="pokemon-bg-subtype bg-${subtype}">
+        <div id="dialog-subtype" class="pokemon-dialog-bg-subtype bg-${subtype}">
             <img src="./assets/icons/types/${subtype}.svg" alt="${subtype} type symbol" />
         </div>    
     `;
@@ -74,13 +74,13 @@ function getDialogLikeContent(localId) {
 
 function getDialogAnimationContent(imgUrl, name, type) {
     return /*html*/ `
-        <section class="pokemon-bg-card bg-card-${type}">
-            <div class="pokemon-bg-type bg-${type}">
+        <section class="pokemon-dialog-bg-card bg-card-${type}">
+            <div class="pokemon-dialog-bg-type bg-${type}">
                 <img src="./assets/icons/types/${type}.svg" alt="${type} type symbol" />
             </div>
             <img
                 data-id="dialog-image"
-                class="pokemon-bg-pokemon"
+                class="pokemon-dialog-bg-pokemon"
                 src="${imgUrl}"
                 alt="image of a pokemon called ${name}"
             />
