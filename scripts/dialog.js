@@ -39,12 +39,14 @@ async function nextDialog(localId) {
     document.getElementById('dialog-button-right').classList.add('load-next');
 
     const next = localId + 1;
-    if (next < localPokes.length) {
-        await openDialog(next);
-    } else {
-        await fetchBatchAnimated(1);
-        renderFromLast();
-        await openDialog(next);
+    if (next < maxCountAPI) {
+        if (next < localPokes.length) {
+            await openDialog(next);
+        } else {
+            await fetchBatchAnimated(1);
+            renderFromLast();
+            await openDialog(next);
+        }
     }
 }
 
@@ -54,6 +56,10 @@ async function prevDialog(localId) {
         document.getElementById('dialog-button-left').classList.add('load-previous');
         await openDialog(prev);
     }
+}
+
+function toggleLiked(localId) {
+    // TODO
 }
 
 function setDialogFocusOnTop() {

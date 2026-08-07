@@ -3,6 +3,7 @@ const IMG_BASE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/s
 const IMG_ALT_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
 const localPokes = [];
 let localContent;
+let maxCountAPI = 0;
 let lastRenderd = 0;
 let debounceDialog = false;
 let filterActive = false;
@@ -37,6 +38,7 @@ async function fetchBatchIds(batchSize) {
     const rx = await fetch(BASE_URL + 'pokemon?limit=' + batchSize + '&offset=' + localPokes.length);
     const rxFromJson = await rx.json();
     const fetchedIds = [];
+    maxCountAPI = rxFromJson.count;
     for (let i = 0; i < rxFromJson.results.length; i++) {
         fetchedIds.push(Number(rxFromJson.results[i].url.replace(BASE_URL + 'pokemon/', '').replace('/', '')));
     }
