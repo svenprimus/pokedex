@@ -48,11 +48,13 @@ body:has(dialog[open]) {
             font-weight: normal;
             line-height: 100%;
         }
+
         h2 {
-            font-size: 24px;
+            font-size: var(--pokemon-card-name-size);
         }
+
         p {
-            font-size: 18px;
+            font-size: var(--pokemon-card-num-size);
         }
     }
 

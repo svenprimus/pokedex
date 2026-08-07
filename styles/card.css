@@ -18,13 +18,12 @@
     position: absolute;
     display: flex;
     width: 100%;
-    height: 30px;
     align-items: center;
     justify-content: space-between;
     top: 0;
     z-index: 5;
 
-    padding: 15px calc(0.5 * var(--pokemon-card-border-radius)) 0 var(--pokemon-card-border-radius);
+    padding: calc(0.3 * var(--pokemon-card-border-radius)) calc(0.5 * var(--pokemon-card-border-radius)) 0 var(--pokemon-card-border-radius);
 
     font-family: 'Boogaloo';
     color: white;
@@ -37,11 +36,11 @@
     }
 
     h2 {
-        font-size: 24px;
+        font-size: var(--pokemon-card-name-size);
     }
 
     p {
-        font-size: 18px;
+        font-size: var(--pokemon-card-num-size);
     }
 }
 
@@ -110,8 +109,8 @@
 
     .pokemon-bg-subtype {
         position: absolute;
-        height: calc(0.3 * var(--pokemon-card-pokemon-size));
-        width: calc(0.3 * var(--pokemon-card-pokemon-size));
+        height: calc(0.4 * var(--pokemon-card-pokemon-size));
+        width: calc(0.4 * var(--pokemon-card-pokemon-size));
         left: 25%;
         top: -5px;
         transform: translateY(-100%);

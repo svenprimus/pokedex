@@ -10,13 +10,17 @@
     --spinner-size-small: 75px;
     --spinner-color: white;
 
-    --pokemon-card-wrapper-width: 300px;
-    --pokemon-card-wrapper-height: 200px;
+    --pokemon-card-wrapper-width: clamp(150px, calc((100svw - 400px) * 150 / 1000) + 150px, 300px);
+    --pokemon-card-wrapper-height: clamp(100px, calc((100svw - 400px) * 100 / 1000) + 100px, 200px);
+
     --pokemon-card-width: calc(0.75 * var(--pokemon-card-wrapper-width));
     --pokemon-card-height: var(--pokemon-card-wrapper-height);
-    --pokemon-card-border-radius: 30px;
+    --pokemon-card-border-radius: clamp(20px, calc((100svw - 400px) * 10 / 1000) + 20px, 30px);
+
     --pokemon-card-pokemon-size: calc(0.8 * var(--pokemon-card-wrapper-height));
     --pokemon-card-gap: 20px;
+    --pokemon-card-name-size: clamp(16px, calc((100svw - 400px) * 12 / 800) + 16px, 28px);
+    --pokemon-card-num-size: clamp(14px, calc((100svw - 400px) * 6 / 800) + 14px, 20px);
 
     --dialog-border-left: 1px solid black;
     --dialog-color-bg: white;

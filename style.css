@@ -56,10 +56,10 @@ main {
 }
 
 .btn-more {
-    height: calc(0.5 * var(--pokemon-card-wrapper-height));
-    width: var(--pokemon-card-wrapper-width);
+    height: calc(0.4 * var(--pokemon-card-wrapper-height));
+    width: calc(0.75 * var(--pokemon-card-wrapper-width));
     background-color: rgba(0, 0, 0, 0.3);
-    border-radius: var(--pokemon-card-border-radius);
+    border-radius: calc(0.75 * var(--pokemon-card-border-radius));
     box-shadow: inset 0 0 40px 0px var(--color-accent);
     transition: box-shadow 200ms ease-in-out;
 
@@ -69,13 +69,13 @@ main {
     gap: 10px;
     font-family: 'Boogaloo';
     font-weight: normal;
-    font-size: 40px;
+    font-size: clamp(20px, calc((100svw - 400px) * 20 / 1000) + 20px, 40px);
     color: white;
     -webkit-text-stroke: 0.8px black;
 
     div {
-        width: 20px;
-        height: 20px;
+        width: clamp(10px, calc((100svw - 400px) * 10 / 1000) + 10px, 20px);
+        height: clamp(10px, calc((100svw - 400px) * 10 / 1000) + 10px, 20px);
         background-color: white;
         border-radius: 50%;
         border: 0.8px solid black;
