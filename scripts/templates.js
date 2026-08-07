@@ -131,29 +131,24 @@ function getEvolutionChainFirstWrapper() {
     `;
 }
 
-function getEvolutionChainFirstListElement(index) {
+function getEvolutionChainSecondWrapper() {
+    return /*html*/ `
+        <img class="evo-arrow-img" src="./assets/icons/arrow-evolution-right.svg" alt="arrow right" />
+        <ul id="second-or-multiple-evolution"></ul>
+    `;
+}
+
+function getEvolutionChainListElement(stage, index) {
     return /*html*/ `
         <li>
-            <button id="button-evo-first-${localContent.evos[1][index].id}" onclick="openDialogByExternId(${localContent.evos[1][index].id})" aria-hidden="true">
+            <button id="button-evo-${localContent.evos[stage][index].id}" onclick="openDialogByExternId(${localContent.evos[stage][index].id})" aria-hidden="true">
                 <img
                     class="evo-chain-img"
-                    src="${localContent.evos[1][index].img}"
-                    alt="pokemon evolution with id ${localContent.evos[1][index].id}"
+                    src="${localContent.evos[stage][index].img}"
+                    alt="pokemon evolution with id ${localContent.evos[stage][index].id}"
                 />
             </button>
         </li>
-    `;
-}
-function getEvolutionChainSecondContent(index) {
-    return /*html*/ `
-        <img class="evo-arrow-img" src="./assets/icons/arrow-evolution-right.svg" alt="arrow right" />
-        <button id="button-evo-second-${localContent.evos[2][index].id}" onclick="openDialogByExternId(${localContent.evos[2][index].id})" aria-hidden="true">
-            <img
-                class="evo-chain-img"
-                src="${localContent.evos[2][index].img}"
-                alt="pokemon evolution with id ${localContent.evos[2][index].id}"
-            />
-        </button>
     `;
 }
 // #endregion dialog

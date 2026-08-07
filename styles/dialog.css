@@ -362,6 +362,7 @@ body:has(dialog[open]) {
     background-color: var(--dialog-color-bg);
     border-left: var(--dialog-border-left);
     min-height: 64px;
+    height: 100px;
     width: 100%;
     max-width: var(--pokemon-card-wrapper-width);
     display: flex;

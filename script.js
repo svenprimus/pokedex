@@ -235,8 +235,8 @@ function enableLoadAnimation() {
 }
 
 function disableLoadAnimation() {
-    document.getElementById('search-field').disabled = false;
     if (false === filterActive) {
+        document.getElementById('search-field').disabled = false;
         enableMoreButton();
     }
     disableLoadingDots();

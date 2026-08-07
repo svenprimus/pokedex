@@ -150,12 +150,14 @@ function renderEvolutionChain(localId) {
         evoRef.innerHTML += getEvolutionChainFirstWrapper();
         const evoListRef = document.getElementById('first-or-multiple-evolution');
         for (i = 0; i < localContent.evos[1].length; i++) {
-            evoListRef.innerHTML += getEvolutionChainFirstListElement(i);
+            evoListRef.innerHTML += getEvolutionChainListElement(1, i);
         }
     }
     if (localContent.evos[2].length > 0) {
+        evoRef.innerHTML += getEvolutionChainSecondWrapper(localId);
+        const evoListRef = document.getElementById('second-or-multiple-evolution');
         for (i = 0; i < localContent.evos[2].length; i++) {
-            evoRef.innerHTML += getEvolutionChainSecondContent(i);
+            evoListRef.innerHTML += getEvolutionChainListElement(2, i);
         }
     }
 }
