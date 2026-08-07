@@ -3,6 +3,9 @@ function getPokemonCardSmallBase(localId, type, nameCapitalized, idPadded) {
         <button onclick="openDialog(${localId})"
                 onkeyup="openDialogByEnter(${localId})" 
                 class="small-card-wrapper"
+                aria-controls="pokemon-dialog"
+                aria-label="open pokemon dialog"
+                role="button"
         >
             <div id="card_${localId}">     
                 <header class="small-card-header">
@@ -59,7 +62,8 @@ function getDialogLikeContent(localId) {
                 id="button-like-${localId}"
                 class="button-like button-like-default"
                 onclick="toggleLiked(${localId})"
-                aria-description="add to favorites"
+                aria-label="add to favorites"
+                role="button"
             ></button>
         </div>        
     `;

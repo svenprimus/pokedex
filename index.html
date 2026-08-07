@@ -44,14 +44,40 @@
                         onkeyup="processInput()"
                         disabled
                     />
-                    <button id="btn-search" onclick="filterFromLocal()" disabled>Search</button>
-                    <button id="btn-reset" class="btn-reset d-none" onclick="reset()" disabled>Reset</button>
+                    <button
+                        id="btn-search"
+                        onclick="filterFromLocal()"
+                        disabled
+                        role="button"
+                        aria-controls="main-content"
+                        aria-label="apply search filter"
+                    >
+                        Search
+                    </button>
+                    <button
+                        id="btn-reset"
+                        class="btn-reset d-none"
+                        onclick="reset()"
+                        disabled
+                        role="button"
+                        aria-controls="main-content"
+                        aria-label="reset search filter"
+                    >
+                        Reset
+                    </button>
                     <p id="nothing-found" class="d-none">Nothing found!</p>
                 </div>
                 <div class="search-field">
-                    <button id="btn-favorites" onclick="renderLiked()">Favorites</button>
+                    <button
+                        id="btn-favorites"
+                        onclick="renderLiked()"
+                        role="button"
+                        aria-controls="main-content"
+                        aria-label="filter for favorites"
+                    >
+                        Favorites
+                    </button>
                 </div>
-                
             </nav>
             <div class="header-wave"></div>
         </header>
@@ -63,7 +89,15 @@
 
         <main class="content-limit-1280p">
             <section id="main-content" class="main-content"></section>
-            <button id="btn-more" class="btn-more d-none" onclick="loadMore(40)" disabled>
+            <button
+                id="btn-more"
+                class="btn-more d-none"
+                onclick="loadMore(40)"
+                disabled
+                role="button"
+                aria-controls="main-content"
+                aria-label="load more"
+            >
                 <p id="load-btn-txt" class="d-none">Load more</p>
                 <div id="load-dot-1" class="load-dot-1"></div>
                 <div id="load-dot-2" class="load-dot-2"></div>
@@ -92,9 +126,9 @@
                     <button
                         id="dialog-button-close"
                         class="dialog-button-close"
-                        tabindex="0"
                         aria-controls="pokemon-dialog"
-                        aria-label="previous pokemon"
+                        aria-label="close dialog"
+                        role="button"
                         onkeydown="closeDialogbyEnter()"
                         onclick="closeDialog()"
                     ></button>
@@ -104,17 +138,40 @@
 
                 <section class="dialog-slider">
                     <div class="dialog-radio-btn-wrapper">
-                        <input type="radio" id="radio-about" name="slider" value="one" checked value="one" />
-                        <label for="radio-about">About</label>
+                        <input
+                            type="radio"
+                            id="radio-about"
+                            name="slider"
+                            value="one"
+                            checked
+                            value="one"
+                            role="tab"
+                            aria-labelledby="radio-about-label"
+                        />
+                        <label id="radio-about-label" for="radio-about">About</label>
                     </div>
                     <div class="dialog-radio-btn-wrapper">
-                        <input type="radio" id="radio-base-stats" name="slider" value="two" />
-                        <label for="radio-base-stats">Base Stats</label>
+                        <input
+                            type="radio"
+                            id="radio-base-stats"
+                            name="slider"
+                            value="two"
+                            role="tab"
+                            aria-labelledby="radio-base-stats-label"
+                        />
+                        <label id="radio-base-stats-label" for="radio-base-stats">Base Stats</label>
                     </div>
 
                     <div class="dialog-radio-btn-wrapper">
-                        <input type="radio" id="radio-animation" name="slider" value="three" />
-                        <label for="radio-animation">Animation</label>
+                        <input
+                            type="radio"
+                            id="radio-animation"
+                            name="slider"
+                            value="three"
+                            role="tab"
+                            aria-labelledby="radio-animation-label"
+                        />
+                        <label id="radio-animation-label" for="radio-animation">Animation</label>
                     </div>
 
                     <div id="dialog-slider-wrapper" class="dialog-slider-wrapper">
@@ -182,7 +239,8 @@
                         class="dialog-button-return"
                         tabindex="0"
                         aria-controls="pokemon-dialog"
-                        aria-label="previous pokemon"
+                        aria-label="close dialog"
+                        role="button"
                         onkeydown="closeDialogbyEnter()"
                         onclick="closeDialog()"
                     ></button>
@@ -192,6 +250,7 @@
                         tabindex="0"
                         aria-controls="pokemon-dialog"
                         aria-label="previous pokemon"
+                        role="button"
                     ></button>
                     <button
                         id="dialog-button-right"
@@ -199,6 +258,7 @@
                         tabindex="0"
                         aria-controls="pokemon-dialog"
                         aria-label="next pokemon"
+                        role="button"
                     ></button>
                 </nav>
             </article>
