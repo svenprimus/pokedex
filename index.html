@@ -16,9 +16,10 @@
         <link rel="stylesheet" href="./styles/shell.css" />
         <link rel="stylesheet" href="./style.css" />
         <script src="./scripts/templates.js" defer></script>
+        <script src="./scripts/dialog.js" defer></script>
         <script src="./script.js" defer></script>
     </head>
-    <body onload="init(20)" id="page-top">
+    <body onload="init(1)" id="page-top">
         <div
             id="load-animation-container"
             class="load-animation-container load-animation-enable"
@@ -44,9 +45,13 @@
                         disabled
                     />
                     <button id="btn-search" onclick="filterFromLocal()" disabled>Search</button>
-                    <button id="btn-reset" class="btn-reset d-none"onclick="renderAll()" disabled>Reset</button>
+                    <button id="btn-reset" class="btn-reset d-none" onclick="reset()" disabled>Reset</button>
                     <p id="nothing-found" class="d-none">Nothing found!</p>
                 </div>
+                <div class="search-field">
+                    <button id="btn-favorites" onclick="renderLiked()">Favorites</button>
+                </div>
+                
             </nav>
             <div class="header-wave"></div>
         </header>
@@ -58,13 +63,18 @@
 
         <main class="content-limit-1280p">
             <section id="main-content" class="main-content"></section>
-            <button id="btn-more" class="btn-more d-none" onclick="loadMore(20)" disabled>Load more</button>
+            <button id="btn-more" class="btn-more d-none" onclick="loadMore(40)" disabled>
+                <p id="load-btn-txt" class="d-none">Load more</p>
+                <div id="load-dot-1" class="load-dot-1"></div>
+                <div id="load-dot-2" class="load-dot-2"></div>
+                <div id="load-dot-3" class="load-dot-3"></div>
+            </button>
         </main>
 
         <footer class="content-limit-1440p">
             <div class="footer-content">
                 <p>
-                    © 2026 Sven Primus</br>Ressources: <a href="https://pokeapi.co/" target="_blank">PokéAPI</a>,
+                    © 2026 Sven Primus<br />Ressources: <a href="https://pokeapi.co/" target="_blank">PokéAPI</a>,
                     <a href="https://github.com/duiker101/pokemon-type-svg-icons" target="_blank">duiker101</a>
                 </p>
                 <a href="https://github.com/svenprimus" target="_blank">
@@ -74,5 +84,124 @@
             </div>
             <div class="footer-wave"></div>
         </footer>
+
+        <dialog id="poke-dialog" onclick="closeDialog()" aria-labelledby="dialog-title">
+            <article class="dialog-wrapper" onclick="stopDialogPropagation(event)">
+                <header class="dialog-header">
+                    <div id="dialog-header-content"></div>
+                    <button
+                        id="dialog-button-close"
+                        class="dialog-button-close"
+                        tabindex="0"
+                        aria-controls="pokemon-dialog"
+                        aria-label="previous pokemon"
+                        onkeydown="closeDialogbyEnter()"
+                        onclick="closeDialog()"
+                    ></button>
+                </header>
+                <div id="pokemon-bg-wrapper" class="pokemon-bg-wrapper"></div>
+                <div id="dialog-like-wrapper" class="dialog-like-wrapper"></div>
+
+                <section class="dialog-slider">
+                    <div class="dialog-radio-btn-wrapper">
+                        <input type="radio" id="radio-about" name="slider" value="one" checked value="one" />
+                        <label for="radio-about">About</label>
+                    </div>
+                    <div class="dialog-radio-btn-wrapper">
+                        <input type="radio" id="radio-base-stats" name="slider" value="two" />
+                        <label for="radio-base-stats">Base Stats</label>
+                    </div>
+
+                    <div class="dialog-radio-btn-wrapper">
+                        <input type="radio" id="radio-animation" name="slider" value="three" />
+                        <label for="radio-animation">Animation</label>
+                    </div>
+
+                    <div id="dialog-slider-wrapper" class="dialog-slider-wrapper">
+                        <div class="dialog-slider-element" id="dialog-element-about">
+                            <table class="dialog-table">
+                                <tr>
+                                    <th>Species</th>
+                                    <td id="about-species"></td>
+                                </tr>
+                                <tr>
+                                    <th>Height</th>
+                                    <td id="about-height"></td>
+                                </tr>
+                                <tr>
+                                    <th>Weight</th>
+                                    <td id="about-weight"></td>
+                                </tr>
+                                <tr>
+                                    <th>Abilities</th>
+                                    <td id="about-abilities"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="dialog-slider-element" id="dialog-element-base-stats">
+                            <table class="dialog-table">
+                                <tr>
+                                    <th>HP</th>
+                                    <td id="stats-hp"></td>
+                                </tr>
+                                <tr>
+                                    <th>Attack</th>
+                                    <td id="stats-attack"></td>
+                                </tr>
+                                <tr>
+                                    <th>Defense</th>
+                                    <td id="stats-defense"></td>
+                                </tr>
+                                <tr>
+                                    <th>Sp. Atk</th>
+                                    <td id="stats-attack-sp"></td>
+                                </tr>
+                                <tr>
+                                    <th>Sp. Def</th>
+                                    <td id="stats-defense-sp"></td>
+                                </tr>
+                                <tr>
+                                    <th>Speed</th>
+                                    <td id="stats-speed"></td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td id="stats-total"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="dialog-slider-element justify-center" id="dialog-element-animation"></div>
+                    </div>
+                </section>
+
+                <section id="dialog-evolution-chain" class="dialog-evolution-chain"></section>
+
+                <nav id="dialog-nav" class="dialog-nav">
+                    <button
+                        id="dialog-button-return"
+                        class="dialog-button-return"
+                        tabindex="0"
+                        aria-controls="pokemon-dialog"
+                        aria-label="previous pokemon"
+                        onkeydown="closeDialogbyEnter()"
+                        onclick="closeDialog()"
+                    ></button>
+                    <button
+                        id="dialog-button-left"
+                        class="dialog-button-left"
+                        tabindex="0"
+                        aria-controls="pokemon-dialog"
+                        aria-label="previous pokemon"
+                    ></button>
+                    <button
+                        id="dialog-button-right"
+                        class="dialog-button-right"
+                        tabindex="0"
+                        aria-controls="pokemon-dialog"
+                        aria-label="next pokemon"
+                    ></button>
+                </nav>
+            </article>
+        </dialog>
     </body>
 </html>
