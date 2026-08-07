@@ -36,6 +36,7 @@
                 </a>
                 <div class="search-field">
                     <input
+                        data-id="search-input"
                         id="search-field"
                         type="text"
                         name="search field"
@@ -45,6 +46,7 @@
                         disabled
                     />
                     <button
+                        data-id="search-button"
                         id="btn-search"
                         onclick="filterFromLocal()"
                         disabled
@@ -65,7 +67,7 @@
                     >
                         Reset
                     </button>
-                    <p id="nothing-found" class="d-none">Nothing found!</p>
+                    <p data-id="not-found" id="nothing-found" class="d-none">Nothing found!</p>
                 </div>
                 <div class="search-field">
                     <button
@@ -87,9 +89,10 @@
             <h2>Pokédex</h2>
         </header>
 
-        <main class="content-limit-1280p">
+        <main data-id="content" class="content-limit-1280p">
             <section id="main-content" class="main-content"></section>
             <button
+                data-id="load-more-button"
                 id="btn-more"
                 class="btn-more d-none"
                 onclick="loadMore(40)"
@@ -119,11 +122,12 @@
             <div class="footer-wave"></div>
         </footer>
 
-        <dialog id="poke-dialog" onclick="closeDialog()" aria-labelledby="dialog-title">
-            <article class="dialog-wrapper" onclick="stopDialogPropagation(event)">
+        <dialog data-id="dialog" id="poke-dialog" onclick="closeDialog()" aria-labelledby="dialog-title">
+            <article data-id="overlay-pokemon-name" class="dialog-wrapper" onclick="stopDialogPropagation(event)">
                 <header class="dialog-header">
                     <div id="dialog-header-content"></div>
                     <button
+                        data-id="close-dialog-button"
                         id="dialog-button-close"
                         class="dialog-button-close"
                         aria-controls="pokemon-dialog"
@@ -245,6 +249,7 @@
                         onclick="closeDialog()"
                     ></button>
                     <button
+                        data-id="prev-button"
                         id="dialog-button-left"
                         class="dialog-button-left"
                         tabindex="0"
@@ -253,6 +258,7 @@
                         role="button"
                     ></button>
                     <button
+                        data-id="next-button"
                         id="dialog-button-right"
                         class="dialog-button-right"
                         tabindex="0"

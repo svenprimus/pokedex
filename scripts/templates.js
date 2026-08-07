@@ -1,11 +1,13 @@
 function getPokemonCardSmallBase(localId, type, nameCapitalized, idPadded) {
     return /*html*/ `
-        <button onclick="openDialog(${localId})"
-                onkeyup="openDialogByEnter(${localId})" 
-                class="small-card-wrapper"
-                aria-controls="pokemon-dialog"
-                aria-label="open pokemon dialog"
-                role="button"
+        <button 
+            data-id="card"
+            onclick="openDialog(${localId})"
+            onkeyup="openDialogByEnter(${localId})" 
+            class="small-card-wrapper"
+            aria-controls="pokemon-dialog"
+            aria-label="open pokemon dialog"
+            role="button"
         >
             <div id="card_${localId}">     
                 <header class="small-card-header">
@@ -17,7 +19,8 @@ function getPokemonCardSmallBase(localId, type, nameCapitalized, idPadded) {
                         <div class="pokemon-bg-type bg-type-small bg-${type}">
                             <img src="./assets/icons/types/${type}.svg" alt="${type} type symbol" />
                         </div>
-                        <img
+                        <img 
+                            data-id="card-image"
                             class="pokemon-bg-pokemon pokemon-bg-small"
                             src="${localPokes[localId].img}"
                             alt="image of a pokemon called ${localPokes[localId].name}"
@@ -76,6 +79,7 @@ function getDialogAnimationContent(localId, type) {
                 <img src="./assets/icons/types/${type}.svg" alt="${type} type symbol" />
             </div>
             <img
+                data-id="dialog-image"
                 class="pokemon-bg-pokemon"
                 src="${localPokes[localId].img}"
                 alt="image of a pokemon called ${localPokes[localId].name}"
