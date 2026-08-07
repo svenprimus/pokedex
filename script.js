@@ -282,7 +282,7 @@ function disableMoreButton() {
 
 function updateAnimationFullscreenHeight() {
     document.documentElement.style.scrollBehavior = 'auto';
-    const height = Math.max(document.body.scrollHeight, document.body.offsetHeight);
+    const height = Math.max(document.body.scrollHeight - 1, document.body.offsetHeight - 1);
     document.getElementById('load-animation-container').style.height = `${height}px`;
     window.scrollTo(0, height);
     document.documentElement.style.scrollBehavior = 'smooth';
