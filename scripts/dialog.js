@@ -108,7 +108,7 @@ function renderDialogAnimationContent(localId) {
             wrapperRef.classList.remove(item);
         }
     }
-    wrapperRef.classList.add(`pokemon-bg-wrapper-shadow-${localPokes[localId].type_1}`);
+    wrapperRef.classList.add(`pokemon-bg-wrapper-shadow-${types.type_1}`);
 }
 
 function renderDialogSubtypeContent(localId) {
