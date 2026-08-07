@@ -122,7 +122,7 @@
             <div class="footer-wave"></div>
         </footer>
 
-        <dialog data-id="dialog" id="poke-dialog" onclick="closeDialog()" aria-labelledby="dialog-title">
+        <dialog data-id="dialog" id="poke-dialog" onclick="closeDialogbyEnter()" aria-labelledby="dialog-title">
             <article data-id="overlay-pokemon-name" class="dialog-wrapper" onclick="stopDialogPropagation(event)">
                 <header class="dialog-header">
                     <div id="dialog-header-content"></div>
@@ -241,7 +241,6 @@
                     <button
                         id="dialog-button-return"
                         class="dialog-button-return"
-                        tabindex="0"
                         aria-controls="pokemon-dialog"
                         aria-label="close dialog"
                         role="button"
@@ -252,7 +251,6 @@
                         data-id="prev-button"
                         id="dialog-button-left"
                         class="dialog-button-left"
-                        tabindex="0"
                         aria-controls="pokemon-dialog"
                         aria-label="previous pokemon"
                         role="button"
@@ -261,7 +259,6 @@
                         data-id="next-button"
                         id="dialog-button-right"
                         class="dialog-button-right"
-                        tabindex="0"
                         aria-controls="pokemon-dialog"
                         aria-label="next pokemon"
                         role="button"

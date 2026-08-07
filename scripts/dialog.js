@@ -1,5 +1,15 @@
 let dialogPokeById;
 
+function openDialogByEnter(localId) {
+    if (event.key === 'Enter') {
+        if (false === debounceDialog) {
+            openDialog(localId);
+        } else {
+            debounceDialog = false;
+        }
+    }
+}
+
 async function openDialog(localId) {
     enableLoadAnimation();
     await fetchDialogContent(localPokes[localId].id);
@@ -35,16 +45,6 @@ function findInLocals(externId) {
     return found;
 }
 
-function openDialogByEnter(localId) {
-    if (event.key === 'Enter') {
-        if (false === debounceDialog) {
-            openDialog(localId);
-        } else {
-            debounceDialog = false;
-        }
-    }
-}
-
 document.getElementById('poke-dialog').addEventListener('close', () => {
     document.getElementById('poke-dialog').classList.remove('opened');
 });
@@ -57,8 +57,10 @@ function closeDialog() {
 }
 
 function closeDialogbyEnter() {
-    closeDialog();
-    debounceDialog = true;
+    if (event.key === 'Enter') {
+        closeDialog();
+        debounceDialog = true;
+    }
 }
 
 async function nextDialog(localId, openFunction) {
