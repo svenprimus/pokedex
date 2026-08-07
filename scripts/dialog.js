@@ -1,3 +1,5 @@
+let dialogPokeById;
+
 async function openDialog(localId) {
     enableLoadAnimation();
     await fetchDialogContent(localPokes[localId].id);
@@ -7,6 +9,30 @@ async function openDialog(localId) {
     dialogRef.classList.add('opened');
     setDialogFocusOnTop();
     disableLoadAnimation();
+}
+
+function openDialogByExternId(externId) {
+    const search = findInLocals(externId);
+    if (search.found) {
+        document.getElementById('dialog-button-left').classList.add('load-previous');
+        openDialog(search.id);
+    } else {
+        document.getElementById('dialog-button-right').classList.add('load-next');
+        document.getElementById('dialog-button-left').classList.add('load-previous');
+        openDialogByPokeId(externId);
+    }
+}
+
+function findInLocals(externId) {
+    const found = { found: false, id: externId };
+    for (let i = 0; i < localPokes.length; i++) {
+        if (localPokes[i].id === externId) {
+            found.found = true;
+            found.id = i;
+            break;
+        }
+    }
+    return found;
 }
 
 function openDialogByEnter(localId) {
@@ -23,10 +49,6 @@ document.getElementById('poke-dialog').addEventListener('close', () => {
     document.getElementById('poke-dialog').classList.remove('opened');
 });
 
-function openDialogByExternId(externId) {
-    // TODO nice stuff for future
-}
-
 function closeDialog() {
     const dialogRef = document.getElementById('poke-dialog');
     dialogRef.classList.remove('opened');
@@ -39,26 +61,26 @@ function closeDialogbyEnter() {
     debounceDialog = true;
 }
 
-async function nextDialog(localId) {
+async function nextDialog(localId, openFunction) {
     document.getElementById('dialog-button-right').classList.add('load-next');
 
     const next = localId + 1;
     if (next < maxCountAPI) {
         if (next < localPokes.length) {
-            await openDialog(next);
+            await openFunction(next);
         } else {
             await fetchBatchAnimated(1);
             renderFromLast();
-            await openDialog(next);
+            await openFunction(next);
         }
     }
 }
 
-async function prevDialog(localId) {
+async function prevDialog(localId, openFunction) {
     const prev = localId - 1;
     if (prev >= 0) {
         document.getElementById('dialog-button-left').classList.add('load-previous');
-        await openDialog(prev);
+        await openFunction(prev);
     }
 }
 
@@ -72,8 +94,8 @@ function setDialogFocusOnTop() {
     dialogCloseRef.focus();
 }
 
-function swapTypesIfNormal(localId) {
-    let types = { type_1: localPokes[localId].type_1, type_2: localPokes[localId].type_2 };
+function swapTypesIfNormal(type_1, type_2) {
+    let types = { type_1: type_1, type_2: type_2 };
 
     if (types.type_2 != null && types.type_1 === 'normal') {
         const temp = types.type_1;
@@ -87,8 +109,8 @@ function renderDialog(localId) {
     renderDialogHeader(localId);
     renderDialogAnimationContent(localId);
     renderDialogSubtypeContent(localId);
-    renderDialogSliderContent(localId);
-    renderEvolutionChain(localId);
+    renderDialogSliderContent(localPokes[localId].id);
+    renderEvolutionChain(localPokes[localId].name);
     renderPageButtons(localId);
 }
 
@@ -99,20 +121,20 @@ function renderDialogHeader(localId) {
 }
 
 function renderDialogAnimationContent(localId) {
-    const types = swapTypesIfNormal(localId);
+    const types = swapTypesIfNormal(localPokes[localId].type_1, localPokes[localId].type_2);
     const wrapperRef = document.getElementById('pokemon-bg-wrapper');
-    wrapperRef.innerHTML = getDialogAnimationContent(localId, types.type_1);
+    wrapperRef.innerHTML = getDialogAnimationContent(localPokes[localId].img, localPokes[localId].name, types.type_1);
 
     for (let item of wrapperRef.classList.values()) {
         if (item.includes('pokemon-bg-wrapper-shadow-')) {
             wrapperRef.classList.remove(item);
         }
     }
-    wrapperRef.classList.add(`pokemon-bg-wrapper-shadow-${localPokes[localId].type_1}`);
+    wrapperRef.classList.add(`pokemon-bg-wrapper-shadow-${types.type_1}`);
 }
 
 function renderDialogSubtypeContent(localId) {
-    const types = swapTypesIfNormal(localId);
+    const types = swapTypesIfNormal(localPokes[localId].type_1, localPokes[localId].type_2);
     if (types.type_2 != null) {
         document.getElementById('dialog-like-wrapper').innerHTML = getDialogSubtypeContent(types.type_2);
     } else {
@@ -132,7 +154,7 @@ function renderLikedButton(localId) {
     }
 }
 
-function renderDialogSliderContent(localId) {
+function renderDialogSliderContent(id) {
     document.getElementById('about-species').innerText = localContent.about.species;
     document.getElementById('about-height').innerText = localContent.about.height;
     document.getElementById('about-weight').innerText = localContent.about.weight;
@@ -144,12 +166,12 @@ function renderDialogSliderContent(localId) {
     document.getElementById('stats-defense-sp').innerText = localContent.stats.spDefense;
     document.getElementById('stats-speed').innerText = localContent.stats.speed;
     document.getElementById('stats-total').innerText = localContent.stats.total;
-    document.getElementById('dialog-element-animation').innerHTML = getDialogSliderAnimation(localId);
+    document.getElementById('dialog-element-animation').innerHTML = getDialogSliderAnimation(id);
 }
 
-function renderEvolutionChain(localId) {
+function renderEvolutionChain(name) {
     const evoRef = document.getElementById('dialog-evolution-chain');
-    evoRef.innerHTML = getEvolutionBaseContent(localId);
+    evoRef.innerHTML = getEvolutionBaseContent(name);
     if (localContent.evos[1].length > 0) {
         evoRef.innerHTML += getEvolutionChainFirstWrapper();
         const evoListRef = document.getElementById('first-or-multiple-evolution');
@@ -158,7 +180,7 @@ function renderEvolutionChain(localId) {
         }
     }
     if (localContent.evos[2].length > 0) {
-        evoRef.innerHTML += getEvolutionChainSecondWrapper(localId);
+        evoRef.innerHTML += getEvolutionChainSecondWrapper();
         const evoListRef = document.getElementById('second-or-multiple-evolution');
         for (i = 0; i < localContent.evos[2].length; i++) {
             evoListRef.innerHTML += getEvolutionChainListElement(2, i);
@@ -167,9 +189,8 @@ function renderEvolutionChain(localId) {
 }
 
 function renderPageButtons(localId) {
-    document.getElementById('dialog-button-left').onclick = () => prevDialog(localId);
-    document.getElementById('dialog-button-right').onclick = () => nextDialog(localId);
-
+    document.getElementById('dialog-button-left').onclick = () => prevDialog(localId, openDialog);
+    document.getElementById('dialog-button-right').onclick = () => nextDialog(localId, openDialog);
     document.getElementById('dialog-button-left').disabled = localId === 0;
 }
 
@@ -252,3 +273,78 @@ async function loadMore(batchSize) {
 function stopDialogPropagation(event) {
     event.stopPropagation();
 }
+
+// #region render by external id
+async function openDialogByPokeId(pokeId) {
+    enableLoadAnimation();
+    document.getElementById('dialog-button-right').classList.add('load-next');
+    await fetchDialogContent(pokeId);
+    const poke = await fetchPokemon(pokeId);
+    setExternalPokeContainer(poke);
+    const dialogRef = document.getElementById('poke-dialog');
+    renderDialogByPokeId();
+    dialogRef.showModal();
+    dialogRef.classList.add('opened');
+    setDialogFocusOnTop();
+    disableLoadAnimation();
+}
+
+function setExternalPokeContainer(poke) {
+    dialogPokeById = {
+        id: poke.id,
+        name: poke.name,
+        type_1: poke.types[0].type.name,
+        type_2: poke.types.length > 1 ? poke.types[1].type.name : null,
+        img: getImgUrl(poke.sprites.other.dream_world.front_default, poke.id),
+        liked: false,
+    };
+}
+
+function renderDialogByPokeId() {
+    renderDialogHeaderById();
+    renderDialogAnimationContentById();
+    renderDialogSubtypeContentById();
+    renderDialogSliderContent(dialogPokeById.id);
+    renderEvolutionChain(dialogPokeById.name);
+    renderPageButtonsById();
+}
+
+function renderDialogHeaderById() {
+    const idPadded = String(dialogPokeById.id).padStart(4, '0');
+    const nameCapitalized = capitalize(dialogPokeById.name);
+    document.getElementById('dialog-header-content').innerHTML = getDialogHeaderContent(nameCapitalized, idPadded);
+}
+
+function renderDialogAnimationContentById() {
+    const types = swapTypesIfNormal(dialogPokeById.type_1, dialogPokeById.type_2);
+    const wrapperRef = document.getElementById('pokemon-bg-wrapper');
+    wrapperRef.innerHTML = getDialogAnimationContent(dialogPokeById.img, dialogPokeById.name, types.type_1);
+
+    for (let item of wrapperRef.classList.values()) {
+        if (item.includes('pokemon-bg-wrapper-shadow-')) {
+            wrapperRef.classList.remove(item);
+        }
+    }
+    wrapperRef.classList.add(`pokemon-bg-wrapper-shadow-${types.type_1}`);
+}
+
+function renderDialogSubtypeContentById() {
+    const types = swapTypesIfNormal(dialogPokeById.type_1, dialogPokeById.type_2);
+    if (types.type_2 != null) {
+        document.getElementById('dialog-like-wrapper').innerHTML = getDialogSubtypeContent(types.type_2);
+    } else {
+        document.getElementById('dialog-like-wrapper').innerHTML = '';
+    }
+    const search = findInLocals(dialogPokeById.id);
+    if (search.found) {
+        document.getElementById('dialog-like-wrapper').innerHTML += getDialogLikeContent(search.id);
+        renderLikedButton(search.id);
+    }
+}
+
+function renderPageButtonsById() {
+    document.getElementById('dialog-button-left').onclick = () => prevDialog(dialogPokeById.id, openDialogByExternId);
+    document.getElementById('dialog-button-right').onclick = () => nextDialog(dialogPokeById.id, openDialogByExternId);
+    document.getElementById('dialog-button-left').disabled = dialogPokeById.id === 0;
+}
+// #endregion render by external id

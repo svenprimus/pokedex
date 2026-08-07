@@ -294,13 +294,13 @@ function updateAnimationFullscreenHeight() {
 function renderPokeCardSmall(localId) {
     const mainRef = document.getElementById('main-content');
     const idPadded = String(localPokes[localId].id).padStart(4, '0');
-    const types = swapTypesIfNormal(localId);
+    const types = swapTypesIfNormal(localPokes[localId].type_1, localPokes[localId].type_2);
     mainRef.innerHTML += getPokemonCardSmallBase(localId, types.type_1, capitalize(localPokes[localId].name), idPadded);
     renderPokemonCardSmallSubtype(localId);
 }
 
 function renderPokemonCardSmallSubtype(localId) {
-    const types = swapTypesIfNormal(localId);
+    const types = swapTypesIfNormal(localPokes[localId].type_1, localPokes[localId].type_2);
     if (types.type_2 !== null) {
         const cardRef = document.getElementById('card_' + localId);
         cardRef.innerHTML += getPokemonCardSmallSubtype(types.type_2);
