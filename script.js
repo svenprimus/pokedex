@@ -30,6 +30,7 @@ async function fetchBatch(batchSize) {
             type_1: poke.types[0].type.name,
             type_2: poke.types.length > 1 ? poke.types[1].type.name : null,
             img: getImgUrl(poke.sprites.other.dream_world.front_default, fetchedIds[i]),
+            liked: false,
         });
     }
 }
@@ -94,6 +95,7 @@ function renderAll() {
     for (let i = 0; i < localPokes.length; i++) {
         renderPokeCardSmall(i);
     }
+    flavorDefaultFavoritesButton();
     enableMoreButton();
     updateAnimationFullscreenHeight();
 }
@@ -113,6 +115,43 @@ function renderLocalIds(localIdArray) {
     }
     disableMoreButton();
     updateAnimationFullscreenHeight();
+}
+
+function renderLiked() {
+    if (hasLikes()) {
+        document.getElementById('main-content').innerHTML = '';
+        for (let i = 0; i < localPokes.length; i++) {
+            if (localPokes[i].liked) {
+                renderPokeCardSmall(i);
+            }
+        }
+        flavorActiveFavoritesButton();
+    } else {
+        flavorDefaultFavoritesButton();
+    }
+    disableMoreButton();
+    updateAnimationFullscreenHeight();
+}
+
+function hasLikes() {
+    let hasLikes = false;
+    for (let i = 0; i < localPokes.length; i++) {
+        if (localPokes[i].liked) {
+            hasLikes = true;
+            break;
+        }
+    }
+    return hasLikes;
+}
+
+function flavorDefaultFavoritesButton() {
+    document.getElementById('btn-favorites').onclick = renderLiked;
+    document.getElementById('btn-favorites').innerText = 'Favorites';
+}
+
+function flavorActiveFavoritesButton() {
+    document.getElementById('btn-favorites').onclick = renderAll;
+    document.getElementById('btn-favorites').innerText = 'Reset';
 }
 // #endregion render
 

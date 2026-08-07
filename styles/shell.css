@@ -14,7 +14,7 @@
         position: relative;
         display: flex;
         align-items: center;
-        gap: 32px;
+        gap: 20px;
 
         a {
             position: relative;
@@ -28,7 +28,7 @@
             list-style-type: none;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 12px;
 
             p {
                 color: var(--color-accent);

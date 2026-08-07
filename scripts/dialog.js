@@ -59,7 +59,8 @@ async function prevDialog(localId) {
 }
 
 function toggleLiked(localId) {
-    // TODO
+    localPokes[localId].liked = !localPokes[localId].liked;
+    renderLikedButton(localId);
 }
 
 function setDialogFocusOnTop() {
@@ -114,6 +115,17 @@ function renderDialogSubtypeContent(localId) {
         document.getElementById('dialog-like-wrapper').innerHTML = '';
     }
     document.getElementById('dialog-like-wrapper').innerHTML += getDialogLikeContent(localId);
+    renderLikedButton(localId);
+}
+
+function renderLikedButton(localId) {
+    if (localPokes[localId].liked) {
+        document.getElementById(`button-like-${localId}`).classList.remove('button-like-default');
+        document.getElementById(`button-like-${localId}`).classList.add('button-like-liked');
+    } else {
+        document.getElementById(`button-like-${localId}`).classList.add('button-like-default');
+        document.getElementById(`button-like-${localId}`).classList.remove('button-like-liked');
+    }
 }
 
 function renderDialogSliderContent(localId) {
