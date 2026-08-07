@@ -19,6 +19,10 @@ function openDialogByEnter(localId) {
     }
 }
 
+document.getElementById('poke-dialog').addEventListener('close', () => {
+    document.getElementById('poke-dialog').classList.remove('opened');
+});
+
 function openDialogByExternId(externId) {
     // TODO nice stuff for future
 }
