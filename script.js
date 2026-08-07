@@ -130,17 +130,6 @@ function renderLiked() {
     updateAnimationFullscreenHeight();
 }
 
-function hasLikes() {
-    let hasLikes = false;
-    for (let i = 0; i < localPokes.length; i++) {
-        if (localPokes[i].liked) {
-            hasLikes = true;
-            break;
-        }
-    }
-    return hasLikes;
-}
-
 function flavorDefaultFavoritesButton() {
     document.getElementById('btn-favorites').onclick = renderLiked;
     document.getElementById('btn-favorites').innerText = 'Favorites';
