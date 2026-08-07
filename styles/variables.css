@@ -16,14 +16,27 @@
     --pokemon-card-width: calc(0.75 * var(--pokemon-card-wrapper-width));
     --pokemon-card-height: var(--pokemon-card-wrapper-height);
     --pokemon-card-border-radius: clamp(20px, calc((100svw - 400px) * 10 / 1000) + 20px, 30px);
-
     --pokemon-card-pokemon-size: calc(0.8 * var(--pokemon-card-wrapper-height));
+    --pokemon-card-type-size: var(--pokemon-card-pokemon-size);
     --pokemon-card-gap: 20px;
     --pokemon-card-name-size: clamp(16px, calc((100svw - 400px) * 12 / 800) + 16px, 28px);
     --pokemon-card-num-size: clamp(14px, calc((100svw - 400px) * 6 / 800) + 14px, 20px);
 
     --dialog-border-left: 1px solid black;
     --dialog-color-bg: white;
+    --dialog-wrapper-width: min(80svw, 500px);
+    --dialog-wrapper-height: min(40svw, 350px);
+    --dialog-width: calc(0.75 * var(--dialog-wrapper-width));
+    --dialog-height: var(--dialog-wrapper-height);
+    --dialog-pokemon-size: calc(1 * var(--dialog-wrapper-height));
+    --dialog-pokemon-max-size: calc(0.8 * var(--dialog-wrapper-height));
+    --dialog-type-size: calc(0.8 * var(--dialog-pokemon-size));
+    --dialog-subtype-size: calc(0.3 * var(--dialog-pokemon-size));
+    --dialog-like-size: clamp(24px, calc((100svw - 400px) * 14 / 800) + 24px, 38px);
+    --dialog-name-size: clamp(16px, calc((100svw - 400px) * 16 / 800) + 16px, 32px);
+    --dialog-num-size: clamp(14px, calc((100svw - 400px) * 10 / 800) + 14px, 24px);
+    --dialog-label-size: clamp(16px, calc((100svw - 400px) * 8 / 600) + 16px, 24px);
+    --dialog-evolution-height: 100px;
 
     --number-dialog-tabs: 3;
 

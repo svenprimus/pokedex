@@ -1,15 +1,15 @@
 @keyframes rise {
     0% {
-        top: calc(var(--pokemon-card-wrapper-height) + 100px);
+        top: calc(var(--dialog-wrapper-height) + 100px);
         transform: translateX(0);
     }
     50% {
-        transform: translateX(calc(0.4 * var(--pokemon-card-wrapper-width)))
-            translateY(calc(-0.66 * var(--pokemon-card-wrapper-height)));
+        transform: translateX(calc(0.4 * var(--dialog-wrapper-width)))
+            translateY(calc(-0.66 * var(--dialog-wrapper-height)));
     }
     100% {
         top: -100px;
-        transform: translateX(calc(0.5 * var(--pokemon-card-wrapper-width)));
+        transform: translateX(calc(0.5 * var(--dialog-wrapper-width)));
     }
 }
 
@@ -19,10 +19,10 @@
         transform: translateX(0);
     }
     50% {
-        transform: translateX(100px) translateY(calc(0.66 * var(--pokemon-card-wrapper-height)));
+        transform: translateX(100px) translateY(calc(0.66 * var(--dialog-wrapper-height)));
     }
     100% {
-        top: calc(var(--pokemon-card-wrapper-height) + 100px);
+        top: calc(var(--dialog-wrapper-height) + 100px);
         transform: translateX(-200px);
     }
 }
@@ -32,7 +32,7 @@
         top: -100px;
     }
     100% {
-        top: calc(var(--pokemon-card-wrapper-height) + 100px);
+        top: calc(var(--dialog-wrapper-height) + 100px);
     }
 }
 
@@ -41,7 +41,7 @@
         left: -100px;
     }
     100% {
-        left: calc(var(--pokemon-card-wrapper-width) + 100px);
+        left: calc(var(--dialog-wrapper-width) + 100px);
     }
 }
 
@@ -50,7 +50,7 @@
         left: -100px;
     }
     100% {
-        left: calc(var(--pokemon-card-wrapper-width) + 100px);
+        left: calc(var(--dialog-wrapper-width) + 100px);
         transform: rotateY(180deg);
     }
 }

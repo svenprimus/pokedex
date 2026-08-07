@@ -23,7 +23,8 @@
     top: 0;
     z-index: 5;
 
-    padding: calc(0.3 * var(--pokemon-card-border-radius)) calc(0.5 * var(--pokemon-card-border-radius)) 0 var(--pokemon-card-border-radius);
+    padding: calc(0.3 * var(--pokemon-card-border-radius)) calc(0.5 * var(--pokemon-card-border-radius)) 0
+        var(--pokemon-card-border-radius);
 
     font-family: 'Boogaloo';
     color: white;
@@ -44,13 +45,14 @@
     }
 }
 
+.pokemon-dialog-bg-type,
 .pokemon-bg-type {
     position: absolute;
-    height: var(--pokemon-card-pokemon-size);
-    width: var(--pokemon-card-pokemon-size);
-    left: calc(-0.25 * var(--pokemon-card-pokemon-size));
+    height: var(--pokemon-card-type-size);
+    width: var(--pokemon-card-type-size);
+    left: calc(-0.25 * var(--pokemon-card-type-size));
     border-radius: 50%;
-    padding: calc(0.15 * var(--pokemon-card-pokemon-size));
+    padding: calc(0.15 * var(--pokemon-card-type-size));
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
     background-size: cover;
 
@@ -61,12 +63,21 @@
     z-index: 2;
 }
 
+.pokemon-dialog-bg-type {
+    height: var(--dialog-type-size);
+    width: var(--dialog-type-size);
+    left: calc(-0.25 * var(--dialog-type-size));
+    border-radius: 50%;
+    padding: calc(0.15 * var(--dialog-type-size));
+}
+
 .bg-type-small {
     bottom: 5%;
     height: calc(0.9 * var(--pokemon-card-pokemon-size));
     width: calc(0.9 * var(--pokemon-card-pokemon-size));
 }
 
+.pokemon-dialog-bg-pokemon,
 .pokemon-bg-pokemon {
     position: absolute;
     height: var(--pokemon-card-pokemon-size);
@@ -75,6 +86,14 @@
     z-index: 3;
 }
 
+.pokemon-dialog-bg-pokemon {
+    height: var(--dialog-pokemon-size);
+    width: var(--dialog-pokemon-size);
+    max-height: var(--dialog-pokemon-max-size);
+    max-width: var(--dialog-pokemon-max-size);
+}
+
+.pokemon-dialog-bg-wrapper,
 .pokemon-bg-wrapper {
     width: var(--pokemon-card-wrapper-width);
     min-width: var(--pokemon-card-wrapper-width);
@@ -85,6 +104,12 @@
     border-left: var(--dialog-border-left);
 }
 
+.pokemon-dialog-bg-wrapper {
+    width: var(--dialog-wrapper-width);
+    height: var(--dialog-wrapper-height);
+}
+
+.pokemon-dialog-bg-card,
 .pokemon-bg-card {
     width: var(--pokemon-card-width);
     height: var(--pokemon-card-height);
@@ -94,6 +119,11 @@
     justify-content: flex-end;
     border-top-left-radius: var(--pokemon-card-border-radius);
     border-top-right-radius: var(--pokemon-card-border-radius);
+}
+
+.pokemon-dialog-bg-card {
+    width: var(--dialog-width);
+    height: var(--dialog-height);
 }
 
 .pokemon-bg-small {
