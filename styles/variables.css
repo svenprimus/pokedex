@@ -7,7 +7,7 @@
     --height-header: 100px;
     --padding-block-content: 40px;
 
-    --spinner-size: clamp(37.5px, calc((100svw - 400px) * 37.5 / 1000) + 37.5px, 75px);
+    --spinner-size: clamp(46px, calc((100svw - 400px) * 29 / 1000) + 46px, 75px);
     --spinner-line: clamp(4px, calc((100svw - 400px) * 4 / 1000) + 4px, 8px);
     --spinner-color: white;
 
@@ -29,16 +29,20 @@
     --dialog-wrapper-height: min(40svw, 350px);
     --dialog-width: calc(0.75 * var(--dialog-wrapper-width));
     --dialog-height: var(--dialog-wrapper-height);
+    --dialog-max-height: 90svh;
+    --dialog-header-height: 30px;
     --dialog-pokemon-size: calc(1 * var(--dialog-wrapper-height));
     --dialog-pokemon-max-size: calc(0.8 * var(--dialog-wrapper-height));
     --dialog-type-size: calc(0.8 * var(--dialog-pokemon-size));
     --dialog-subtype-size: calc(0.3 * var(--dialog-pokemon-size));
+    --dialog-like-wrapper-height: 38px;
     --dialog-like-size: clamp(24px, calc((100svw - 400px) * 14 / 800) + 24px, 38px);
     --dialog-name-size: clamp(16px, calc((100svw - 400px) * 16 / 800) + 16px, 32px);
     --dialog-num-size: clamp(14px, calc((100svw - 400px) * 10 / 800) + 14px, 24px);
     --dialog-label-size: clamp(16px, calc((100svw - 400px) * 8 / 600) + 16px, 24px);
     --dialog-evolution-height: 100px;
-
+    --dialog-slider-height: 150px;
+    --dialog-nav-height: 48px;
     --number-dialog-tabs: 3;
 
     --color-type-water: #4d90d6;

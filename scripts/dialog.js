@@ -1,5 +1,5 @@
 let dialogPokeById;
-
+const MAX_STAT = 255;
 function openDialogByEnter(localId) {
     if (event.key === 'Enter') {
         if (false === debounceDialog) {
@@ -157,34 +157,46 @@ function renderLikedButton(localId) {
 }
 
 function renderDialogSliderContent(id) {
-    document.getElementById('about-species').innerText = localContent.about.species;
-    document.getElementById('about-height').innerText = localContent.about.height;
-    document.getElementById('about-weight').innerText = localContent.about.weight;
-    document.getElementById('about-abilities').innerText = localContent.about.abilities;
-    document.getElementById('stats-hp').innerText = localContent.stats.hp;
-    document.getElementById('stats-attack').innerText = localContent.stats.attack;
-    document.getElementById('stats-defense').innerText = localContent.stats.defense;
-    document.getElementById('stats-attack-sp').innerText = localContent.stats.spAttack;
-    document.getElementById('stats-defense-sp').innerText = localContent.stats.spDefense;
-    document.getElementById('stats-speed').innerText = localContent.stats.speed;
-    document.getElementById('stats-total').innerText = localContent.stats.total;
+    document.getElementById('about-species').innerText = specData.about.species;
+    document.getElementById('about-height').innerText = specData.about.height;
+    document.getElementById('about-weight').innerText = specData.about.weight;
+    document.getElementById('about-abilities').innerText = specData.about.abilities;
+    document.getElementById('stats-hp').innerText = specData.stats.hp;
+    document.getElementById('stats-atk').innerText = specData.stats.atk;
+    document.getElementById('stats-def').innerText = specData.stats.def;
+    document.getElementById('stats-spAtk').innerText = specData.stats.spAtk;
+    document.getElementById('stats-spDef').innerText = specData.stats.spDef;
+    document.getElementById('stats-speed').innerText = specData.stats.speed;
+    document.getElementById('stats-total').innerText = specData.stats.total;
     document.getElementById('dialog-element-animation').innerHTML = getDialogSliderAnimation(id);
+    renderDialogStatProgress();
+}
+
+function renderDialogStatProgress() {
+    document.getElementById('prog-hp').style.width = `${100 - Math.round((100 * specData.stats.hp) / MAX_STAT)}%`;
+    document.getElementById('prog-atk').style.width = `${100 - Math.round((100 * specData.stats.atk) / MAX_STAT)}%`;
+    document.getElementById('prog-def').style.width = `${100 - Math.round((100 * specData.stats.def) / MAX_STAT)}%`;
+    document.getElementById('prog-spAtk').style.width = `${100 - Math.round((100 * specData.stats.spAtk) / MAX_STAT)}%`;
+    document.getElementById('prog-spDef').style.width = `${100 - Math.round((100 * specData.stats.spDef) / MAX_STAT)}%`;
+    document.getElementById('prog-speed').style.width = `${100 - Math.round((100 * specData.stats.speed) / MAX_STAT)}%`;
+    document.getElementById('prog-total').style.width =
+        `${100 - Math.round((100 * specData.stats.total) / (6 * MAX_STAT))}%`;
 }
 
 function renderEvolutionChain(name) {
     const evoRef = document.getElementById('dialog-evolution-chain');
     evoRef.innerHTML = getEvolutionBaseContent(name);
-    if (localContent.evos[1].length > 0) {
+    if (specData.evos[1].length > 0) {
         evoRef.innerHTML += getEvolutionChainFirstWrapper();
         const evoListRef = document.getElementById('first-or-multiple-evolution');
-        for (i = 0; i < localContent.evos[1].length; i++) {
+        for (i = 0; i < specData.evos[1].length; i++) {
             evoListRef.innerHTML += getEvolutionChainListElement(1, i);
         }
     }
-    if (localContent.evos[2].length > 0) {
+    if (specData.evos[2].length > 0) {
         evoRef.innerHTML += getEvolutionChainSecondWrapper();
         const evoListRef = document.getElementById('second-or-multiple-evolution');
-        for (i = 0; i < localContent.evos[2].length; i++) {
+        for (i = 0; i < specData.evos[2].length; i++) {
             evoListRef.innerHTML += getEvolutionChainListElement(2, i);
         }
     }
@@ -233,10 +245,10 @@ function getAbout(poke) {
 function getStats(poke) {
     return {
         hp: poke.stats[0].base_stat,
-        attack: poke.stats[1].base_stat,
-        defense: poke.stats[2].base_stat,
-        spAttack: poke.stats[3].base_stat,
-        spDefense: poke.stats[4].base_stat,
+        atk: poke.stats[1].base_stat,
+        def: poke.stats[2].base_stat,
+        spAtk: poke.stats[3].base_stat,
+        spDef: poke.stats[4].base_stat,
         speed: poke.stats[5].base_stat,
         total: getTotalStats(poke.stats),
     };
