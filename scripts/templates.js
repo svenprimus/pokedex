@@ -165,7 +165,14 @@ function getEvolutionChainListElement(stage, index) {
 // #region render placebos
 function getPokemonCardSmallBasePlacebo(pokeId, type, img, nameCapitalized, idPadded) {
     return /*html*/ `
-        <div data-id="card" class="small-card-wrapper pointer-not-allowed">
+        <button 
+            data-id="card"
+            onclick="openDialogByExternId(${pokeId})"
+            class="small-card-wrapper"
+            aria-controls="pokemon-dialog"
+            aria-label="open pokemon dialog"
+            role="button"
+        >
             <div id="card-extern-${pokeId}">     
                 <header class="small-card-header">
                     <h2>${nameCapitalized}</h2>
@@ -185,7 +192,7 @@ function getPokemonCardSmallBasePlacebo(pokeId, type, img, nameCapitalized, idPa
                     </section>
                 </div>
             </div>
-        </div>
+        </button>
     `;
 }
 // #endregion render placebos

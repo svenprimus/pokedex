@@ -14,10 +14,6 @@
     z-index: 5;
 }
 
-.pointer-not-allowed{
-    cursor: not-allowed;
-}
-
 .small-card-header {
     position: absolute;
     display: flex;
