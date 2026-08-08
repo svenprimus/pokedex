@@ -7,6 +7,27 @@ dialog {
     margin: auto;
 }
 
+.dialog-wrapper {
+    max-height: var(--dialog-max-height);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: lightslategray;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: lightgray;
+}
+
+::selection {
+    background-color: lightslategray;
+}
+
 .opened {
     display: flex;
 }
@@ -27,7 +48,7 @@ body:has(dialog[open]) {
     align-items: flex-end;
 
     width: 100%;
-    height: 30px;
+    height: var(--dialog-header-height);
     padding-right: var(--pokemon-card-border-radius);
 
     > div {
@@ -208,7 +229,7 @@ body:has(dialog[open]) {
 
 .dialog-like-wrapper {
     position: relative;
-    height: 38px;
+    height: var(--dialog-like-wrapper-height);
     background: var(--dialog-color-bg);
     border-left: var(--dialog-border-left);
 
@@ -272,7 +293,7 @@ body:has(dialog[open]) {
     border-left: var(--dialog-border-left);
 
     width: var(--dialog-wrapper-width);
-    height: 150px;
+    height: var(--dialog-slider-height);
 
     display: flex;
     flex-direction: column;
@@ -456,7 +477,7 @@ body:has(dialog[open]) {
 .dialog-nav {
     background-color: var(--dialog-color-bg);
     border-left: var(--dialog-border-left);
-    height: 48px;
+    height: var(--dialog-nav-height);
     width: 100%;
     border-bottom-left-radius: var(--pokemon-card-border-radius);
     border-bottom-right-radius: var(--pokemon-card-border-radius);
