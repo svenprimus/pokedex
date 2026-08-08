@@ -97,7 +97,6 @@ function renderAll() {
     }
     flavorDefaultFavoritesButton();
     enableMoreButton();
-    updateAnimationFullscreenHeight();
 }
 
 function renderFromLast() {
@@ -105,7 +104,6 @@ function renderFromLast() {
         renderPokeCardSmall(lastRenderd);
     }
     enableMoreButton();
-    updateAnimationFullscreenHeight();
 }
 
 function renderLocalIds(localIdArray) {
@@ -114,7 +112,6 @@ function renderLocalIds(localIdArray) {
         renderPokeCardSmall(localIdArray[i]);
     }
     disableMoreButton();
-    updateAnimationFullscreenHeight();
 }
 
 function renderLiked() {
@@ -127,7 +124,6 @@ function renderLiked() {
     showSearchSuccess();
     flavorActiveFavoritesButton();
     disableMoreButton();
-    updateAnimationFullscreenHeight();
 }
 
 function flavorDefaultFavoritesButton() {
@@ -246,9 +242,8 @@ function disableLoadingDots() {
 function enableLoadingSpinners() {
     document.getElementById('spinner-header').classList.remove('spinner-animation-disable');
     document.getElementById('spinner-header').classList.add('spinner-animation-enable');
-    document.getElementById('load-animation-container').classList.remove('d-none');
-    document.getElementById('load-animation-container').classList.remove('load-animation-disable');
-    document.getElementById('load-animation-container').classList.add('load-animation-enable');
+    document.getElementById('page-top').classList.remove('load-animation-disable');
+    document.getElementById('page-top').classList.add('load-animation-enable');
 }
 
 function disableLoadingSpinners() {
@@ -256,9 +251,8 @@ function disableLoadingSpinners() {
     document.getElementById('dialog-button-left').classList.remove('load-previous');
     document.getElementById('spinner-header').classList.remove('spinner-animation-enable');
     document.getElementById('spinner-header').classList.add('spinner-animation-disable');
-    document.getElementById('load-animation-container').classList.remove('load-animation-enable');
-    document.getElementById('load-animation-container').classList.add('load-animation-disable');
-    setTimeout(() => document.getElementById('load-animation-container').classList.add('d-none'), 500);
+    document.getElementById('page-top').classList.remove('load-animation-enable');
+    document.getElementById('page-top').classList.add('load-animation-disable');
 }
 
 function enableMoreButton() {
@@ -267,14 +261,6 @@ function enableMoreButton() {
 
 function disableMoreButton() {
     document.getElementById('btn-more').disabled = true;
-}
-
-function updateAnimationFullscreenHeight() {
-    document.documentElement.style.scrollBehavior = 'auto';
-    const height = Math.max(document.body.scrollHeight - 1, document.body.offsetHeight - 1);
-    document.getElementById('load-animation-container').style.height = `${height}px`;
-    window.scrollTo(0, height);
-    document.documentElement.style.scrollBehavior = 'smooth';
 }
 
 function renderPokeCardSmall(localId) {
