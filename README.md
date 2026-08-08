@@ -6,5 +6,7 @@
 <a href="https://svenprimus.developerakademie.net/pokedex/index.html" target="_blank">Jump into the world of Pokémon now!</a>
 <br />
 <br />
-<img src="./assets/img/thumbnail_1.jpg" alt="Preview of Website.">
-<img src="./assets/img/thumbnail_2.jpg" alt="Preview of Details.">
+<img src="./assets/img/thumbnail_1a.jpg" alt="Preview of Website.">
+<img src="./assets/img/thumbnail_2.gif" alt="Preview of Details.">
+<img src="./assets/img/thumbnail_3.gif" alt="Preview of Details.">
+<img src="./assets/img/thumbnail_4.gif" alt="Preview of Details.">
