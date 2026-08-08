@@ -26,16 +26,20 @@
             display: flex;
             align-items: center;
             list-style-type: none;
-            justify-content: space-between;
+            justify-content: space-around;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 5px;
+            width: fit-content;
 
             p {
                 color: var(--color-accent);
                 font-weight: bold;
+                padding-right: 5px;
+                font-size: 13.5px;
             }
 
             button {
+                font-size: 13.5px;
                 font-style: italic;
                 color: var(--color-font-shell);
             }
@@ -55,11 +59,15 @@
 
             input {
                 max-width: 100px;
+                border-radius: 1000px;
+                border: none;
+                padding-inline: 5px;
             }
 
             background-color: var(--color-bg-shell-accent);
             padding: 5px;
-            border-radius: 5px;
+            padding-inline: 10px;
+            border-radius: 1000px;
         }
     }
 

@@ -7,7 +7,7 @@
     --height-header: 100px;
     --padding-block-content: 40px;
 
-    --spinner-size: clamp(37.5px, calc((100svw - 400px) * 37.5 / 1000) + 37.5px, 75px);
+    --spinner-size: clamp(46px, calc((100svw - 400px) * 29 / 1000) + 46px, 75px);
     --spinner-line: clamp(4px, calc((100svw - 400px) * 4 / 1000) + 4px, 8px);
     --spinner-color: white;
 
