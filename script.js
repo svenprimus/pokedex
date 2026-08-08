@@ -2,7 +2,7 @@ const BASE_URL = 'https://pokeapi.co/api/v2/';
 const IMG_BASE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/';
 const IMG_ALT_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
 const localPokes = [];
-let localContent;
+let specData;
 let maxCountAPI = 0;
 let lastRenderd = 0;
 let debounceDialog = false;
@@ -79,7 +79,7 @@ async function fetchDialogContent(id) {
     const poke = await fetchPokemon(id);
     const evos = await fetchEvolutionChain(poke.species.url);
 
-    localContent = {
+    specData = {
         about: getAbout(poke),
         stats: getStats(poke),
         evos: evos,

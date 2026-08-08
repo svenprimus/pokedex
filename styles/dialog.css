@@ -355,7 +355,7 @@ body:has(dialog[open]) {
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     font-size: 14px;
-
+    width: 100%;
     th {
         font-weight: normal;
         color: gray;
@@ -363,9 +363,52 @@ body:has(dialog[open]) {
         vertical-align: top;
     }
 
+    th {
+        width: 80px;
+    }
+
     th,
     td {
         padding: 1px 10px;
+    }
+
+    .stats-td {
+        width: 35px;
+        text-align: right;
+        padding: 0;
+    }
+
+    tr {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .progress-td-wrapper {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        padding: 0 10% 0 5%;
+
+        .progress-wrapper {
+            width: 100%;
+            height: 40%;
+            border-radius: 1000px;
+            background-image: linear-gradient(to right, var(--color-type-fire), var(--color-type-grass));
+
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .progress {
+            width: 100%;
+            height: 100%;
+            border-radius: 1000px;
+            background-color: whitesmoke;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
     }
 }
 /* #endregion content-slider */

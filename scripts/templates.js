@@ -80,7 +80,7 @@ function getDialogAnimationContent(imgUrl, name, type) {
             </div>
             <img
                 data-id="dialog-image"
-                class="pokemon-dialog-bg-pokemon"
+                class="pokemon-dialog-bg-pokemon aura-animation"
                 src="${imgUrl}"
                 alt="image of a pokemon called ${name}"
             />
@@ -122,10 +122,10 @@ function getDialogSliderAnimation(id) {
 
 function getEvolutionBaseContent(name) {
     return /*html*/ `
-        <button id="button-evo-base" onclick="openDialogByExternId(${localContent.evos[0][0].id})">
+        <button id="button-evo-base" onclick="openDialogByExternId(${specData.evos[0][0].id})">
             <img
                 class="evo-chain-img"
-                src="${localContent.evos[0][0].img}"
+                src="${specData.evos[0][0].img}"
                 alt="base pokemon ${name}"
             />
         </button>
@@ -149,11 +149,11 @@ function getEvolutionChainSecondWrapper() {
 function getEvolutionChainListElement(stage, index) {
     return /*html*/ `
         <li>
-            <button id="button-evo-${localContent.evos[stage][index].id}" onclick="openDialogByExternId(${localContent.evos[stage][index].id})">
+            <button id="button-evo-${specData.evos[stage][index].id}" onclick="openDialogByExternId(${specData.evos[stage][index].id})">
                 <img
                     class="evo-chain-img"
-                    src="${localContent.evos[stage][index].img}"
-                    alt="pokemon evolution with id ${localContent.evos[stage][index].id}"
+                    src="${specData.evos[stage][index].img}"
+                    alt="pokemon evolution with id ${specData.evos[stage][index].id}"
                 />
             </button>
         </li>
