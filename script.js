@@ -2,6 +2,7 @@ const BASE_URL = 'https://pokeapi.co/api/v2/';
 const IMG_BASE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/';
 const IMG_ALT_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
 const localPokes = [];
+const liked = [];
 let specData;
 let maxCountAPI = 0;
 let lastRenderd = 0;
@@ -30,7 +31,6 @@ async function fetchBatch(batchSize) {
             type_1: poke.types[0].type.name,
             type_2: poke.types.length > 1 ? poke.types[1].type.name : null,
             img: getImgUrl(poke.sprites.other.dream_world.front_default, fetchedIds[i]),
-            liked: false,
         });
     }
 }
@@ -114,13 +114,19 @@ function renderLocalIds(localIdArray) {
     disableMoreButton();
 }
 
-function renderLiked() {
+async function renderLiked() {
     document.getElementById('main-content').innerHTML = '';
-    for (let i = 0; i < localPokes.length; i++) {
-        if (localPokes[i].liked) {
-            renderPokeCardSmall(i);
+    const sortedLikes = liked.sort((a, b) => a - b);
+    for (let i = 0; i < sortedLikes.length; i++) {
+        const index = localPokes.findIndex((poke) => poke.id === sortedLikes[i]);
+        if (index >= 0) {
+            renderPokeCardSmall(index);
+        } else {
+            enableLoadAnimation();
+            await fetchRenderPokeCardSmallPlacebo(sortedLikes[i]);
         }
     }
+    disableLoadAnimation();
     showSearchSuccess();
     flavorActiveFavoritesButton();
     disableMoreButton();
@@ -275,6 +281,24 @@ function renderPokemonCardSmallSubtype(localId) {
     const types = swapTypesIfNormal(localPokes[localId].type_1, localPokes[localId].type_2);
     if (types.type_2 !== null) {
         const cardRef = document.getElementById('card_' + localId);
+        cardRef.innerHTML += getPokemonCardSmallSubtype(types.type_2);
+    }
+}
+async function fetchRenderPokeCardSmallPlacebo(pokeId) {
+    const poke = await fetchPokemon(pokeId);
+    const idPadded = String(pokeId).padStart(4, '0');
+    const type_1 = poke.types[0].type.name;
+    const type_2 = poke.types.length > 1 ? poke.types[1].type.name : null;
+    const types = swapTypesIfNormal(type_1, type_2);
+    const img = getImgUrl(poke.sprites.other.dream_world.front_default, pokeId);
+    const mainRef = document.getElementById('main-content');
+    mainRef.innerHTML += getPokemonCardSmallBasePlacebo(pokeId, types.type_1, img, capitalize(poke.name), idPadded);
+    renderPokemonCardSmallSubtypePlacebo(pokeId, types);
+}
+
+function renderPokemonCardSmallSubtypePlacebo(pokeId, types) {
+    if (types.type_2 !== null) {
+        const cardRef = document.getElementById(`card-extern-${pokeId}`);
         cardRef.innerHTML += getPokemonCardSmallSubtype(types.type_2);
     }
 }

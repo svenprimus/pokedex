@@ -23,7 +23,7 @@ function getPokemonCardSmallBase(localId, type, nameCapitalized, idPadded) {
                             data-id="card-image"
                             class="pokemon-bg-pokemon pokemon-bg-small"
                             src="${localPokes[localId].img}"
-                            alt="image of a pokemon called ${localPokes[localId].name}"
+                            alt="image of a pokemon called ${nameCapitalized}"
                         />
                     </section>
                 </div>
@@ -58,13 +58,13 @@ function getDialogSubtypeContent(subtype) {
     `;
 }
 
-function getDialogLikeContent(localId) {
+function getDialogLikeContent(pokeId) {
     return /*html*/ `
         <div class="button-like-wrapper">
             <button
-                id="button-like-${localId}"
+                id="button-like-${pokeId}"
                 class="button-like button-like-default"
-                onclick="toggleLiked(${localId})"
+                onclick="toggleLiked(${pokeId})"
                 aria-label="add to favorites"
                 role="button"
             ></button>
@@ -159,4 +159,33 @@ function getEvolutionChainListElement(stage, index) {
         </li>
     `;
 }
+
 // #endregion dialog
+
+// #region render placebos
+function getPokemonCardSmallBasePlacebo(pokeId, type, img, nameCapitalized, idPadded) {
+    return /*html*/ `
+        <div data-id="card" class="small-card-wrapper pointer-not-allowed">
+            <div id="card-extern-${pokeId}">     
+                <header class="small-card-header">
+                    <h2>${nameCapitalized}</h2>
+                    <p>#${idPadded}</p>
+                </header>
+                <div class="pokemon-bg-wrapper pokemon-bg-small pokemon-bg-wrapper-shadow-${type}">
+                    <section class="pokemon-bg-card pokemon-bg-small bg-card-${type}">
+                        <div class="pokemon-bg-type bg-type-small bg-${type}">
+                            <img src="./assets/icons/types/${type}.svg" alt="${type} type symbol" />
+                        </div>
+                        <img 
+                            data-id="card-image"
+                            class="pokemon-bg-pokemon pokemon-bg-small"
+                            src="${img}"
+                            alt="image of a pokemon called ${nameCapitalized}"
+                        />
+                    </section>
+                </div>
+            </div>
+        </div>
+    `;
+}
+// #endregion render placebos

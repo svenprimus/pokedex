@@ -86,9 +86,15 @@ async function prevDialog(localId, openFunction) {
     }
 }
 
-function toggleLiked(localId) {
-    localPokes[localId].liked = !localPokes[localId].liked;
-    renderLikedButton(localId);
+// TODO sollte pokeid haben
+function toggleLiked(pokeId) {
+    const found = liked.indexOf(pokeId);
+    if (found >= 0) {
+        liked.splice(found, 1);
+    } else {
+        liked.push(pokeId);
+    }
+    renderLikedButton(pokeId);
 }
 
 function setDialogFocusOnTop() {
@@ -142,17 +148,17 @@ function renderDialogSubtypeContent(localId) {
     } else {
         document.getElementById('dialog-like-wrapper').innerHTML = '';
     }
-    document.getElementById('dialog-like-wrapper').innerHTML += getDialogLikeContent(localId);
-    renderLikedButton(localId);
+    document.getElementById('dialog-like-wrapper').innerHTML += getDialogLikeContent(localPokes[localId].id);
+    renderLikedButton(localPokes[localId].id);
 }
 
-function renderLikedButton(localId) {
-    if (localPokes[localId].liked) {
-        document.getElementById(`button-like-${localId}`).classList.remove('button-like-default');
-        document.getElementById(`button-like-${localId}`).classList.add('button-like-liked');
+function renderLikedButton(pokeId) {
+    if (liked.indexOf(pokeId) >= 0) {
+        document.getElementById(`button-like-${pokeId}`).classList.remove('button-like-default');
+        document.getElementById(`button-like-${pokeId}`).classList.add('button-like-liked');
     } else {
-        document.getElementById(`button-like-${localId}`).classList.add('button-like-default');
-        document.getElementById(`button-like-${localId}`).classList.remove('button-like-liked');
+        document.getElementById(`button-like-${pokeId}`).classList.add('button-like-default');
+        document.getElementById(`button-like-${pokeId}`).classList.remove('button-like-liked');
     }
 }
 
@@ -310,7 +316,6 @@ function setExternalPokeContainer(poke) {
         type_1: poke.types[0].type.name,
         type_2: poke.types.length > 1 ? poke.types[1].type.name : null,
         img: getImgUrl(poke.sprites.other.dream_world.front_default, poke.id),
-        liked: false,
     };
 }
 
@@ -349,11 +354,9 @@ function renderDialogSubtypeContentById() {
     } else {
         document.getElementById('dialog-like-wrapper').innerHTML = '';
     }
-    const search = findInLocals(dialogPokeById.id);
-    if (search.found) {
-        document.getElementById('dialog-like-wrapper').innerHTML += getDialogLikeContent(search.id);
-        renderLikedButton(search.id);
-    }
+
+    document.getElementById('dialog-like-wrapper').innerHTML += getDialogLikeContent(dialogPokeById.id);
+    renderLikedButton(dialogPokeById.id);
 }
 
 function renderPageButtonsById() {
