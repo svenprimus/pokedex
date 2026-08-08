@@ -80,7 +80,7 @@ function getDialogAnimationContent(imgUrl, name, type) {
             </div>
             <img
                 data-id="dialog-image"
-                class="pokemon-dialog-bg-pokemon aura-animation"
+                class="pokemon-dialog-bg-pokemon"
                 src="${imgUrl}"
                 alt="image of a pokemon called ${name}"
             />
