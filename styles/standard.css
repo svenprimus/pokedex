@@ -28,3 +28,16 @@ html {
 .d-none {
     display: none !important;
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: lightslategray;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: lightgray;
+}

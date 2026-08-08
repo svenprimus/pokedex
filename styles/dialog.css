@@ -11,23 +11,6 @@ dialog {
     max-height: var(--dialog-max-height);
 }
 
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: lightslategray;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: lightgray;
-}
-
-::selection {
-    background-color: lightslategray;
-}
-
 .opened {
     display: flex;
 }
