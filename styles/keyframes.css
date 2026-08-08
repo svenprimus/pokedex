@@ -323,3 +323,57 @@
         transform: translateY(0);
     }
 }
+
+@keyframes aura_psychic {
+    0% {
+        filter: drop-shadow(0 0 2px var(--particle-psychic-color));
+    }
+    25% {
+        filter: drop-shadow(0 0 10px var(--particle-psychic-color));
+    }
+    50% {
+        filter: drop-shadow(0 0 2px var(--particle-psychic-color));
+    }
+    75% {
+        filter: drop-shadow(0 0 10px var(--particle-psychic-color));
+    }
+    100% {
+        filter: drop-shadow(0 0 2px var(--particle-psychic-color));
+    }
+}
+
+@keyframes aura_dragon {
+    0% {
+        filter: drop-shadow(0 0 2px var(--particle-dragon-color));
+    }
+    25% {
+        filter: drop-shadow(0 0 10px var(--particle-dragon-color));
+    }
+    50% {
+        filter: drop-shadow(0 0 2px var(--particle-dragon-color));
+    }
+    75% {
+        filter: drop-shadow(0 0 10px var(--particle-dragon-color));
+    }
+    100% {
+        filter: drop-shadow(0 0 2px var(--particle-dragon-color));
+    }
+}
+
+@keyframes aura_fighting {
+    0% {
+        filter: drop-shadow(0 0 2px var(--particle-fighting-color));
+    }
+    25% {
+        filter: drop-shadow(0 0 10px var(--particle-fighting-color));
+    }
+    50% {
+        filter: drop-shadow(0 0 2px var(--particle-fighting-color));
+    }
+    75% {
+        filter: drop-shadow(0 0 10px var(--particle-fighting-color));
+    }
+    100% {
+        filter: drop-shadow(0 0 2px var(--particle-fighting-color));
+    }
+}
