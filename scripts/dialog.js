@@ -86,7 +86,6 @@ async function prevDialog(localId, openFunction) {
     }
 }
 
-// TODO sollte pokeid haben
 function toggleLiked(pokeId) {
     const found = liked.indexOf(pokeId);
     if (found >= 0) {
@@ -94,6 +93,8 @@ function toggleLiked(pokeId) {
     } else {
         liked.push(pokeId);
     }
+    liked = liked.sort((a, b) => a - b);
+    saveLikedToLocalStorage();
     renderLikedButton(pokeId);
 }
 

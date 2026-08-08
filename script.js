@@ -2,7 +2,7 @@ const BASE_URL = 'https://pokeapi.co/api/v2/';
 const IMG_BASE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/';
 const IMG_ALT_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
 const localPokes = [];
-const liked = [];
+let liked = [];
 let specData;
 let maxCountAPI = 0;
 let lastRenderd = 0;
@@ -12,6 +12,7 @@ let filterActive = false;
 async function init(amount) {
     await fetchBatchAnimated(amount);
     renderFromLast();
+    getLikedFromLocalStorage();
 }
 
 // #region fetch
@@ -116,14 +117,13 @@ function renderLocalIds(localIdArray) {
 
 async function renderLiked() {
     document.getElementById('main-content').innerHTML = '';
-    const sortedLikes = liked.sort((a, b) => a - b);
-    for (let i = 0; i < sortedLikes.length; i++) {
-        const index = localPokes.findIndex((poke) => poke.id === sortedLikes[i]);
+    for (let i = 0; i < liked.length; i++) {
+        const index = localPokes.findIndex((poke) => poke.id === liked[i]);
         if (index >= 0) {
             renderPokeCardSmall(index);
         } else {
             enableLoadAnimation();
-            await fetchRenderPokeCardSmallPlacebo(sortedLikes[i]);
+            await fetchRenderPokeCardSmallPlacebo(liked[i]);
         }
     }
     disableLoadAnimation();
@@ -300,5 +300,16 @@ function renderPokemonCardSmallSubtypePlacebo(pokeId, types) {
     if (types.type_2 !== null) {
         const cardRef = document.getElementById(`card-extern-${pokeId}`);
         cardRef.innerHTML += getPokemonCardSmallSubtype(types.type_2);
+    }
+}
+
+function saveLikedToLocalStorage() {
+    localStorage.setItem('liked', JSON.stringify(liked));
+}
+
+function getLikedFromLocalStorage() {
+    const storageLiked = JSON.parse(localStorage.getItem('liked'));
+    if (storageLiked != null) {
+        liked = storageLiked;
     }
 }
