@@ -377,3 +377,22 @@
         filter: drop-shadow(0 0 2px var(--particle-fighting-color));
     }
 }
+
+@keyframes shimmer {
+    0% {
+    }
+    65% {
+        box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+        transform: scale(1.2) translateY(-5px);
+        filter: brightness(1.1);
+        mask-position: right;
+    }
+    70% {
+        box-shadow: none;
+        transform: scale(1) translateY(0);
+        filter: brightness(1);
+    }
+    100% {
+        mask-position: left;
+    }
+}

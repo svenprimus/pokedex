@@ -36,6 +36,7 @@ body {
         color: white;
         -webkit-text-stroke: 0.8px black;
     }
+    z-index: 11;
 }
 
 main {
@@ -140,6 +141,12 @@ main {
     border-width: 0;
     border-style: solid;
 }
+
+.shimmer {
+    mask: linear-gradient(-60deg, white 30%, rgba(248, 248, 248, 0.333), white 70%) right/350% 100%;
+    animation: shimmer 5s ease;
+}
+
 
 @media screen and (min-width: 500px) {
     body {
