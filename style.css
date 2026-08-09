@@ -142,11 +142,16 @@ main {
     border-style: solid;
 }
 
-.shimmer {
-    mask: linear-gradient(-60deg, white 30%, rgba(248, 248, 248, 0.333), white 70%) right/350% 100%;
-    animation: shimmer 5s ease;
+.dropshimmer {
+    mask: linear-gradient(-60deg, white 30%, rgba(255, 255, 255, 0.333), white 70%) right/350% 100%;
+    animation: dropshimmer 4s ease;
 }
 
+.shimmer {
+    mask: linear-gradient(-60deg, white 30%, rgba(255, 255, 255, 0.333), white 70%) right/350% 100%;
+    animation: shimmer 2s ease;
+    animation-delay: 3s;
+}
 
 @media screen and (min-width: 500px) {
     body {
