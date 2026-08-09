@@ -433,6 +433,7 @@ body:has(dialog[open]) {
     .evo-chain-img {
         max-height: calc(0.5 * var(--dialog-evolution-height));
         max-width: calc((var(--dialog-wrapper-width) - 80px) * 0.3);
+        width: calc(0.5 * var(--dialog-evolution-height));
         padding: 3px;
     }
 
@@ -450,6 +451,7 @@ body:has(dialog[open]) {
         align-items: center;
         flex-wrap: wrap;
         justify-content: center;
+
         li {
             max-height: calc(0.5 * var(--dialog-evolution-height));
             max-width: calc((var(--dialog-wrapper-width) - 80px) * 0.3);
