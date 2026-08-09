@@ -24,11 +24,11 @@ async function openDialog(localId) {
 function openDialogByExternId(externId) {
     const search = findInLocals(externId);
     if (search.found) {
-        document.getElementById('dialog-button-left').classList.add('load-previous');
+        enableButtonLoadPreviousAnimation();
         openDialog(search.id);
     } else {
-        document.getElementById('dialog-button-right').classList.add('load-next');
-        document.getElementById('dialog-button-left').classList.add('load-previous');
+        enableButtonLoadNextAnimation();
+        enableButtonLoadPreviousAnimation();
         openDialogByPokeId(externId);
     }
 }
@@ -64,8 +64,7 @@ function closeDialogbyEnter() {
 }
 
 async function nextDialog(localId, openFunction) {
-    document.getElementById('dialog-button-right').classList.add('load-next');
-
+    enableButtonLoadNextAnimation();
     const next = localId + 1;
     if (next < maxCountAPI) {
         if (next < localPokes.length) {
@@ -81,7 +80,7 @@ async function nextDialog(localId, openFunction) {
 async function prevDialog(localId, openFunction) {
     const prev = localId - 1;
     if (prev >= 0) {
-        document.getElementById('dialog-button-left').classList.add('load-previous');
+        enableButtonLoadPreviousAnimation();
         await openFunction(prev);
     }
 }
@@ -298,7 +297,7 @@ function stopDialogPropagation(event) {
 // #region render by external id
 async function openDialogByPokeId(pokeId) {
     enableLoadAnimation();
-    document.getElementById('dialog-button-right').classList.add('load-next');
+    enableButtonLoadNextAnimation();
     await fetchDialogContent(pokeId);
     const poke = await fetchPokemon(pokeId);
     setExternalPokeContainer(poke);
@@ -366,3 +365,23 @@ function renderPageButtonsById() {
     document.getElementById('dialog-button-left').disabled = dialogPokeById.id === 0;
 }
 // #endregion render by external id
+
+function enableButtonLoadNextAnimation() {
+    document.getElementById('dialog-button-right').classList.add('load-next');
+    document.getElementById('dialog-button-right').disabled = true;
+}
+
+function disableButtonLoadNextAnimation() {
+    document.getElementById('dialog-button-right').classList.remove('load-next');
+    document.getElementById('dialog-button-right').disabled = false;
+}
+
+function enableButtonLoadPreviousAnimation() {
+    document.getElementById('dialog-button-left').classList.add('load-previous');
+    document.getElementById('dialog-button-left').disabled = true;
+}
+
+function disableButtonLoadPreviousAnimation() {
+    document.getElementById('dialog-button-left').classList.remove('load-previous');
+    document.getElementById('dialog-button-left').disabled = false;
+}

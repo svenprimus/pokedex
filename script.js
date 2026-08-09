@@ -253,8 +253,8 @@ function enableLoadingSpinners() {
 }
 
 function disableLoadingSpinners() {
-    document.getElementById('dialog-button-right').classList.remove('load-next');
-    document.getElementById('dialog-button-left').classList.remove('load-previous');
+    disableButtonLoadNextAnimation();
+    disableButtonLoadPreviousAnimation();
     document.getElementById('spinner-header').classList.remove('spinner-animation-enable');
     document.getElementById('spinner-header').classList.add('spinner-animation-disable');
     document.getElementById('page-top').classList.remove('load-animation-enable');
