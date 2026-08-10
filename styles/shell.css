@@ -20,6 +20,11 @@
             position: relative;
             display: flex;
             justify-content: center;
+            color: var(--color-font-shell);
+        }
+
+        a:hover {
+            color: var(--color-accent);
         }
 
         .search-field {
@@ -114,6 +119,7 @@ footer {
             display: flex;
             align-items: flex-end;
             gap: 16px;
+            color: var(--color-font-shell);
 
             img {
                 width: 48px;
@@ -121,17 +127,21 @@ footer {
                 border-radius: 100%;
             }
         }
-
         a:hover > img {
             box-shadow: 0 0 20px 0 var(--color-accent);
+        }
+
+        a:hover,
+        a:hover > p {
+            color: var(--color-accent);
         }
 
         p {
             color: var(--color-font-shell);
             text-align: right;
             display: inline-block;
+
             a {
-                color: var(--color-font-shell);
                 display: inline-block;
                 font-style: italic;
             }
