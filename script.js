@@ -205,7 +205,7 @@ function clearSearchField() {
 }
 
 function showSearchSuccess() {
-    enableMoreButton();
+    document.getElementById('btn-more').classList.add('d-none');
     document.getElementById('nothing-found').classList.add('d-none');
     document.getElementById('btn-reset').classList.remove('d-none');
     document.getElementById('btn-reset').disabled = false;
@@ -215,7 +215,7 @@ function showSearchSuccess() {
 }
 
 function showSearchFailure() {
-    disableMoreButton();
+    document.getElementById('btn-more').classList.remove('d-none');
     document.getElementById('nothing-found').classList.remove('d-none');
     document.getElementById('btn-reset').classList.add('d-none');
     document.getElementById('btn-reset').disabled = true;
