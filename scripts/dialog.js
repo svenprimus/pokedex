@@ -14,6 +14,7 @@ function openDialogByEnter(localId) {
 
 async function openDialog(localId) {
     enableLoadAnimation();
+    disableCloseButtons();
     await fetchDialogContent(localPokes[localId].id);
     const dialogRef = document.getElementById('poke-dialog');
     renderDialog(localId);
@@ -21,12 +22,14 @@ async function openDialog(localId) {
     dialogRef.showModal();
     dialogRef.classList.add('opened');
     setDialogFocusOnTop();
+    enableCloseButtons();
     disableLoadAnimation();
 }
 
 async function openRenderDialogByPokeId(pokeId) {
     enableLoadAnimation();
     enableButtonLoadNextAnimation();
+    disableCloseButtons();
     await fetchDialogContent(pokeId);
     const poke = await fetchPokemon(pokeId);
     setExternalPokeContainer(poke);
@@ -36,7 +39,18 @@ async function openRenderDialogByPokeId(pokeId) {
     dialogRef.showModal();
     dialogRef.classList.add('opened');
     setDialogFocusOnTop();
+    enableCloseButtons();
     disableLoadAnimation();
+}
+
+function disableCloseButtons() {
+    document.getElementById('dialog-button-close').disabled = true;
+    document.getElementById('dialog-button-return').disabled = true;
+}
+
+function enableCloseButtons() {
+    document.getElementById('dialog-button-close').disabled = false;
+    document.getElementById('dialog-button-return').disabled = false;
 }
 
 async function openDialogByPokeId(externId) {
@@ -68,11 +82,13 @@ document.getElementById('poke-dialog').addEventListener('close', () => {
 });
 
 function closeDialog() {
-    const dialogRef = document.getElementById('poke-dialog');
-    dialogRef.classList.remove('opened');
-    lastPokeIds.splice(0, lastPokeIds.length);
-    dialogRef.close();
-    disableLoadAnimation();
+    if (false === document.getElementById('dialog-button-close').disabled) {
+        const dialogRef = document.getElementById('poke-dialog');
+        dialogRef.classList.remove('opened');
+        lastPokeIds.splice(0, lastPokeIds.length);
+        dialogRef.close();
+        disableLoadAnimation();
+    }
 }
 
 function closeDialogbyEnter() {
@@ -85,9 +101,9 @@ function closeDialogbyEnter() {
 async function nextDialog(pokeId) {
     enableButtonLoadNextAnimation();
     if (filterActive) {
-        nextDialogFiltered(pokeId);
+        await nextDialogFiltered(pokeId);
     } else {
-        nextDialogUnfiltered(pokeId);
+        await nextDialogUnfiltered(pokeId);
     }
 }
 
@@ -119,9 +135,9 @@ async function nextDialogUnfiltered(pokeId) {
 
 async function prevDialog(pokeId) {
     if (filterActive) {
-        prevDialogFiltered(pokeId);
+        await prevDialogFiltered(pokeId);
     } else {
-        prevDialogUnfiltered(pokeId);
+        await prevDialogUnfiltered(pokeId);
     }
 }
 
