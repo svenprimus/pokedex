@@ -2,7 +2,7 @@ html {
     background-color: black;
 }
 
-body {
+.body-index {
     display: flex;
     flex-direction: column;
     min-height: 100svh;
@@ -169,7 +169,7 @@ main {
 }
 
 @media screen and (min-width: 500px) {
-    body {
+    .body-index {
         background-image: url('./assets/img/bg-desktop.jpg');
     }
 }

@@ -1,0 +1,188 @@
+.body-imprint {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    position: relative;
+    background: whitesmoke;
+
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.imprint-headline {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: calc(var(--height-header) + 40px);
+    max-height: 180px;
+    width: 100%;
+    font-family: 'Boogaloo';
+    gap: 16px;
+
+    h1 {
+        color: var(--color-bg-shell);
+        filter: brightness(2);
+    }
+
+    h2 {
+        color: var(--color-bg-shell);
+        filter: brightness(3);
+    }
+}
+
+.imprint-card-header {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+    top: 0;
+    z-index: 5;
+
+    padding: calc(0.3 * var(--pokemon-card-border-radius)) calc(0.5 * var(--pokemon-card-border-radius)) 0
+        calc(var(--pokemon-card-border-radius) - 10px);
+
+    font-family: 'Boogaloo';
+    color: white;
+    -webkit-text-stroke: 0.8px black;
+
+    h2,
+    h3,
+    p {
+        font-weight: normal;
+        line-height: 100%;
+    }
+
+    h2 {
+        font-size: var(--pokemon-card-name-size);
+    }
+
+    h3 {
+        font-size: 16px;
+        -webkit-text-stroke: 0.4px black;
+    }
+
+    p {
+        font-size: var(--pokemon-card-num-size);
+    }
+}
+
+.imprint-card-wrapper {
+    position: relative;
+    width: var(--pokemon-card-wrapper-width);
+    height: var(--pokemon-card-wrapper-height);
+}
+
+.bg-shell {
+    background-color: var(--color-bg-shell-accent);
+}
+
+.bg-card-shell {
+    background: color-mix(in srgb, var(--color-bg-shell-accent) 75%, black);
+}
+
+.imprint-shadow-shell {
+    box-shadow: inset 0 0 20px 0px var(--color-bg-shell-accent);
+}
+
+.imprint-image {
+    border-bottom-left-radius: 30%;
+    border-bottom-right-radius: 30%;
+    position: absolute;
+    height: var(--pokemon-card-pokemon-size);
+    width: var(--pokemon-card-pokemon-size);
+    scale: 0.9;
+    right: -33%;
+    bottom: 5%;
+    z-index: 3;
+}
+
+.imprint-content {
+    background-color: whitesmoke;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-content: flex-start;
+    justify-content: flex-start;
+    gap: calc(2 * var(--pokemon-card-gap));
+}
+
+.imprint-type {
+    color: white;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(0.35 * var(--pokemon-card-pokemon-size));
+    font-family: 'Boogaloo';
+}
+
+.imprint-bg-subtype {
+    position: absolute;
+    height: calc(0.4 * var(--pokemon-card-pokemon-size));
+    width: calc(0.4 * var(--pokemon-card-pokemon-size));
+    left: 25%;
+    top: -5px;
+    transform: translateY(-100%);
+    border-radius: 50%;
+    padding: calc(0.18 * 0.4 * var(--pokemon-card-pokemon-size));
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+    background-size: cover;
+
+    img {
+        height: 100%;
+        width: 100%;
+    }
+    z-index: 1;
+}
+
+.imprint-card-shadow {
+    border-radius: var(--pokemon-card-border-radius);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+.imprint-disclaimer {
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+.imprint-direction {
+    padding-top: calc(2 * var(--pokemon-card-gap));
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+.imprint-pokemon-logo {
+    position: absolute;
+    right: 0;
+    top: -240px;
+    z-index: 11;
+    width: 230px;
+    height: 240px;
+}
+
+@media screen and (max-width: 400px) {
+    .imprint-headline {
+        h2 {
+            width: 110px;
+        }
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .profile-subtitle {
+        display: none;
+    }
+}
