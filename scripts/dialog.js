@@ -427,7 +427,7 @@ function enableButtonLoadPreviousAnimation() {
 
 function disableButtonLoadPreviousAnimation() {
     document.getElementById('dialog-button-left').classList.remove('load-previous');
-    if (null === document.getElementById('button-like-1')) {
+    if (true === filterActive || null === document.getElementById('button-like-1')) {
         document.getElementById('dialog-button-left').disabled = false;
     }
 }
