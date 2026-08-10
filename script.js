@@ -2,6 +2,7 @@ const BASE_URL = 'https://pokeapi.co/api/v2/';
 const IMG_BASE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/';
 const IMG_ALT_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
 const localPokes = [];
+const localFiltered = [];
 let liked = [];
 let specData;
 let maxCountAPI = 0;
@@ -29,13 +30,7 @@ async function fetchBatch(batchSize) {
     const fetchedIds = await fetchBatchIds(batchSize);
     for (let i = 0; i < fetchedIds.length; i++) {
         const poke = await fetchPokemon(fetchedIds[i]);
-        localPokes.push({
-            id: fetchedIds[i],
-            name: poke.name,
-            type_1: poke.types[0].type.name,
-            type_2: poke.types.length > 1 ? poke.types[1].type.name : null,
-            img: getImgUrl(poke.sprites.other.dream_world.front_default, fetchedIds[i]),
-        });
+        localPokes.push(getPokeObject(poke));
     }
 }
 
@@ -95,7 +90,7 @@ async function fetchDialogContent(id) {
 
 // #region render
 function renderAll() {
-    document.getElementById('main-content').innerHTML = '';
+    clearContent();
     for (let i = 0; i < localPokes.length; i++) {
         renderPokeCardSmall(i);
     }
@@ -111,41 +106,37 @@ function renderFromLast() {
 }
 
 function renderLocalIds(localIdArray) {
-    document.getElementById('main-content').innerHTML = '';
+    clearContent();
     for (let i = 0; i < localIdArray.length; i++) {
-        renderPokeCardSmall(localIdArray[i]);
+        localFiltered.push(renderPokeCardSmall(localIdArray[i]));
     }
     disableMoreButton();
 }
 
 async function renderLiked() {
-    document.getElementById('main-content').innerHTML = '';
-    for (let i = 0; i < liked.length; i++) {
-        const index = localPokes.findIndex((poke) => poke.id === liked[i]);
-        if (index >= 0) {
-            renderPokeCardSmall(index);
-        } else {
-            enableLoadAnimation();
-            await fetchRenderPokeCardSmallPlacebo(liked[i]);
-        }
-    }
+    clearContent();
+    await fetchRenderLiked();
     disableLoadAnimation();
     showSearchSuccess();
     flavorActiveFavoritesButton();
     disableMoreButton();
 }
 
-function flavorDefaultFavoritesButton() {
-    document.getElementById('btn-favorites').onclick = renderLiked;
-    document.getElementById('btn-favorites').innerText = 'Favorites';
-    document.getElementById('btn-favorites-wrapper').classList.remove('d-none');
-    document.getElementById('btn-favorites').disabled = false;
-}
-
-function flavorActiveFavoritesButton() {
-    document.getElementById('btn-favorites-wrapper').classList.add('d-none');
+function clearContent() {
+    document.getElementById('main-content').innerHTML = '';
+    localFiltered.splice(0, localFiltered.length);
 }
 // #endregion render
+
+function getPokeObject(fetchedPoke) {
+    return {
+        id: fetchedPoke.id,
+        name: fetchedPoke.name,
+        type_1: fetchedPoke.types[0].type.name,
+        type_2: fetchedPoke.types.length > 1 ? fetchedPoke.types[1].type.name : null,
+        img: getImgUrl(fetchedPoke.sprites.other.dream_world.front_default, fetchedPoke.id),
+    };
+}
 
 function processSearchBtn() {
     const searchKey = document.getElementById('search-field').value;
@@ -284,6 +275,7 @@ function renderPokeCardSmall(localId) {
     const types = swapTypesIfNormal(localPokes[localId].type_1, localPokes[localId].type_2);
     mainRef.innerHTML += getPokemonCardSmallBase(localId, types.type_1, capitalize(localPokes[localId].name), idPadded);
     renderPokemonCardSmallSubtype(localId);
+    return localPokes[localId];
 }
 
 function renderPokemonCardSmallSubtype(localId) {
@@ -304,6 +296,21 @@ async function fetchRenderPokeCardSmallPlacebo(pokeId) {
     const mainRef = document.getElementById('main-content');
     mainRef.innerHTML += getPokemonCardSmallBasePlacebo(pokeId, types.type_1, img, capitalize(poke.name), idPadded);
     renderPokemonCardSmallSubtypePlacebo(pokeId, types);
+    return getPokeObject(poke);
+}
+
+async function fetchRenderLiked() {
+    for (let i = 0; i < liked.length; i++) {
+        const index = localPokes.findIndex((poke) => poke.id === liked[i]);
+        let renderedPoke = {};
+        if (index >= 0) {
+            renderedPoke = renderPokeCardSmall(index);
+        } else {
+            enableLoadAnimation();
+            renderedPoke = await fetchRenderPokeCardSmallPlacebo(liked[i]);
+        }
+        localFiltered.push(renderedPoke);
+    }
 }
 
 function renderPokemonCardSmallSubtypePlacebo(pokeId, types) {
@@ -322,4 +329,15 @@ function getLikedFromLocalStorage() {
     if (storageLiked != null) {
         liked = storageLiked;
     }
+}
+
+function flavorDefaultFavoritesButton() {
+    document.getElementById('btn-favorites').onclick = renderLiked;
+    document.getElementById('btn-favorites').innerText = 'Favorites';
+    document.getElementById('btn-favorites-wrapper').classList.remove('d-none');
+    document.getElementById('btn-favorites').disabled = false;
+}
+
+function flavorActiveFavoritesButton() {
+    document.getElementById('btn-favorites-wrapper').classList.add('d-none');
 }

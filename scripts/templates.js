@@ -122,7 +122,7 @@ function getDialogSliderAnimation(id) {
 
 function getEvolutionBaseContent(name) {
     return /*html*/ `
-        <button id="button-evo-base" onclick="openDialogByExternId(${specData.evos[0][0].id})">
+        <button id="button-evo-base" onclick="openDialogByPokeId(${specData.evos[0][0].id})">
             <img
                 class="evo-chain-img"
                 src="${specData.evos[0][0].img}"
@@ -149,7 +149,7 @@ function getEvolutionChainSecondWrapper() {
 function getEvolutionChainListElement(stage, index) {
     return /*html*/ `
         <li>
-            <button id="button-evo-${specData.evos[stage][index].id}" onclick="openDialogByExternId(${specData.evos[stage][index].id})">
+            <button id="button-evo-${specData.evos[stage][index].id}" onclick="openDialogByPokeId(${specData.evos[stage][index].id})">
                 <img
                     class="evo-chain-img"
                     src="${specData.evos[stage][index].img}"
@@ -167,7 +167,7 @@ function getPokemonCardSmallBasePlacebo(pokeId, type, img, nameCapitalized, idPa
     return /*html*/ `
         <button 
             data-id="card"
-            onclick="openDialogByExternId(${pokeId})"
+            onclick="openDialogByPokeId(${pokeId})"
             class="small-card-wrapper"
             aria-controls="pokemon-dialog"
             aria-label="open pokemon dialog"

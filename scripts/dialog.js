@@ -1,4 +1,5 @@
 let dialogPokeById;
+let lastPokeIds = [];
 const MAX_STAT = 255;
 
 function openDialogByEnter(localId) {
@@ -16,13 +17,29 @@ async function openDialog(localId) {
     await fetchDialogContent(localPokes[localId].id);
     const dialogRef = document.getElementById('poke-dialog');
     renderDialog(localId);
+    lastPokeIds.push(localPokes[localId].id);
     dialogRef.showModal();
     dialogRef.classList.add('opened');
     setDialogFocusOnTop();
     disableLoadAnimation();
 }
 
-function openDialogByExternId(externId) {
+async function openRenderDialogByPokeId(pokeId) {
+    enableLoadAnimation();
+    enableButtonLoadNextAnimation();
+    await fetchDialogContent(pokeId);
+    const poke = await fetchPokemon(pokeId);
+    setExternalPokeContainer(poke);
+    const dialogRef = document.getElementById('poke-dialog');
+    renderDialogByPokeId();
+    lastPokeIds.push(pokeId);
+    dialogRef.showModal();
+    dialogRef.classList.add('opened');
+    setDialogFocusOnTop();
+    disableLoadAnimation();
+}
+
+async function openDialogByPokeId(externId) {
     const search = findInLocals(externId);
     if (search.found) {
         enableButtonLoadPreviousAnimation();
@@ -30,7 +47,7 @@ function openDialogByExternId(externId) {
     } else {
         enableButtonLoadNextAnimation();
         enableButtonLoadPreviousAnimation();
-        openDialogByPokeId(externId);
+        await openRenderDialogByPokeId(externId);
     }
 }
 
@@ -53,6 +70,7 @@ document.getElementById('poke-dialog').addEventListener('close', () => {
 function closeDialog() {
     const dialogRef = document.getElementById('poke-dialog');
     dialogRef.classList.remove('opened');
+    lastPokeIds.splice(0, lastPokeIds.length);
     dialogRef.close();
     disableLoadAnimation();
 }
@@ -64,25 +82,68 @@ function closeDialogbyEnter() {
     }
 }
 
-async function nextDialog(localId, openFunction) {
+async function nextDialog(pokeId) {
     enableButtonLoadNextAnimation();
-    const next = localId + 1;
-    if (next <= maxCountAPI) {
-        if (next < localPokes.length) {
-            await openFunction(next);
-        } else {
-            await fetchBatchAnimated(1);
-            renderFromLast();
-            await openFunction(next);
-        }
+    if (filterActive) {
+        nextDialogFiltered(pokeId);
+    } else {
+        nextDialogUnfiltered(pokeId);
     }
 }
 
-async function prevDialog(localId, openFunction) {
-    const prev = localId - 1;
-    if (prev >= 0) {
+async function nextDialogFiltered(pokeId) {
+    const localIndex = localFiltered.findIndex((poke) => poke.id === pokeId);
+    let idNext = 0;
+    if (localIndex === -1) {
+        const newIndex = localFiltered.findIndex((poke) => poke.id === lastPokeIds[0]);
+        idNext = newIndex + 1 < localFiltered.length ? localFiltered[newIndex + 1].id : localFiltered[0].id;
+    } else {
+        idNext = localIndex + 1 < localFiltered.length ? localFiltered[localIndex + 1].id : localFiltered[0].id;
+    }
+    lastPokeIds.splice(0, lastPokeIds.length);
+    await openDialogByPokeId(idNext);
+}
+
+async function nextDialogUnfiltered(pokeId) {
+    const idNext = pokeId + 1;
+    if (idNext <= maxCountAPI) {
+        if (idNext === localPokes.length + 1) {
+            await fetchBatchAnimated(1);
+            renderFromLast();
+        }
+        await openDialogByPokeId(idNext);
+    } else {
+        await openDialogByPokeId(1);
+    }
+}
+
+async function prevDialog(pokeId) {
+    if (filterActive) {
+        prevDialogFiltered(pokeId);
+    } else {
+        prevDialogUnfiltered(pokeId);
+    }
+}
+
+async function prevDialogFiltered(pokeId) {
+    const localIndex = localFiltered.findIndex((poke) => poke.id === pokeId);
+    let idPrev = 0;
+    if (localIndex === -1) {
+        idPrev = lastPokeIds[0];
+    } else {
+        idPrev = localIndex - 1 >= 0 ? localFiltered[localIndex - 1].id : localFiltered[localFiltered.length - 1].id;
+    }
+
+    enableButtonLoadPreviousAnimation();
+    lastPokeIds.splice(0, lastPokeIds.length);
+    await openDialogByPokeId(idPrev);
+}
+
+async function prevDialogUnfiltered(pokeId) {
+    const idPrev = pokeId - 1;
+    if (idPrev >= 0) {
         enableButtonLoadPreviousAnimation();
-        await openFunction(prev);
+        await openDialogByPokeId(idPrev);
     }
 }
 
@@ -120,7 +181,7 @@ function renderDialog(localId) {
     renderDialogSubtypeContent(localId);
     renderDialogSliderContent(localPokes[localId].id);
     renderEvolutionChain(localPokes[localId].name);
-    renderPageButtons(localId);
+    renderPageButtons(localPokes[localId].id);
 }
 
 function renderDialogHeader(localId) {
@@ -209,10 +270,10 @@ function renderEvolutionChain(name) {
     }
 }
 
-function renderPageButtons(localId) {
-    document.getElementById('dialog-button-left').onclick = () => prevDialog(localId, openDialog);
-    document.getElementById('dialog-button-right').onclick = () => nextDialog(localId, openDialog);
-    document.getElementById('dialog-button-left').disabled = localId === 0;
+function renderPageButtons(pokeId) {
+    document.getElementById('dialog-button-left').onclick = () => prevDialog(pokeId);
+    document.getElementById('dialog-button-right').onclick = () => nextDialog(pokeId);
+    document.getElementById('dialog-button-left').disabled = pokeId === 1;
 }
 
 function getImgUrl(dreamSprite, id) {
@@ -296,20 +357,6 @@ function stopDialogPropagation(event) {
 }
 
 // #region render by external id
-async function openDialogByPokeId(pokeId) {
-    enableLoadAnimation();
-    enableButtonLoadNextAnimation();
-    await fetchDialogContent(pokeId);
-    const poke = await fetchPokemon(pokeId);
-    setExternalPokeContainer(poke);
-    const dialogRef = document.getElementById('poke-dialog');
-    renderDialogByPokeId();
-    dialogRef.showModal();
-    dialogRef.classList.add('opened');
-    setDialogFocusOnTop();
-    disableLoadAnimation();
-}
-
 function setExternalPokeContainer(poke) {
     dialogPokeById = {
         id: poke.id,
@@ -326,7 +373,7 @@ function renderDialogByPokeId() {
     renderDialogSubtypeContentById();
     renderDialogSliderContent(dialogPokeById.id);
     renderEvolutionChain(dialogPokeById.name);
-    renderPageButtonsById();
+    renderPageButtons(dialogPokeById.id);
 }
 
 function renderDialogHeaderById() {
@@ -358,12 +405,6 @@ function renderDialogSubtypeContentById() {
 
     document.getElementById('dialog-like-wrapper').innerHTML += getDialogLikeContent(dialogPokeById.id);
     renderLikedButton(dialogPokeById.id);
-}
-
-function renderPageButtonsById() {
-    document.getElementById('dialog-button-left').onclick = () => prevDialog(dialogPokeById.id, openDialogByExternId);
-    document.getElementById('dialog-button-right').onclick = () => nextDialog(dialogPokeById.id, openDialogByExternId);
-    document.getElementById('dialog-button-left').disabled = dialogPokeById.id === 0;
 }
 // #endregion render by external id
 
