@@ -71,6 +71,7 @@
 }
 
 .imprint-card-wrapper {
+    user-select: none;
     position: relative;
     width: var(--pokemon-card-wrapper-width);
     height: var(--pokemon-card-wrapper-height);
@@ -164,13 +165,14 @@
     font-size: 14px;
 }
 
-.imprint-pokemon-logo {
+.imprint-detective-pikachu {
     position: absolute;
     right: 0;
     top: -240px;
     z-index: 11;
     width: 230px;
     height: 240px;
+    user-select: none;
 }
 
 @media screen and (max-width: 400px) {

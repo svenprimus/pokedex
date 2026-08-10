@@ -5,6 +5,10 @@ dialog {
     background: none;
     border: none;
     margin: auto;
+
+    img {
+        user-select: none;
+    }
 }
 
 .dialog-wrapper {
