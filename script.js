@@ -139,6 +139,7 @@ function flavorDefaultFavoritesButton() {
     document.getElementById('btn-favorites').onclick = renderLiked;
     document.getElementById('btn-favorites').innerText = 'Favorites';
     document.getElementById('btn-favorites-wrapper').classList.remove('d-none');
+    document.getElementById('btn-favorites').disabled = false;
 }
 
 function flavorActiveFavoritesButton() {
@@ -191,6 +192,7 @@ function getFilteredBy(searchKey) {
 function reset() {
     renderAll();
     clearSearchField();
+    document.getElementById('btn-more').classList.remove('d-none');
     document.getElementById('btn-reset').classList.add('d-none');
     document.getElementById('btn-reset').disabled = true;
     document.getElementById('search-field').disabled = false;
@@ -203,6 +205,7 @@ function clearSearchField() {
 }
 
 function showSearchSuccess() {
+    enableMoreButton();
     document.getElementById('nothing-found').classList.add('d-none');
     document.getElementById('btn-reset').classList.remove('d-none');
     document.getElementById('btn-reset').disabled = false;
@@ -212,6 +215,7 @@ function showSearchSuccess() {
 }
 
 function showSearchFailure() {
+    disableMoreButton();
     document.getElementById('nothing-found').classList.remove('d-none');
     document.getElementById('btn-reset').classList.add('d-none');
     document.getElementById('btn-reset').disabled = true;
@@ -220,6 +224,7 @@ function showSearchFailure() {
 
 function enableLoadAnimation() {
     document.getElementById('search-field').disabled = true;
+    document.getElementById('btn-favorites').disabled = true;
     disableMoreButton();
     enableLoadingDots();
     enableLoadingSpinners();
@@ -228,6 +233,7 @@ function enableLoadAnimation() {
 function disableLoadAnimation() {
     if (false === filterActive) {
         document.getElementById('search-field').disabled = false;
+        document.getElementById('btn-favorites').disabled = false;
         enableMoreButton();
     }
     disableLoadingDots();
