@@ -10,6 +10,9 @@ let debounceDialog = false;
 let filterActive = false;
 
 async function init(amount) {
+    setTimeout(() => {
+        document.getElementById('pika-run').classList.add('d-none');
+    }, 6000);
     await fetchBatchAnimated(amount);
     renderFromLast();
     getLikedFromLocalStorage();
