@@ -56,7 +56,6 @@ function enableCloseButtons() {
 async function openDialogByPokeId(externId) {
     const search = findInLocals(externId);
     if (search.found) {
-        enableButtonLoadPreviousAnimation();
         openDialog(search.id);
     } else {
         enableButtonLoadNextAnimation();
@@ -100,6 +99,7 @@ function closeDialogbyEnter() {
 
 async function nextDialog(pokeId) {
     enableButtonLoadNextAnimation();
+    disableCloseButtons();
     if (filterActive) {
         await nextDialogFiltered(pokeId);
     } else {
@@ -134,6 +134,7 @@ async function nextDialogUnfiltered(pokeId) {
 }
 
 async function prevDialog(pokeId) {
+    disableCloseButtons();
     if (filterActive) {
         await prevDialogFiltered(pokeId);
     } else {
@@ -149,7 +150,6 @@ async function prevDialogFiltered(pokeId) {
     } else {
         idPrev = localIndex - 1 >= 0 ? localFiltered[localIndex - 1].id : localFiltered[localFiltered.length - 1].id;
     }
-
     enableButtonLoadPreviousAnimation();
     lastPokeIds.splice(0, lastPokeIds.length);
     await openDialogByPokeId(idPrev);
