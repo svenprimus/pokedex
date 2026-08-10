@@ -515,6 +515,11 @@ body:has(dialog[open]) {
     .dialog-button-left:disabled,
     .dialog-button-right:disabled {
         opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .load-previous:disabled,
+    .load-next:disabled {
         cursor: wait;
     }
 }

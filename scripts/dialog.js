@@ -1,5 +1,6 @@
 let dialogPokeById;
 const MAX_STAT = 255;
+
 function openDialogByEnter(localId) {
     if (event.key === 'Enter') {
         if (false === debounceDialog) {
@@ -66,7 +67,7 @@ function closeDialogbyEnter() {
 async function nextDialog(localId, openFunction) {
     enableButtonLoadNextAnimation();
     const next = localId + 1;
-    if (next < maxCountAPI) {
+    if (next <= maxCountAPI) {
         if (next < localPokes.length) {
             await openFunction(next);
         } else {
@@ -373,7 +374,9 @@ function enableButtonLoadNextAnimation() {
 
 function disableButtonLoadNextAnimation() {
     document.getElementById('dialog-button-right').classList.remove('load-next');
-    document.getElementById('dialog-button-right').disabled = false;
+    if (null === document.getElementById(`dialog-like-${maxCountAPI}`)) {
+        document.getElementById('dialog-button-right').disabled = false;
+    }
 }
 
 function enableButtonLoadPreviousAnimation() {
@@ -383,5 +386,7 @@ function enableButtonLoadPreviousAnimation() {
 
 function disableButtonLoadPreviousAnimation() {
     document.getElementById('dialog-button-left').classList.remove('load-previous');
-    document.getElementById('dialog-button-left').disabled = false;
+    if (null === document.getElementById('button-like-1')) {
+        document.getElementById('dialog-button-left').disabled = false;
+    }
 }

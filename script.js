@@ -287,6 +287,7 @@ function renderPokemonCardSmallSubtype(localId) {
         cardRef.innerHTML += getPokemonCardSmallSubtype(types.type_2);
     }
 }
+
 async function fetchRenderPokeCardSmallPlacebo(pokeId) {
     const poke = await fetchPokemon(pokeId);
     const idPadded = String(pokeId).padStart(4, '0');
