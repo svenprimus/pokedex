@@ -1,6 +1,7 @@
 let dialogPokeById;
 let lastPokeIds = [];
 const MAX_STAT = 255;
+let busy = false;
 
 function openDialogByEnter(localId) {
     if (event.key === 'Enter') {
@@ -13,17 +14,19 @@ function openDialogByEnter(localId) {
 }
 
 async function openDialog(localId) {
-    enableLoadAnimation();
-    disableCloseButtons();
-    await fetchDialogContent(localPokes[localId].id);
-    const dialogRef = document.getElementById('poke-dialog');
-    renderDialog(localId);
-    lastPokeIds.push(localPokes[localId].id);
-    dialogRef.showModal();
-    dialogRef.classList.add('opened');
-    setDialogFocusOnTop();
-    enableCloseButtons();
-    disableLoadAnimation();
+    if (false === busy) {
+        enableLoadAnimation();
+        disableCloseButtons();
+        await fetchDialogContent(localPokes[localId].id);
+        const dialogRef = document.getElementById('poke-dialog');
+        renderDialog(localId);
+        lastPokeIds.push(localPokes[localId].id);
+        dialogRef.showModal();
+        dialogRef.classList.add('opened');
+        setDialogFocusOnTop();
+        enableCloseButtons();
+        disableLoadAnimation();
+    }
 }
 
 async function openRenderDialogByPokeId(pokeId) {
@@ -131,7 +134,7 @@ async function nextDialogUnfiltered(pokeId) {
         renderFromLast();
         pokeIdNext = localPokes[localPokes.length - 1].id;
     }
-    await openDialogByPokeId((indexCurrent + 1) <= maxCountAPI ? pokeIdNext : 1);
+    await openDialogByPokeId(indexCurrent + 1 <= maxCountAPI ? pokeIdNext : 1);
 }
 
 async function prevDialog(pokeId) {
@@ -291,13 +294,14 @@ function renderPageButtons(pokeId) {
     document.getElementById('dialog-button-left').onclick = () => prevDialog(pokeId);
     document.getElementById('dialog-button-right').onclick = () => nextDialog(pokeId);
     document.getElementById('dialog-button-left').disabled = pokeId === 1;
+    document.getElementById('dialog-button-right').disabled = localPokes.length === maxCountAPI;
 }
 
 function getImgUrl(poke) {
     let imgUrl = '../assets/img/detective-pikachu.png';
     if (poke.sprites.other.dream_world.front_default != null) {
         imgUrl = `${IMG_BASE_URL}${poke.id}.svg`;
-    } else if (poke.sprites.other["official-artwork"].front_default) {
+    } else if (poke.sprites.other['official-artwork'].front_default) {
         imgUrl = `${IMG_ALT_URL}${poke.id}.png`;
     }
     return imgUrl;

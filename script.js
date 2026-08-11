@@ -90,12 +90,14 @@ async function fetchDialogContent(id) {
 
 async function loadMore(batchSize, packetSize) {
     enableLoadAnimation();
+    busy = true;
     while (batchSize > 0) {
         const batch = batchSize - packetSize >= 0 ? packetSize : batchSize % packetSize;
         await fetchBatch(batch);
         renderFromLast();
         batchSize -= batch;
     }
+    busy = false;
     disableLoadAnimation();
 }
 // #endregion fetch
@@ -117,7 +119,7 @@ function renderFromLast() {
     if (localPokes.length < maxCountAPI) {
         enableMoreButton();
     } else {
-        document.getElementById('btn-reset').classList.add('d-none');
+        document.getElementById('btn-more').classList.add('d-none');
     }
 }
 
