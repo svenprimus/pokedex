@@ -146,7 +146,7 @@
         top: -5px;
         transform: translateY(-100%);
         border-radius: 50%;
-        padding: calc(0.15 * 0.3 * var(--pokemon-card-pokemon-size));
+        padding: calc(0.25 * 0.3 * var(--pokemon-card-pokemon-size));
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
         background-size: cover;
 

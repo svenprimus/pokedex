@@ -111,10 +111,10 @@ function getDialogAnimationContent(imgUrl, name, type) {
     `;
 }
 
-function getDialogSliderAnimation(id) {
+function getDialogSliderAnimation(gifUrl) {
     return /*html*/ `
         <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${id}.gif"
+            src="${gifUrl}"
             alt="animated pokemon"
         />  
     `;

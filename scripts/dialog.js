@@ -1,6 +1,7 @@
 let dialogPokeById;
 let lastPokeIds = [];
 const MAX_STAT = 255;
+let busy = false;
 
 function openDialogByEnter(localId) {
     if (event.key === 'Enter') {
@@ -13,17 +14,19 @@ function openDialogByEnter(localId) {
 }
 
 async function openDialog(localId) {
-    enableLoadAnimation();
-    disableCloseButtons();
-    await fetchDialogContent(localPokes[localId].id);
-    const dialogRef = document.getElementById('poke-dialog');
-    renderDialog(localId);
-    lastPokeIds.push(localPokes[localId].id);
-    dialogRef.showModal();
-    dialogRef.classList.add('opened');
-    setDialogFocusOnTop();
-    enableCloseButtons();
-    disableLoadAnimation();
+    if (false === busy) {
+        enableLoadAnimation();
+        disableCloseButtons();
+        await fetchDialogContent(localPokes[localId].id);
+        const dialogRef = document.getElementById('poke-dialog');
+        renderDialog(localId);
+        lastPokeIds.push(localPokes[localId].id);
+        dialogRef.showModal();
+        dialogRef.classList.add('opened');
+        setDialogFocusOnTop();
+        enableCloseButtons();
+        disableLoadAnimation();
+    }
 }
 
 async function openRenderDialogByPokeId(pokeId) {
@@ -121,16 +124,17 @@ async function nextDialogFiltered(pokeId) {
 }
 
 async function nextDialogUnfiltered(pokeId) {
-    const idNext = pokeId + 1;
-    if (idNext <= maxCountAPI) {
-        if (idNext === localPokes.length + 1) {
-            await fetchBatchAnimated(1);
-            renderFromLast();
-        }
-        await openDialogByPokeId(idNext);
+    let pokeIdNext = 0;
+    let indexCurrent = 0;
+    if (pokeId < localPokes[localPokes.length - 1].id) {
+        indexCurrent = localPokes.findIndex((poke) => poke.id === pokeId);
+        pokeIdNext = localPokes[indexCurrent + 1].id;
     } else {
-        await openDialogByPokeId(1);
+        await fetchBatchAnimated(1);
+        renderFromLast();
+        pokeIdNext = localPokes[localPokes.length - 1].id;
     }
+    await openDialogByPokeId(indexCurrent + 1 <= maxCountAPI ? pokeIdNext : 1);
 }
 
 async function prevDialog(pokeId) {
@@ -156,10 +160,10 @@ async function prevDialogFiltered(pokeId) {
 }
 
 async function prevDialogUnfiltered(pokeId) {
-    const idPrev = pokeId - 1;
-    if (idPrev >= 0) {
+    const indexCurrent = localPokes.findIndex((poke) => poke.id === pokeId);
+    if (indexCurrent > 0) {
         enableButtonLoadPreviousAnimation();
-        await openDialogByPokeId(idPrev);
+        await openDialogByPokeId(localPokes[indexCurrent - 1].id);
     }
 }
 
@@ -195,7 +199,7 @@ function renderDialog(localId) {
     renderDialogHeader(localId);
     renderDialogAnimationContent(localId);
     renderDialogSubtypeContent(localId);
-    renderDialogSliderContent(localPokes[localId].id);
+    renderDialogSliderContent(localPokes[localId]);
     renderEvolutionChain(localPokes[localId].name);
     renderPageButtons(localPokes[localId].id);
 }
@@ -240,7 +244,7 @@ function renderLikedButton(pokeId) {
     }
 }
 
-function renderDialogSliderContent(id) {
+function renderDialogSliderContent(poke) {
     document.getElementById('about-species').innerText = specData.about.species;
     document.getElementById('about-height').innerText = specData.about.height;
     document.getElementById('about-weight').innerText = specData.about.weight;
@@ -252,7 +256,7 @@ function renderDialogSliderContent(id) {
     document.getElementById('stats-spDef').innerText = specData.stats.spDef;
     document.getElementById('stats-speed').innerText = specData.stats.speed;
     document.getElementById('stats-total').innerText = specData.stats.total;
-    document.getElementById('dialog-element-animation').innerHTML = getDialogSliderAnimation(id);
+    document.getElementById('dialog-element-animation').innerHTML = getDialogSliderAnimation(poke.animation);
     renderDialogStatProgress();
 }
 
@@ -290,14 +294,23 @@ function renderPageButtons(pokeId) {
     document.getElementById('dialog-button-left').onclick = () => prevDialog(pokeId);
     document.getElementById('dialog-button-right').onclick = () => nextDialog(pokeId);
     document.getElementById('dialog-button-left').disabled = pokeId === 1;
+    document.getElementById('dialog-button-right').disabled = localPokes.length === maxCountAPI;
 }
 
-function getImgUrl(dreamSprite, id) {
-    let imgUrl = '';
-    if (dreamSprite != null) {
-        imgUrl = `${IMG_BASE_URL}${id}.svg`;
-    } else {
-        imgUrl = `${IMG_ALT_URL}${id}.png`;
+function getImgUrl(poke) {
+    let imgUrl = '../assets/img/detective-pikachu.png';
+    if (poke.sprites.other.dream_world.front_default != null) {
+        imgUrl = `${IMG_BASE_URL}${poke.id}.svg`;
+    } else if (poke.sprites.other['official-artwork'].front_default) {
+        imgUrl = `${IMG_ALT_URL}${poke.id}.png`;
+    }
+    return imgUrl;
+}
+
+function getAniUrl(poke) {
+    let imgUrl = '../assets/img/detective-pikachu.png';
+    if (poke.sprites.other.showdown.front_default != null) {
+        imgUrl = `${ANI_BASE_URL}${poke.id}.gif`;
     }
     return imgUrl;
 }
@@ -363,11 +376,6 @@ function stringifyWeight(weight) {
     return String((weight / 10).toFixed(2) + ' kg (' + (weight * 2.20462).toFixed(2) + ' lbs)');
 }
 
-async function loadMore(batchSize) {
-    await fetchBatchAnimated(batchSize);
-    renderFromLast();
-}
-
 function stopDialogPropagation(event) {
     event.stopPropagation();
 }
@@ -379,7 +387,8 @@ function setExternalPokeContainer(poke) {
         name: poke.name,
         type_1: poke.types[0].type.name,
         type_2: poke.types.length > 1 ? poke.types[1].type.name : null,
-        img: getImgUrl(poke.sprites.other.dream_world.front_default, poke.id),
+        img: getImgUrl(poke),
+        animation: getAniUrl(poke),
     };
 }
 
@@ -387,7 +396,7 @@ function renderDialogByPokeId() {
     renderDialogHeaderById();
     renderDialogAnimationContentById();
     renderDialogSubtypeContentById();
-    renderDialogSliderContent(dialogPokeById.id);
+    renderDialogSliderContent(dialogPokeById);
     renderEvolutionChain(dialogPokeById.name);
     renderPageButtons(dialogPokeById.id);
 }
