@@ -278,20 +278,12 @@
 
 @keyframes border-spin-enabled {
     0% {
-        border-image: linear-gradient(to bottom, var(--color-accent), #00000000) 1;
-    }
-    25% {
-        border-image: linear-gradient(to left, var(--color-accent), #00000000) 1;
     }
     50% {
-        border-image: linear-gradient(to top, var(--color-accent), #00000000) 1;
         box-shadow: inset 0 0 40px 0 var(--color-accent);
     }
-    75% {
-        border-image: linear-gradient(to right, var(--color-accent), #00000000) 1;
-    }
+
     100% {
-        border-image: linear-gradient(to bottom, var(--color-accent), #00000000) 1;
     }
 }
 

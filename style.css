@@ -137,10 +137,6 @@ main {
     z-index: 100;
     pointer-events: none;
     animation: border-spin-enabled 2s linear infinite;
-    box-sizing: border-box;
-    border-image: linear-gradient(to bottom, #00000000, #00000000) 1;
-    border-width: 5px;
-    border-style: solid;
 }
 
 .load-animation-disable::after {
@@ -151,10 +147,6 @@ main {
     z-index: 100;
     pointer-events: none;
     animation: border-spin-finishing 0.5s ease-in-out;
-    box-sizing: border-box;
-    border-image: linear-gradient(to bottom, #00000000, #00000000) 1;
-    border-width: 0;
-    border-style: solid;
 }
 
 .dropshimmer {
