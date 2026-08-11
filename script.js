@@ -1,6 +1,8 @@
 const BASE_URL = 'https://pokeapi.co/api/v2/';
 const IMG_BASE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/';
 const IMG_ALT_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
+const ANI_BASE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/';
+
 const localPokes = [];
 const localFiltered = [];
 let liked = [];
@@ -14,8 +16,7 @@ async function init(amount) {
     setTimeout(() => {
         document.getElementById('pika-run').classList.add('d-none');
     }, 6000);
-    await fetchBatchAnimated(amount);
-    renderFromLast();
+    loadMore(amount, 40);
     getLikedFromLocalStorage();
 }
 
@@ -67,7 +68,7 @@ async function fetchGetEvolutionArray(evoSpecs) {
             const poke = await fetchPokemon(species.id);
             evolutions[i].push({
                 id: species.id,
-                img: getImgUrl(poke.sprites.other.dream_world.front_default, species.id),
+                img: getImgUrl(poke),
             });
         }
     }
@@ -86,6 +87,17 @@ async function fetchDialogContent(id) {
 
     return true;
 }
+
+async function loadMore(batchSize, packetSize) {
+    enableLoadAnimation();
+    while (batchSize > 0) {
+        const batch = batchSize - packetSize >= 0 ? packetSize : batchSize % packetSize;
+        await fetchBatch(batch);
+        renderFromLast();
+        batchSize -= batch;
+    }
+    disableLoadAnimation();
+}
 // #endregion fetch
 
 // #region render
@@ -102,7 +114,11 @@ function renderFromLast() {
     for (; lastRenderd < localPokes.length; lastRenderd++) {
         renderPokeCardSmall(lastRenderd);
     }
-    enableMoreButton();
+    if (localPokes.length < maxCountAPI) {
+        enableMoreButton();
+    } else {
+        document.getElementById('btn-reset').classList.add('d-none');
+    }
 }
 
 function renderLocalIds(localIdArray) {
@@ -134,7 +150,8 @@ function getPokeObject(fetchedPoke) {
         name: fetchedPoke.name,
         type_1: fetchedPoke.types[0].type.name,
         type_2: fetchedPoke.types.length > 1 ? fetchedPoke.types[1].type.name : null,
-        img: getImgUrl(fetchedPoke.sprites.other.dream_world.front_default, fetchedPoke.id),
+        img: getImgUrl(fetchedPoke),
+        animation: getAniUrl(fetchedPoke),
     };
 }
 
@@ -292,7 +309,7 @@ async function fetchRenderPokeCardSmallPlacebo(pokeId) {
     const type_1 = poke.types[0].type.name;
     const type_2 = poke.types.length > 1 ? poke.types[1].type.name : null;
     const types = swapTypesIfNormal(type_1, type_2);
-    const img = getImgUrl(poke.sprites.other.dream_world.front_default, pokeId);
+    const img = getImgUrl(poke);
     const mainRef = document.getElementById('main-content');
     mainRef.innerHTML += getPokemonCardSmallBasePlacebo(pokeId, types.type_1, img, capitalize(poke.name), idPadded);
     renderPokemonCardSmallSubtypePlacebo(pokeId, types);
