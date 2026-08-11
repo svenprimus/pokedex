@@ -122,15 +122,16 @@ async function nextDialogFiltered(pokeId) {
 
 async function nextDialogUnfiltered(pokeId) {
     let pokeIdNext = 0;
+    let indexCurrent = 0;
     if (pokeId < localPokes[localPokes.length - 1].id) {
-        const indexCurrent = localPokes.findIndex((poke) => poke.id === pokeId);
+        indexCurrent = localPokes.findIndex((poke) => poke.id === pokeId);
         pokeIdNext = localPokes[indexCurrent + 1].id;
     } else {
         await fetchBatchAnimated(1);
         renderFromLast();
         pokeIdNext = localPokes[localPokes.length - 1].id;
     }
-    await openDialogByPokeId(pokeIdNext <= maxCountAPI ? pokeIdNext : 1);
+    await openDialogByPokeId((indexCurrent + 1) <= maxCountAPI ? pokeIdNext : 1);
 }
 
 async function prevDialog(pokeId) {
@@ -156,10 +157,10 @@ async function prevDialogFiltered(pokeId) {
 }
 
 async function prevDialogUnfiltered(pokeId) {
-    const idPrev = pokeId - 1;
-    if (idPrev >= 0) {
+    const indexCurrent = localPokes.findIndex((poke) => poke.id === pokeId);
+    if (indexCurrent > 0) {
         enableButtonLoadPreviousAnimation();
-        await openDialogByPokeId(idPrev);
+        await openDialogByPokeId(localPokes[indexCurrent - 1].id);
     }
 }
 
