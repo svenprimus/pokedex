@@ -440,7 +440,11 @@ function enableButtonLoadNextAnimation() {
 
 function disableButtonLoadNextAnimation() {
     document.getElementById('dialog-button-right').classList.remove('load-next');
-    if (null === document.getElementById(`dialog-like-${maxCountAPI}`)) {
+    localPokes.length === maxCountAPI;
+    if (
+        localPokes.length === maxCountAPI &&
+        null === document.getElementById(`number-${localPokes[maxCountAPI - 1].id}`)
+    ) {
         document.getElementById('dialog-button-right').disabled = false;
     }
 }

@@ -46,7 +46,7 @@ function getPokemonCardSmallSubtype(subtype) {
 function getDialogHeaderContent(nameCapitalized, idPadded) {
     return /*html*/ `
         <h1 id="dialog-title">${nameCapitalized}</h1>
-        <p>#${idPadded}</p>
+        <p id="number-${idPadded}">#${idPadded}</p>
     `;
 }
 
