@@ -109,17 +109,11 @@ function renderAll() {
         renderPokeCardSmall(i);
     }
     flavorDefaultFavoritesButton();
-    enableMoreButton();
 }
 
 function renderFromLast() {
     for (; lastRenderd < localPokes.length; lastRenderd++) {
         renderPokeCardSmall(lastRenderd);
-    }
-    if (localPokes.length < maxCountAPI) {
-        enableMoreButton();
-    } else {
-        document.getElementById('btn-more').classList.add('d-none');
     }
 }
 
@@ -202,7 +196,7 @@ function getFilteredBy(searchKey) {
 function reset() {
     renderAll();
     clearSearchField();
-    document.getElementById('btn-more').classList.remove('d-none');
+    handleMoreButton();
     document.getElementById('btn-reset').classList.add('d-none');
     document.getElementById('btn-reset').disabled = true;
     document.getElementById('search-field').disabled = false;
@@ -244,7 +238,7 @@ function disableLoadAnimation() {
     if (false === filterActive) {
         document.getElementById('search-field').disabled = false;
         document.getElementById('btn-favorites').disabled = false;
-        enableMoreButton();
+        handleMoreButton();
     }
     disableLoadingDots();
     disableLoadingSpinners();
@@ -278,6 +272,15 @@ function disableLoadingSpinners() {
     document.getElementById('spinner-header').classList.add('spinner-animation-disable');
     document.getElementById('page-top').classList.remove('load-animation-enable');
     document.getElementById('page-top').classList.add('load-animation-disable');
+}
+
+function handleMoreButton() {
+    if (localPokes.length < maxCountAPI) {
+        enableMoreButton();
+        document.getElementById('btn-more').classList.remove('d-none');
+    } else {
+        document.getElementById('btn-more').classList.add('d-none');
+    }
 }
 
 function enableMoreButton() {

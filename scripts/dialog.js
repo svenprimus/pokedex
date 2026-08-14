@@ -134,6 +134,7 @@ async function nextDialogUnfiltered(pokeId) {
         renderFromLast();
         pokeIdNext = localPokes[localPokes.length - 1].id;
     }
+    handleMoreButton();
     await openDialogByPokeId(indexCurrent + 1 <= maxCountAPI ? pokeIdNext : 1);
 }
 
